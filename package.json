@@ -28,8 +28,10 @@
         "@fortawesome/vue-fontawesome": "^0.1.5",
         "element-ui": "^2.5.4",
         "moment": "^2.24.0",
+        "tiptap": "^1.11.0",
         "vue-router": "^3.0.2",
         "vue-template-compiler": "^2.5.22",
+        "vue2-editor": "^2.6.6",
         "vuex": "^3.1.0"
     }
 }

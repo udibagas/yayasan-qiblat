@@ -1,0 +1,63 @@
+- integrasi dengan quill untuk resize image di editor
+
+Module donasi
+- halaman index
+- form donasi
+    - pilih paket
+    - cara pembayaran
+
+- donation types => jenis donasi (13 item)
+    => name
+    => description
+    => image
+    - galeri donasi (sama kayak post)
+    - donation packages (jadi 1 halaman aja sama donation types)
+        - donation_type_id, name, description
+        - price (apakah inpu manual semua kurs atau dollar saja)
+
+- donations => (donasi masuk)
+    - date, 
+    - user_id, 
+    - donation_type_id, 
+    - donation_package_id, 
+    - amount, status (unpaid, paid, expired), 
+    - expired_at (datetime), 
+    - payment_method (sesuai xendit)
+    - confirmed_at (datetime)
+- donors 
+    => jadikan 1 sama user, 
+    => tambah field phone, address
+    => bedain model, view, controller, request
+
+
+- setting
+    - name
+    - description
+    - logo
+    - email
+    - phone
+    - address
+    - account name
+    - account bank
+    - account number
+    - account swiftcode
+
+- front end
+    - Home (landing page)
+    - Show post
+        - slider galery di atas
+        - content di bawah
+    - Show post by category (Index post)
+    - Index donasi berdasarkan jenis
+    - Show jenis donasi
+        - slider galery di atas
+        - content di bawah
+        - galeri donasi
+        - tombol donate per paket donasi
+        - summary donasi masuk untuk jenis terkait semua paket
+
+LOGIN pake social media:
+- https://medium.com/@kiddy.xyz/tutorial-login-laravel-dengan-socialite-facebook-twitter-google-github-linkedin-5743fb97fa2b
+
+MAP
+- <iframe class="embed-responsive-item" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.5366675210166!2d107.04739131477164!3d-6.70415719515308!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6d3bf43cea27a03b!2zWWF5YXNhbiBRaWJsYXQgKCDZhdik2LPYs9ipINmC2KjZhNipICk!5e0!3m2!1sid!2sid!4v1538979535332" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>

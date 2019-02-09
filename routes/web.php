@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,10 +12,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
+// untuk login via sosmed
+Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+Route::get('/', function () {
+    return view('layouts.front');
+});
+
+// Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('navigation', 'NavigationController@index');
+Route::post('uploadImage', 'PostCategoryController@uploadImage');
+
+Route::resource('user', 'UserController')->except(['create', 'edit']);
+Route::resource('post', 'PostController')->except(['create', 'edit']);
+Route::resource('postCategory', 'PostCategoryController')->except(['create', 'edit']);
+
+// untuk SPA backend
+Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');
