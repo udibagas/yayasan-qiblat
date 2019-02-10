@@ -20,14 +20,24 @@ class NavigationController extends Controller
                 'icon' => 'home'
             ],
             [
-                'path' => '/user',
-                'label' => 'User',
-                'icon' => 'user-lock'
+                'path' => '/program',
+                'label' => 'Program',
+                'icon' => 'list'
             ],
             [
-                'path' => '/postCategory',
-                'label' => 'Post Category',
-                'icon' => 'tags'
+                'path' => '/donatur',
+                'label' => 'Donatur',
+                'icon' => 'users'
+            ],
+            [
+                'path' => '/donation',
+                'label' => 'Donasi',
+                'icon' => 'money-bill-alt'
+            ],
+            [
+                'path' => '/carousel',
+                'label' => 'Slider',
+                'icon' => 'image'
             ],
             [
                 'path' => '/post',
@@ -35,19 +45,34 @@ class NavigationController extends Controller
                 'icon' => 'file'
             ],
             [
-                'path' => '/donatur',
-                'label' => 'Donatur',
-                'icon' => 'user'
+                'path' => '/postCategory',
+                'label' => 'Post Category',
+                'icon' => 'tags'
             ],
             [
-                'path' => '/donation',
-                'label' => 'Donasi',
-                'icon' => 'money'
+                'path' => '/team',
+                'label' => 'Team',
+                'icon' => 'users'
             ],
             [
-                'path' => '/donationType',
-                'label' => 'Paket Donasi',
-                'icon' => 'money'
+                'path' => '/socialMedia',
+                'label' => 'Media Sosial',
+                'icon' => 'list'
+            ],
+            [
+                'path' => '/user',
+                'label' => 'User',
+                'icon' => 'user-lock'
+            ],
+            [
+                'path' => '/setting',
+                'label' => 'Setting',
+                'icon' => 'cogs'
+            ],
+            [
+                'path' => '/backup',
+                'label' => 'Backup',
+                'icon' => 'database'
             ],
         ];
     }

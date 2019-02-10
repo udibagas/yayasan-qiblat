@@ -26,12 +26,12 @@ class UserController extends Controller
         $order = $request->order == 'ascending' ? 'asc' : 'desc';
 
         return User::when($request->keyword, function ($q) use ($request) {
-            return $q->where('users.name', 'LIKE', '%' . $request->keyword . '%')
-                ->orWhere('users.email', 'LIKE', '%' . $request->keyword . '%');
+            return $q->where('name', 'LIKE', '%' . $request->keyword . '%')
+                ->orWhere('email', 'LIKE', '%' . $request->keyword . '%');
         })->when($request->role, function ($q) use ($request) {
-            return $q->whereIn('users.role', $request->role);
+            return $q->whereIn('role', $request->role);
         })->when($request->status, function ($q) use ($request) {
-            return $q->whereIn('users.status', $request->status);
+            return $q->whereIn('status', $request->status);
         })->orderBy($sort, $order)->paginate($request->pageSize);
     }
 

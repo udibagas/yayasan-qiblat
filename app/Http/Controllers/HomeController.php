@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Setting;
+use App\Team;
+use App\Carousel;
+use App\Program;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $setting = Setting::all();
+        $settings = [];
+
+        foreach ($setting as $s) {
+            $settings[$s->name] = $s->value;
+        }
+
+        return view('home', [
+            'settings' => $settings,
+            'team' => Team::all(),
+            'sliders' => Carousel::active()->get(),
+            'programs' => Program::all()
+        ]);
     }
 }

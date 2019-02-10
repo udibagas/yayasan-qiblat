@@ -49,7 +49,7 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faUserLock, faChevronRight, faChevronLeft, faFile, faTags, } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faUserLock, faChevronRight, faChevronLeft, faFile, faTags, faUsers, faMoneyCheck, faBoxes, faList, faMoneyBill, faMoneyBillAlt, faCogs, faDatabase, faImage, } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
@@ -58,7 +58,14 @@ library.add(
     faChevronRight,
     faChevronLeft,
     faFile,
-    faTags
+    faTags,
+    faUsers,
+    faMoneyCheck,
+    faMoneyBillAlt,
+    faList,
+    faCogs,
+    faDatabase,
+    faImage
 )
 
 export default {

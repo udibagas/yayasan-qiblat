@@ -1,0 +1,43 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import '~element-ui/lib/theme-chalk/index.css';
+@import '~element-ui/lib/theme-chalk/display.css';
+
+@font-face {
+  font-family: "MyriadMM";
+  src: url("../assets/fonts/MyriadMM.ttf");
+}
+
+body {
+  height: 100%;
+}
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.error-feedback {
+  color: #f56c6c;
+  font-size: 12px;
+}
+
+.pager-options {
+  width: 70px;
+}
+
+.carousel-caption {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.5);
+  padding-bottom: 50px;
+}
+
+a.no-decoration-on-hover:hover {
+  text-decoration: none;
+}

@@ -105,7 +105,7 @@
                             <el-tab-pane label="English">
                                 <br>
                                 <el-form-item label="Category Name">
-                                    <el-input placeholder="Nama Kategori" v-model="formModel.name_en"></el-input>
+                                    <el-input placeholder="Category Name" v-model="formModel.name_en"></el-input>
                                     <div class="error-feedback" v-if="formErrors.name_en">{{formErrors.name_en[0]}}</div>
                                 </el-form-item>
 
@@ -117,7 +117,7 @@
                             <el-tab-pane label="Arabic">
                                 <br>
                                 <el-form-item label="Category Name">
-                                    <el-input placeholder="Nama Kategori" v-model="formModel.name_ar"></el-input>
+                                    <el-input placeholder="Category Name" v-model="formModel.name_ar"></el-input>
                                     <div class="error-feedback" v-if="formErrors.name_ar">{{formErrors.name_ar[0]}}</div>
                                 </el-form-item>
 

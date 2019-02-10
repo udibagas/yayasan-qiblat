@@ -1,0 +1,29 @@
+<div id="carousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        @foreach ($sliders as $c)
+        <li data-target="#carousel" data-slide-to="{{$loop->index}}" class="@if ($loop->first) active @endif"></li>
+        @endforeach
+    </ol>
+    <div class="carousel-inner">
+        @foreach ($sliders as $c)
+        <div class="carousel-item @if ($loop->first) active @endif" style="height:600px">
+            <img src="{{$c->image}}" class="d-block w-100" alt="{{$c->title}}">
+            <div class="carousel-caption d-none d-md-block">
+                <h2>{{$c->title}}</h2>
+                <p>{{$c->description}}</p>
+                <p>
+                    <button class="btn btn-lg btn-primary">DONASI</button>
+                </p>
+            </div>
+        </div>
+        @endforeach
+    </div>
+    <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
