@@ -119,6 +119,7 @@
             </el-form>
 
         </el-dialog>
+
     </el-card>
 </template>
 
@@ -130,10 +131,7 @@ export default {
         },
         pageSize: function(v, o) {
             this.requestData()
-        },
-        // 'formModel.name': function(v, o) {
-        //     this.formModel.slug = v.split(' ').join('-');
-        // }
+        }
     },
     data: function() {
         return {
@@ -151,9 +149,15 @@ export default {
             order: 'ascending',
             filters: {},
             paginatedData: {},
+            showFormPackage: false,
+            selectedProgram: {}
         }
     },
     methods: {
+        showPackage(program) {
+            this.selectedProgram = program
+            this.showFormPackage = true
+        },
         closeForm: function() {
             this.error = {};
             this.formErrors = {};

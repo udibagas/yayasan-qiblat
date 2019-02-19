@@ -23,10 +23,17 @@
 
   <body id="page-top">
     <div id="app">
-      @include('partial.nav')
-      @yield('content')
-    </div>
+      @if (url()->current() == url('home') || url()->current() == url('/'))
+        @include('partial.nav-home')
+      @else
+        @include('partial.nav')
+      @endif
 
+      @yield('content')
+      @include('partial.footer')
+    </div>
   </body>
+
+  @stack('script')
 
 </html>

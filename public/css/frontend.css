@@ -10526,3 +10526,23 @@ a.no-decoration-on-hover:hover {
   text-decoration: none;
 }
 
+.bg-overlay {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.8;
+  background: #1C1D21;
+}
+
+.masthead {
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+}
+
+#portfolio .portfolio-item .portfolio-link {
+  height: 200px;
+  overflow: hidden;
+}
+

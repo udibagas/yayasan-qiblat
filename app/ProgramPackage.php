@@ -13,4 +13,11 @@ class ProgramPackage extends Model
         'name_ar', 'description_ar', 
         'price'
     ];
+
+    protected $with = ['program'];
+
+    public function program()
+    {
+        return $this->belongsTo(Program::class);
+    }
 }

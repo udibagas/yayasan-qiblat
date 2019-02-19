@@ -25,6 +25,16 @@ class NavigationController extends Controller
                 'icon' => 'list'
             ],
             [
+                'path' => '/programPackage',
+                'label' => 'Paket Program',
+                'icon' => 'list'
+            ],
+            [
+                'path' => '/programGallery',
+                'label' => 'Galeri Program',
+                'icon' => 'image'
+            ],
+            [
                 'path' => '/donatur',
                 'label' => 'Donatur',
                 'icon' => 'users'

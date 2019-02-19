@@ -32,6 +32,16 @@ class DonationController extends Controller
         })->orderBy($sort, $order)->paginate($request->pageSize);
     }
 
+    public function show(Donation $donation)
+    {
+        return view('donation.show', ['donation' => $donation]);
+    }
+
+    public function create()
+    {
+        return view('donation.create');
+    }
+
     /**
      * Store a newly created resource in storage.
      *

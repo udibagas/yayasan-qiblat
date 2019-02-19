@@ -12,6 +12,10 @@ class Post extends Model
         'title_ar', 'content_ar',
         'slug', 'slug_en', 'slug_ar',
         'post_category_id', 'image',
-        'user_id'
+        'user_id', 'status'
     ];
+
+    public function scopeActive($q) {
+        return $q->where('status', 1);
+    }
 }

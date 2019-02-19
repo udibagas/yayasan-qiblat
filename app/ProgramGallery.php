@@ -12,4 +12,10 @@ class ProgramGallery extends Model
         'title_en', 'description_en',
         'title_ar', 'description_ar',
     ];
+
+    protected $with = ['program'];
+
+    public function program() {
+        return $this->belongsTo(Program::class);
+    }
 }

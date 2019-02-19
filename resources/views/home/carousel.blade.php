@@ -11,9 +11,6 @@
             <div class="carousel-caption d-none d-md-block">
                 <h2>{{$c->title}}</h2>
                 <p>{{$c->description}}</p>
-                <p>
-                    <button class="btn btn-lg btn-primary">DONASI</button>
-                </p>
             </div>
         </div>
         @endforeach

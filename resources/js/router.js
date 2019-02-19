@@ -8,6 +8,8 @@ import Backup from './pages/Backup'
 import PostCategory from './pages/PostCategory'
 import Carousel from './pages/Carousel'
 import Program from './pages/Program'
+import ProgramGallery from './pages/ProgramGallery'
+import ProgramPackage from './pages/ProgramPackage'
 import Team from './pages/Team'
 import SocialMedia from './pages/SocialMedia'
 
@@ -53,6 +55,16 @@ let routes = [
         path: '/program',
         name: 'program',
         component: Program
+    },
+    {
+        path: '/programPackage',
+        name: 'programPackage',
+        component: ProgramPackage
+    },
+    {
+        path: '/programGallery',
+        name: 'programGallery',
+        component: ProgramGallery
     },
     {
         path: '/team',

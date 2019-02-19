@@ -14,7 +14,7 @@
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h4 class="service-heading">Phone</h4>
+                        <h4 class="service-heading">Nomor HP/WA</h4>
                         <p class="text-muted">{{$settings['contact_phone']}}</p>
                     </div>
                 </div>
@@ -38,7 +38,7 @@
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h4 class="service-heading">Address</h4>
+                        <h4 class="service-heading">Alamat</h4>
                         <p class="text-muted">{!! nl2br($settings['contact_address']) !!}</p>
                     </div>
                 </div>

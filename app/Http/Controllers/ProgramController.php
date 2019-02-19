@@ -10,8 +10,8 @@ class ProgramController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN);
+        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['index', 'show']);
     }
 
     /**
@@ -34,7 +34,13 @@ class ProgramController extends Controller
         }
 
         // untuk frontend
-        return view('program.index', ['programs' => Program::all()]);
+        return view('program.index', [
+            'title' => 'Program Kami',
+            'programs' => Program::all(),
+            'breadcrumbs' => [
+                'Program Kami' => '#'
+            ]
+        ]);
     }
 
     /**
@@ -46,6 +52,18 @@ class ProgramController extends Controller
     public function store(ProgramRequest $request)
     {
         return Program::create($request->all());
+    }
+
+    public function show(Program $program)
+    {
+        return view('program.show', [
+            'title' => $program->name,
+            'program' => $program,
+            'breadcrumbs' => [
+                'Program' => url('/program'),
+                $program->name => '#'
+            ]
+        ]);
     }
 
     /**
@@ -71,5 +89,10 @@ class ProgramController extends Controller
     {
         $program->delete();
         return ['message' => 'OK'];
+    }
+
+    public function getList()
+    {
+        return Program::all();
     }
 }

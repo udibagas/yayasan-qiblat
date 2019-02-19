@@ -1,96 +1,62 @@
 <section class="bg-light" id="portfolio">
     <div class="container">
         <div class="row">
-        <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Features</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-        </div>
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Galeri Program</h2>
+                <h3 class="section-subheading text-muted">Berikut foto kegiatan program kami yang telah berjalan.</h3>
+            </div>
         </div>
         <div class="row">
-        <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal1">
-            <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
+            @foreach ($galleries as $g)
+            <div class="col-md-4 col-sm-6 portfolio-item">
+                <a class="portfolio-link" data-toggle="modal" href="#portfolioModal{{$loop->index}}">
+                <div class="portfolio-hover">
+                    <div class="portfolio-hover-content">
+                    <i class="fas fa-plus fa-3x"></i>
+                    </div>
+                </div>
+                <img class="img-fluid" src="{{$g->image_path}}" alt="">
+                </a>
+                <div class="portfolio-caption">
+                <h4>{{$g->title}}</h4>
+                <p class="text-muted">{{$g->description}}</p>
                 </div>
             </div>
-            <img class="img-fluid" src="img/portfolio/01-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Threads</h4>
-            <p class="text-muted">Illustration</p>
-            </div>
+            @endforeach
         </div>
-        <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-            <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
-                </div>
-            </div>
-            <img class="img-fluid" src="img/portfolio/02-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Explore</h4>
-            <p class="text-muted">Graphic Design</p>
-            </div>
+    </div>
+</section>
+
+@foreach ($galleries as $g)
+<div class="portfolio-modal modal fade" id="portfolioModal{{$loop->index}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="close-modal" data-dismiss="modal">
+        <div class="lr">
+            <div class="rl"></div>
         </div>
-        <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal3">
-            <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
-                </div>
-            </div>
-            <img class="img-fluid" src="img/portfolio/03-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Finish</h4>
-            <p class="text-muted">Identity</p>
-            </div>
         </div>
-        <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal4">
-            <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
-                </div>
+        <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+            <div class="modal-body">
+                <!-- Project Details Go Here -->
+                <h2 class="text-uppercase">{{$g->program->name}}</h2>
+                <p class="item-intro text-muted">{{$g->program->description}}</p>
+                <img class="img-fluid d-block mx-auto" src="{{$g->image_path}}" alt="">
+                <h3>{{$g->title}}</h3>
+                <p>{{$g->description}}</p>
+                <!-- <ul class="list-inline">
+                    <li>Date: January 2017</li>
+                    <li>Client: Threads</li>
+                    <li>Category: Illustration</li>
+                </ul> -->
+                <button class="btn btn-primary" data-dismiss="modal" type="button"> <i class="fas fa-times"></i> Tutup</button>
             </div>
-            <img class="img-fluid" src="img/portfolio/04-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Lines</h4>
-            <p class="text-muted">Branding</p>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal5">
-            <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
-                </div>
-            </div>
-            <img class="img-fluid" src="img/portfolio/05-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Southwest</h4>
-            <p class="text-muted">Website Design</p>
-            </div>
-        </div>
-        <div class="col-md-4 col-sm-6 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal6">
-            <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
-                </div>
-            </div>
-            <img class="img-fluid" src="img/portfolio/06-thumbnail.jpg" alt="">
-            </a>
-            <div class="portfolio-caption">
-            <h4>Window</h4>
-            <p class="text-muted">Photography</p>
             </div>
         </div>
         </div>
     </div>
-    </section>
+    </div>
+</div>
+@endforeach
