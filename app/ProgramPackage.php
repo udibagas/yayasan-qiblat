@@ -11,7 +11,7 @@ class ProgramPackage extends Model
         'name', 'description', 
         'name_en', 'description_en', 
         'name_ar', 'description_ar', 
-        'price'
+        'price', 'flexible_amount'
     ];
 
     protected $with = ['program'];

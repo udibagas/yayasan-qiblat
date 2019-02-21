@@ -3,12 +3,12 @@
 @section('content')
 @include('partial.breadcrumbs')
 
-<section id="programs">
+<section id="programs" style="padding:20px 0">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase">PROGRAM KAMI</h2>
-                <h3 class="section-subheading text-muted">Apa saja program kami?</h3>
+                <h3 class="section-subheading text-muted">Anda ingin berdonasi pada program apa?</h3>
             </div>
         </div>
         <div class="row text-center">

@@ -2,11 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from './pages/Dashboard'
 import User from './pages/User'
+import Donor from './pages/Donor'
 import Post from './pages/Post'
 import Setting from './pages/Setting'
 import Backup from './pages/Backup'
 import PostCategory from './pages/PostCategory'
 import Carousel from './pages/Carousel'
+import Donation from './pages/Donation'
 import Program from './pages/Program'
 import ProgramGallery from './pages/ProgramGallery'
 import ProgramPackage from './pages/ProgramPackage'
@@ -70,6 +72,16 @@ let routes = [
         path: '/team',
         name: 'team',
         component: Team
+    },
+    {
+        path: '/donation',
+        name: 'donation',
+        component: Donation
+    },
+    {
+        path: '/donor',
+        name: 'donor',
+        component: Donor
     },
     {
         path: '/socialMedia',

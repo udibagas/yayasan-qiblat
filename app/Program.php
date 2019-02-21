@@ -12,4 +12,8 @@ class Program extends Model
         'name_ar', 'description_ar', 
         'icon'
     ];
+
+    public function packages() {
+        return $this->hasMany(ProgramPackage::class);
+    }
 }

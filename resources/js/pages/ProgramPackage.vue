@@ -28,6 +28,14 @@
             <el-table-column type="index" width="50" :index="paginatedData.from"> </el-table-column>
             <el-table-column prop="program.name" label="Program" sortable="custom"></el-table-column>
             <el-table-column prop="name" label="Paket" sortable="custom"></el-table-column>
+
+            <el-table-column prop="status" label="Status" sortable="custom" column-key="status"
+            :filters="[{value: 0, text: 'No'},{value: 1, text: 'Yes'}]">
+                <template slot-scope="scope">
+                    <span :class="scope.row.flexible_amount ? 'text-success' : 'text-danger'">{{scope.row.flexible_amount ? 'Yes' : 'No'}}</span>
+                </template>
+            </el-table-column>
+
             <el-table-column prop="price" label="Harga" sortable="custom">
                 <template slot-scope="scope">
                     {{ scope.row.price | formatNumber }}
@@ -82,7 +90,8 @@
                         </el-form-item>
 
                         <el-form-item label="Keterangan">
-                            <el-input type="textarea" rows="3" placeholder="Keterangan" v-model="formModel.description"></el-input>
+                            <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description"></vue-editor> -->
+                            <el-input type="textarea" rows="8" placeholder="Keterangan" v-model="formModel.description"></el-input>
                             <div class="error-feedback" v-if="formErrors.description">{{formErrors.description[0]}}</div>
                         </el-form-item>
                     </el-tab-pane>
@@ -94,7 +103,8 @@
                         </el-form-item>
 
                         <el-form-item label="Description">
-                            <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_en"></el-input>
+                            <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description_en"></vue-editor> -->
+                            <el-input type="textarea" rows="8" placeholder="Description" v-model="formModel.description_en"></el-input>
                             <div class="error-feedback" v-if="formErrors.description_en">{{formErrors.description_en[0]}}</div>
                         </el-form-item>
                     </el-tab-pane>
@@ -106,7 +116,8 @@
                         </el-form-item>
 
                         <el-form-item label="Description">
-                            <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_ar"></el-input>
+                            <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description_ar"></vue-editor> -->
+                            <el-input type="textarea" rows="8" placeholder="Description" v-model="formModel.description_ar"></el-input>
                             <div class="error-feedback" v-if="formErrors.description_ar">{{formErrors.description_ar[0]}}</div>
                         </el-form-item>
                     </el-tab-pane>
@@ -124,6 +135,10 @@
                     <div class="error-feedback" v-if="formErrors.price">{{formErrors.price[0]}}</div>
                 </el-form-item>
 
+                <el-form-item label="Harga Flexibel">
+                    <el-switch v-model="formModel.flexible_amount"></el-switch>
+                </el-form-item>
+
                 <el-form-item>
                     <el-button type="primary" @click="save">Simpan</el-button>
                     <el-button @click="showForm = false">Batal</el-button>
@@ -136,7 +151,10 @@
 </template>
 
 <script>
+import { VueEditor } from 'vue2-editor'
+
 export default {
+    components: { VueEditor },
     watch: {
         keyword: function(v, o) {
             this.requestData()
@@ -165,9 +183,21 @@ export default {
         }
     },
     methods: {
-        showPackage(program) {
-            this.selectedProgram = program
-            this.showFormPackage = true
+        handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
+            var formData = new FormData();
+            formData.append('file', file)
+
+            axios({
+                url: BASE_URL + '/uploadImage',
+                method: 'POST',
+                data: formData
+            }).then((result) => {
+                let url = result.data.path // Get url from response
+                Editor.insertEmbed(cursorLocation, 'image', url);
+                resetUploader();
+            }).catch((err) => {
+                console.log(err);
+            })
         },
         closeForm: function() {
             this.error = {};
@@ -256,6 +286,7 @@ export default {
         },
         editData: function(data) {
             this.formTitle = 'Edit Paket Program'
+            data.flexible_amount = !!(data.flexible_amount);
             this.formModel = JSON.parse(JSON.stringify(data));
             this.error = {}
             this.formErrors = {}

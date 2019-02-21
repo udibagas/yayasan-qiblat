@@ -35,8 +35,8 @@ class NavigationController extends Controller
                 'icon' => 'image'
             ],
             [
-                'path' => '/donatur',
-                'label' => 'Donatur',
+                'path' => '/donor',
+                'label' => 'Donor',
                 'icon' => 'users'
             ],
             [

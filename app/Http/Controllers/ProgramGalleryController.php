@@ -10,19 +10,30 @@ class ProgramGalleryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN);
+        $this->middleware('auth')->except(['index']);
+        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['index']);
     }
 
     public function index(Request $request)
     {
-        $sort = $request->sort ? $request->sort : 'id';
-        $order = $request->order == 'ascending' ? 'asc' : 'desc';
+        if ($request->ajax())
+        {
+            $sort = $request->sort ? $request->sort : 'id';
+            $order = $request->order == 'ascending' ? 'asc' : 'desc';
 
-        return ProgramGallery::when($request->keyword, function ($q) use ($request) {
-            return $q->where('title', 'LIKE', '%' . $request->keyword . '%')
+            return ProgramGallery::when($request->keyword, function ($q) use ($request) {
+                return $q->where('title', 'LIKE', '%' . $request->keyword . '%')
                     ->where('description', 'LIKE', '%' . $request->keyword . '%');
-        })->orderBy($sort, $order)->paginate($request->pageSize);
+            })->orderBy($sort, $order)->paginate($request->pageSize);
+        }
+
+        return view('programGallery.index', [
+            'title' => 'Galeri Program',
+            'galleries' => ProgramGallery::paginate(),
+            'breadcrumbs' => [
+                'Galeri Program' => '#'
+            ]
+        ]);
     }
 
     public function store(ProgramGalleryRequest $request)

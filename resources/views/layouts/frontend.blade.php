@@ -7,7 +7,6 @@
     <meta name="author" content="">
     <title>{{ config('app.name', 'Laravel') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{ asset('js/frontend.js') }}" defer></script>
 
     <!-- Custom fonts for this template -->
     <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
@@ -33,7 +32,11 @@
       @include('partial.footer')
     </div>
   </body>
-
+  <script>
+    const BASE_URL = '{{url("/")}}'
+    const USER = {!! auth()->user() !!}
+  </script>
+  <script src="{{ asset('js/frontend.js') }}"></script>
   @stack('script')
 
 </html>

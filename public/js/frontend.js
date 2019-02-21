@@ -3382,6 +3382,101 @@ function mergeFn (a, b) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonateButton.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DonateButton.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['program', 'package', 'amount', 'remark', 'label', 'flexible'],
+  filters: {
+    readableDateTime: function readableDateTime(v) {
+      return moment__WEBPACK_IMPORTED_MODULE_0___default()(v).format('DD MMM YYYY HH:mm');
+    }
+  },
+  data: function data() {
+    return {
+      disabled: false,
+      buttonLabel: '',
+      xenditResponse: null,
+      amountFinal: 0 // xenditResponse: {"id":"5c6d064d0718f34ae954be31","external_id":"donasi_qiblat_4","user_id":"57fdbb445eec38910d3a4c47","status":"PENDING","merchant_name":"Your Company","merchant_profile_picture_url":"https:\/\/xnd-companies.s3.amazonaws.com\/prod\/1476344224287_930.png","amount":3000000,"payer_email":"udibagas@gmail.com","description":"Percetakan Mushaf - Paket C","expiry_date":"2019-02-21T07:48:29.415Z","invoice_url":"https:\/\/invoice-staging.xendit.co\/web\/invoices\/5c6d064d0718f34ae954be31","available_banks":[{"bank_code":"MANDIRI","collection_type":"POOL","bank_account_number":"8860838041787","transfer_amount":3000000,"bank_branch":"Virtual Account","account_holder_name":"YOUR COMPANY","identity_amount":0},{"bank_code":"BRI","collection_type":"POOL","bank_account_number":"2621545825240","transfer_amount":3000000,"bank_branch":"Virtual Account","account_holder_name":"YOUR COMPANY","identity_amount":0},{"bank_code":"BNI","collection_type":"POOL","bank_account_number":"880845684047","transfer_amount":3000000,"bank_branch":"Virtual Account","account_holder_name":"YOUR COMPANY","identity_amount":0},{"bank_code":"PERMATA","collection_type":"POOL","bank_account_number":"821447574437","transfer_amount":3000000,"bank_branch":"Virtual Account","account_holder_name":"YOUR COMPANY","identity_amount":0}],"available_ewallets":[],"should_exclude_credit_card":false,"should_send_email":false,"created":"2019-02-20T07:48:29.649Z","updated":"2019-02-20T07:48:29.649Z"}
+
+    };
+  },
+  mounted: function mounted() {
+    this.buttonLabel = this.label;
+    this.amountFinal = this.amount;
+  },
+  methods: {
+    donate: function donate() {
+      var _this = this;
+
+      if (!confirm('Anda yakin akan melakukan donasi?')) return;
+      var data = {
+        program_id: this.program,
+        program_package_id: this.package,
+        amount: this.amountFinal,
+        remark: this.remark
+      };
+      this.disabled = true;
+      this.buttonLabel = 'Mohon tunggu...'; // simpan di database
+
+      axios.post(BASE_URL + '/donation', data).then(function (r) {
+        _this.buttonLabel = _this.label;
+        _this.disabled = false;
+        console.log(r);
+
+        if (r.data.error_code) {
+          alert('Terjadi kesalahan. ' + r.data.error_code + ' ' + r.data.message);
+          return;
+        }
+
+        _this.xenditResponse = r.data;
+      }).catch(function (e) {
+        _this.buttonLabel = _this.label;
+        _this.disabled = false;
+        console.log(e);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-runtime/core-js/object/assign.js":
 /*!*************************************************************!*\
   !*** ./node_modules/babel-runtime/core-js/object/assign.js ***!
@@ -9442,6 +9537,112 @@ for (var i = 0; i < DOMIterables.length; i++) {
   var proto = Collection && Collection.prototype;
   if (proto && !proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
   Iterators[NAME] = Iterators.Array;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.amount[data-v-9c744c28], \n.time[data-v-9c744c28], \n.account-number[data-v-9c744c28], \n.account-name[data-v-9c744c28] {\n    font-weight: bold;\n    color: red;\n    font-size: 16px;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
 }
 
 
@@ -106047,6 +106248,545 @@ var index = (function () {
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--7-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--7-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/throttle-debounce/debounce.js":
 /*!****************************************************!*\
   !*** ./node_modules/throttle-debounce/debounce.js ***!
@@ -106253,6 +106993,237 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonateButton.vue?vue&type=template&id=9c744c28&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/DonateButton.vue?vue&type=template&id=9c744c28&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("hr"),
+    _vm._v(" "),
+    _vm.xenditResponse
+      ? _c("div", [
+          _c("h1", [_vm._v("Terimakasih!")]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "\n            Terimakasih atas donasi Anda. Silakan transfer ke bank berikut sejumlah \n            "
+            ),
+            _c("span", { staticClass: "amount" }, [
+              _vm._v(
+                "Rp " +
+                  _vm._s(_vm._f("formatNumber")(_vm.xenditResponse.amount))
+              )
+            ]),
+            _vm._v(" \n            sebelum "),
+            _c("span", { staticClass: "time" }, [
+              _vm._v(
+                _vm._s(
+                  _vm._f("readableDateTime")(_vm.xenditResponse.expiry_date)
+                )
+              )
+            ]),
+            _vm._v("  :\n        ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "ul",
+            _vm._l(_vm.xenditResponse.available_banks, function(b) {
+              return _c("li", { key: b.bank_code }, [
+                _c("h5", { staticClass: "bank-code" }, [
+                  _vm._v(" " + _vm._s(b.bank_code) + " ")
+                ]),
+                _vm._v("\n                Nomor Virtual Account "),
+                _c("span", { staticClass: "account-number" }, [
+                  _vm._v(_vm._s(b.bank_account_number))
+                ]),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v("\n                A.n "),
+                _c("span", { staticClass: "account-name" }, [
+                  _vm._v(_vm._s(b.account_holder_name))
+                ]),
+                _vm._v(" "),
+                _c("hr")
+              ])
+            }),
+            0
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.flexible
+      ? _c("p", [
+          _c("i", [_vm._v("Masukkan jumlah yang akan Anda donasikan:")])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.amountFinal,
+          expression: "amountFinal"
+        }
+      ],
+      staticClass: "form-control input-lg",
+      attrs: { type: "number", disabled: !_vm.flexible },
+      domProps: { value: _vm.amountFinal },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.amountFinal = $event.target.value
+        }
+      }
+    }),
+    _c("br"),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: !_vm.xenditResponse,
+            expression: "!xenditResponse"
+          }
+        ],
+        staticClass: "btn btn-block btn-primary btn-lg",
+        attrs: { disabled: _vm.disabled },
+        on: { click: _vm.donate }
+      },
+      [_vm._v(_vm._s(_vm.buttonLabel))]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
 
 /***/ }),
 
@@ -118481,6 +119452,93 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/js/components/DonateButton.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/DonateButton.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DonateButton_vue_vue_type_template_id_9c744c28_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DonateButton.vue?vue&type=template&id=9c744c28&scoped=true& */ "./resources/js/components/DonateButton.vue?vue&type=template&id=9c744c28&scoped=true&");
+/* harmony import */ var _DonateButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DonateButton.vue?vue&type=script&lang=js& */ "./resources/js/components/DonateButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _DonateButton_vue_vue_type_style_index_0_id_9c744c28_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css& */ "./resources/js/components/DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _DonateButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DonateButton_vue_vue_type_template_id_9c744c28_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DonateButton_vue_vue_type_template_id_9c744c28_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "9c744c28",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/DonateButton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/DonateButton.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/DonateButton.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DonateButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonateButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css& ***!
+  \***********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_style_index_0_id_9c744c28_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--7-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--7-2!../../../node_modules/vue-loader/lib??vue-loader-options!./DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonateButton.vue?vue&type=style&index=0&id=9c744c28&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_style_index_0_id_9c744c28_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_style_index_0_id_9c744c28_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_style_index_0_id_9c744c28_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_style_index_0_id_9c744c28_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_7_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_7_2_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_style_index_0_id_9c744c28_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/DonateButton.vue?vue&type=template&id=9c744c28&scoped=true&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/DonateButton.vue?vue&type=template&id=9c744c28&scoped=true& ***!
+  \*********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_template_id_9c744c28_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DonateButton.vue?vue&type=template&id=9c744c28&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/DonateButton.vue?vue&type=template&id=9c744c28&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_template_id_9c744c28_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DonateButton_vue_vue_type_template_id_9c744c28_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/frontend.js":
 /*!**********************************!*\
   !*** ./resources/js/frontend.js ***!
@@ -118499,7 +119557,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _components_DonateButton__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/DonateButton */ "./resources/js/components/DonateButton.vue");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
@@ -118524,7 +119584,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(element_ui__WEBPACK_IMPORTED_MODU
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
-  store: _store__WEBPACK_IMPORTED_MODULE_3__["default"]
+  store: _store__WEBPACK_IMPORTED_MODULE_3__["default"],
+  components: {
+    DonateButton: _components_DonateButton__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }
 });
 
 /***/ }),
@@ -118562,549 +119625,6 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   },
   mutations: {}
 }));
-
-/***/ }),
-
-/***/ "./resources/js/theme/agency.min.js":
-/*!******************************************!*\
-  !*** ./resources/js/theme/agency.min.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Start Bootstrap - Agency v5.0.2 (https://startbootstrap.com/template-overviews/agency)
- * Copyright 2013-2018 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/LICENSE)
- */
-!function (o) {
-  "use strict";
-
-  o('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function () {
-    if (location.pathname.replace(/^\//, "") == this.pathname.replace(/^\//, "") && location.hostname == this.hostname) {
-      var a = o(this.hash);
-      if ((a = a.length ? a : o("[name=" + this.hash.slice(1) + "]")).length) return o("html, body").animate({
-        scrollTop: a.offset().top - 54
-      }, 1e3, "easeInOutExpo"), !1;
-    }
-  }), o(".js-scroll-trigger").click(function () {
-    o(".navbar-collapse").collapse("hide");
-  }), o("body").scrollspy({
-    target: "#mainNav",
-    offset: 56
-  });
-
-  var a = function a() {
-    100 < o("#mainNav").offset().top ? o("#mainNav").addClass("navbar-shrink") : o("#mainNav").removeClass("navbar-shrink");
-  };
-
-  a(), o(window).scroll(a), o(".portfolio-modal").on("show.bs.modal", function (a) {
-    o(".navbar").addClass("d-none");
-  }), o(".portfolio-modal").on("hidden.bs.modal", function (a) {
-    o(".navbar").removeClass("d-none");
-  });
-}(jQuery);
-
-/***/ }),
-
-/***/ "./resources/js/theme/contact_me.min.js":
-/*!**********************************************!*\
-  !*** ./resources/js/theme/contact_me.min.js ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/*!
- * Start Bootstrap - Agency v5.0.2 (https://startbootstrap.com/template-overviews/agency)
- * Copyright 2013-2018 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/LICENSE)
- */
-$(function () {
-  $("#contactForm input,#contactForm textarea").jqBootstrapValidation({
-    preventSubmit: !0,
-    submitError: function submitError(t, e, s) {},
-    submitSuccess: function submitSuccess(t, e) {
-      e.preventDefault();
-      var s = $("input#name").val(),
-          a = $("input#email").val(),
-          n = $("input#phone").val(),
-          c = $("textarea#message").val(),
-          i = s;
-      0 <= i.indexOf(" ") && (i = s.split(" ").slice(0, -1).join(" ")), $this = $("#sendMessageButton"), $this.prop("disabled", !0), $.ajax({
-        url: "././mail/contact_me.php",
-        type: "POST",
-        data: {
-          name: s,
-          phone: n,
-          email: a,
-          message: c
-        },
-        cache: !1,
-        success: function success() {
-          $("#success").html("<div class='alert alert-success'>"), $("#success > .alert-success").html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>"), $("#success > .alert-success").append("<strong>Your message has been sent. </strong>"), $("#success > .alert-success").append("</div>"), $("#contactForm").trigger("reset");
-        },
-        error: function error() {
-          $("#success").html("<div class='alert alert-danger'>"), $("#success > .alert-danger").html("<button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;").append("</button>"), $("#success > .alert-danger").append($("<strong>").text("Sorry " + i + ", it seems that my mail server is not responding. Please try again later!")), $("#success > .alert-danger").append("</div>"), $("#contactForm").trigger("reset");
-        },
-        complete: function complete() {
-          setTimeout(function () {
-            $this.prop("disabled", !1);
-          }, 1e3);
-        }
-      });
-    },
-    filter: function filter() {
-      return $(this).is(":visible");
-    }
-  }), $('a[data-toggle="tab"]').click(function (t) {
-    t.preventDefault(), $(this).tab("show");
-  });
-}), $("#name").focus(function () {
-  $("#success").html("");
-});
-
-/***/ }),
-
-/***/ "./resources/js/theme/jqBootstrapValidation.min.js":
-/*!*********************************************************!*\
-  !*** ./resources/js/theme/jqBootstrapValidation.min.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-/*!
- * Start Bootstrap - Agency v5.0.2 (https://startbootstrap.com/template-overviews/agency)
- * Copyright 2013-2018 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-agency/blob/master/LICENSE)
- */
-!function (m) {
-  var u = [],
-      t = {
-    options: {
-      prependExistingHelpBlock: !1,
-      sniffHtml: !0,
-      preventSubmit: !0,
-      submitError: !1,
-      submitSuccess: !1,
-      semanticallyStrict: !1,
-      autoAdd: {
-        helpBlocks: !0
-      },
-      filter: function filter() {
-        return !0;
-      }
-    },
-    methods: {
-      init: function init(a) {
-        var v = m.extend(!0, {}, t);
-        v.options = m.extend(!0, v.options, a);
-        var e = m.unique(this.map(function () {
-          return m(this).parents("form")[0];
-        }).toArray());
-        return m(e).bind("submit", function (a) {
-          var e = m(this),
-              i = 0,
-              t = e.find("input,textarea,select").not("[type=submit],[type=image]").filter(v.options.filter);
-          t.trigger("submit.validation").trigger("validationLostFocus.validation"), t.each(function (a, e) {
-            var t = m(e).parents(".form-group").first();
-            t.hasClass("warning") && (t.removeClass("warning").addClass("error"), i++);
-          }), t.trigger("validationLostFocus.validation"), i ? (v.options.preventSubmit && a.preventDefault(), e.addClass("error"), m.isFunction(v.options.submitError) && v.options.submitError(e, a, t.jqBootstrapValidation("collectErrors", !0))) : (e.removeClass("error"), m.isFunction(v.options.submitSuccess) && v.options.submitSuccess(e, a));
-        }), this.each(function () {
-          var l = m(this),
-              t = l.parents(".form-group").first(),
-              i = t.find(".help-block").first(),
-              r = l.parents("form").first(),
-              n = [];
-
-          if (!i.length && v.options.autoAdd && v.options.autoAdd.helpBlocks && (i = m('<div class="help-block" />'), t.find(".controls").append(i), u.push(i[0])), v.options.sniffHtml) {
-            var a = "";
-
-            if (void 0 !== l.attr("pattern") && (a = "Not in the expected format\x3c!-- data-validation-pattern-message to override --\x3e", l.data("validationPatternMessage") && (a = l.data("validationPatternMessage")), l.data("validationPatternMessage", a), l.data("validationPatternRegex", l.attr("pattern"))), void 0 !== l.attr("max") || void 0 !== l.attr("aria-valuemax")) {
-              var e = void 0 !== l.attr("max") ? l.attr("max") : l.attr("aria-valuemax");
-              a = "Too high: Maximum of '" + e + "'\x3c!-- data-validation-max-message to override --\x3e", l.data("validationMaxMessage") && (a = l.data("validationMaxMessage")), l.data("validationMaxMessage", a), l.data("validationMaxMax", e);
-            }
-
-            if (void 0 !== l.attr("min") || void 0 !== l.attr("aria-valuemin")) {
-              var o = void 0 !== l.attr("min") ? l.attr("min") : l.attr("aria-valuemin");
-              a = "Too low: Minimum of '" + o + "'\x3c!-- data-validation-min-message to override --\x3e", l.data("validationMinMessage") && (a = l.data("validationMinMessage")), l.data("validationMinMessage", a), l.data("validationMinMin", o);
-            }
-
-            void 0 !== l.attr("maxlength") && (a = "Too long: Maximum of '" + l.attr("maxlength") + "' characters\x3c!-- data-validation-maxlength-message to override --\x3e", l.data("validationMaxlengthMessage") && (a = l.data("validationMaxlengthMessage")), l.data("validationMaxlengthMessage", a), l.data("validationMaxlengthMaxlength", l.attr("maxlength"))), void 0 !== l.attr("minlength") && (a = "Too short: Minimum of '" + l.attr("minlength") + "' characters\x3c!-- data-validation-minlength-message to override --\x3e", l.data("validationMinlengthMessage") && (a = l.data("validationMinlengthMessage")), l.data("validationMinlengthMessage", a), l.data("validationMinlengthMinlength", l.attr("minlength"))), void 0 === l.attr("required") && void 0 === l.attr("aria-required") || (a = v.builtInValidators.required.message, l.data("validationRequiredMessage") && (a = l.data("validationRequiredMessage")), l.data("validationRequiredMessage", a)), void 0 !== l.attr("type") && "number" === l.attr("type").toLowerCase() && (a = v.builtInValidators.number.message, l.data("validationNumberMessage") && (a = l.data("validationNumberMessage")), l.data("validationNumberMessage", a)), void 0 !== l.attr("type") && "email" === l.attr("type").toLowerCase() && (a = "Not a valid email address\x3c!-- data-validator-validemail-message to override --\x3e", l.data("validationValidemailMessage") ? a = l.data("validationValidemailMessage") : l.data("validationEmailMessage") && (a = l.data("validationEmailMessage")), l.data("validationValidemailMessage", a)), void 0 !== l.attr("minchecked") && (a = "Not enough options checked; Minimum of '" + l.attr("minchecked") + "' required\x3c!-- data-validation-minchecked-message to override --\x3e", l.data("validationMincheckedMessage") && (a = l.data("validationMincheckedMessage")), l.data("validationMincheckedMessage", a), l.data("validationMincheckedMinchecked", l.attr("minchecked"))), void 0 !== l.attr("maxchecked") && (a = "Too many options checked; Maximum of '" + l.attr("maxchecked") + "' required\x3c!-- data-validation-maxchecked-message to override --\x3e", l.data("validationMaxcheckedMessage") && (a = l.data("validationMaxcheckedMessage")), l.data("validationMaxcheckedMessage", a), l.data("validationMaxcheckedMaxchecked", l.attr("maxchecked")));
-          }
-
-          void 0 !== l.data("validation") && (n = l.data("validation").split(",")), m.each(l.data(), function (a, e) {
-            var t = a.replace(/([A-Z])/g, ",$1").split(",");
-            "validation" === t[0] && t[1] && n.push(t[1]);
-          });
-
-          for (var s = n, d = []; m.each(n, function (a, e) {
-            n[a] = g(e);
-          }), n = m.unique(n), d = [], m.each(s, function (a, e) {
-            if (void 0 !== l.data("validation" + e + "Shortcut")) m.each(l.data("validation" + e + "Shortcut").split(","), function (a, e) {
-              d.push(e);
-            });else if (v.builtInValidators[e.toLowerCase()]) {
-              var t = v.builtInValidators[e.toLowerCase()];
-              "shortcut" === t.type.toLowerCase() && m.each(t.shortcut.split(","), function (a, e) {
-                e = g(e), d.push(e), n.push(e);
-              });
-            }
-          }), 0 < (s = d).length;) {
-            ;
-          }
-
-          var c = {};
-          m.each(n, function (a, t) {
-            var i = l.data("validation" + t + "Message"),
-                e = void 0 !== i,
-                n = !1;
-
-            if (i = i || "'" + t + "' validation failed \x3c!-- Add attribute 'data-validation-" + t.toLowerCase() + "-message' to input to change this message --\x3e", m.each(v.validatorTypes, function (a, e) {
-              void 0 === c[a] && (c[a] = []), n || void 0 === l.data("validation" + t + g(e.name)) || (c[a].push(m.extend(!0, {
-                name: g(e.name),
-                message: i
-              }, e.init(l, t))), n = !0);
-            }), !n && v.builtInValidators[t.toLowerCase()]) {
-              var o = m.extend(!0, {}, v.builtInValidators[t.toLowerCase()]);
-              e && (o.message = i);
-              var r = o.type.toLowerCase();
-              "shortcut" === r ? n = !0 : m.each(v.validatorTypes, function (a, e) {
-                void 0 === c[a] && (c[a] = []), n || r !== a.toLowerCase() || (l.data("validation" + t + g(e.name), o[e.name.toLowerCase()]), c[r].push(m.extend(o, e.init(l, t))), n = !0);
-              });
-            }
-
-            n || m.error("Cannot find validation info for '" + t + "'");
-          }), i.data("original-contents", i.data("original-contents") ? i.data("original-contents") : i.html()), i.data("original-role", i.data("original-role") ? i.data("original-role") : i.attr("role")), t.data("original-classes", t.data("original-clases") ? t.data("original-classes") : t.attr("class")), l.data("original-aria-invalid", l.data("original-aria-invalid") ? l.data("original-aria-invalid") : l.attr("aria-invalid")), l.bind("validation.validation", function (a, e) {
-            var i = h(l),
-                n = [];
-            return m.each(c, function (t, a) {
-              (i || i.length || e && e.includeEmpty || v.validatorTypes[t].blockSubmit && e && e.submitting) && m.each(a, function (a, e) {
-                v.validatorTypes[t].validate(l, i, e) && n.push(e.message);
-              });
-            }), n;
-          }), l.bind("getValidators.validation", function () {
-            return c;
-          }), l.bind("submit.validation", function () {
-            return l.triggerHandler("change.validation", {
-              submitting: !0
-            });
-          }), l.bind(["keyup", "focus", "blur", "click", "keydown", "keypress", "change"].join(".validation ") + ".validation", function (a, n) {
-            var e = h(l),
-                o = [];
-            t.find("input,textarea,select").each(function (a, e) {
-              var t = o.length;
-              if (m.each(m(e).triggerHandler("validation.validation", n), function (a, e) {
-                o.push(e);
-              }), o.length > t) m(e).attr("aria-invalid", "true");else {
-                var i = l.data("original-aria-invalid");
-                m(e).attr("aria-invalid", void 0 !== i && i);
-              }
-            }), r.find("input,select,textarea").not(l).not('[name="' + l.attr("name") + '"]').trigger("validationLostFocus.validation"), (o = m.unique(o.sort())).length ? (t.removeClass("success error").addClass("warning"), v.options.semanticallyStrict && 1 === o.length ? i.html(o[0] + (v.options.prependExistingHelpBlock ? i.data("original-contents") : "")) : i.html('<ul role="alert"><li>' + o.join("</li><li>") + "</li></ul>" + (v.options.prependExistingHelpBlock ? i.data("original-contents") : ""))) : (t.removeClass("warning error success"), 0 < e.length && t.addClass("success"), i.html(i.data("original-contents"))), "blur" === a.type && t.removeClass("success");
-          }), l.bind("validationLostFocus.validation", function () {
-            t.removeClass("success");
-          });
-        });
-      },
-      destroy: function destroy() {
-        return this.each(function () {
-          var a = m(this),
-              e = a.parents(".form-group").first(),
-              t = e.find(".help-block").first();
-          a.unbind(".validation"), t.html(t.data("original-contents")), e.attr("class", e.data("original-classes")), a.attr("aria-invalid", a.data("original-aria-invalid")), t.attr("role", a.data("original-role")), -1 < u.indexOf(t[0]) && t.remove();
-        });
-      },
-      collectErrors: function collectErrors(a) {
-        var o = {};
-        return this.each(function (a, e) {
-          var t = m(e),
-              i = t.attr("name"),
-              n = t.triggerHandler("validation.validation", {
-            includeEmpty: !0
-          });
-          o[i] = m.extend(!0, n, o[i]);
-        }), m.each(o, function (a, e) {
-          0 === e.length && delete o[a];
-        }), o;
-      },
-      hasErrors: function hasErrors() {
-        var t = [];
-        return this.each(function (a, e) {
-          t = t.concat(m(e).triggerHandler("getValidators.validation") ? m(e).triggerHandler("validation.validation", {
-            submitting: !0
-          }) : []);
-        }), 0 < t.length;
-      },
-      override: function override(a) {
-        t = m.extend(!0, t, a);
-      }
-    },
-    validatorTypes: {
-      callback: {
-        name: "callback",
-        init: function init(a, e) {
-          return {
-            validatorName: e,
-            callback: a.data("validation" + e + "Callback"),
-            lastValue: a.val(),
-            lastValid: !0,
-            lastFinished: !0
-          };
-        },
-        validate: function validate(a, e, t) {
-          if (t.lastValue === e && t.lastFinished) return !t.lastValid;
-
-          if (!0 === t.lastFinished) {
-            t.lastValue = e, t.lastValid = !0, t.lastFinished = !1;
-            var i = t,
-                n = a;
-            !function (a, e) {
-              for (var t = Array.prototype.slice.call(arguments).splice(2), i = a.split("."), n = i.pop(), o = 0; o < i.length; o++) {
-                e = e[i[o]];
-              }
-
-              e[n].apply(this, t);
-            }(t.callback, window, a, e, function (a) {
-              i.lastValue === a.value && (i.lastValid = a.valid, a.message && (i.message = a.message), i.lastFinished = !0, n.data("validation" + i.validatorName + "Message", i.message), setTimeout(function () {
-                n.trigger("change.validation");
-              }, 1));
-            });
-          }
-
-          return !1;
-        }
-      },
-      ajax: {
-        name: "ajax",
-        init: function init(a, e) {
-          return {
-            validatorName: e,
-            url: a.data("validation" + e + "Ajax"),
-            lastValue: a.val(),
-            lastValid: !0,
-            lastFinished: !0
-          };
-        },
-        validate: function validate(e, a, t) {
-          return "" + t.lastValue == "" + a && !0 === t.lastFinished ? !1 === t.lastValid : (!0 === t.lastFinished && (t.lastValue = a, t.lastValid = !0, t.lastFinished = !1, m.ajax({
-            url: t.url,
-            data: "value=" + a + "&field=" + e.attr("name"),
-            dataType: "json",
-            success: function success(a) {
-              "" + t.lastValue == "" + a.value && (t.lastValid = !!a.valid, a.message && (t.message = a.message), t.lastFinished = !0, e.data("validation" + t.validatorName + "Message", t.message), setTimeout(function () {
-                e.trigger("change.validation");
-              }, 1));
-            },
-            failure: function failure() {
-              t.lastValid = !0, t.message = "ajax call failed", t.lastFinished = !0, e.data("validation" + t.validatorName + "Message", t.message), setTimeout(function () {
-                e.trigger("change.validation");
-              }, 1);
-            }
-          })), !1);
-        }
-      },
-      regex: {
-        name: "regex",
-        init: function init(a, e) {
-          return {
-            regex: (t = a.data("validation" + e + "Regex"), new RegExp("^" + t + "$"))
-          };
-          var t;
-        },
-        validate: function validate(a, e, t) {
-          return !t.regex.test(e) && !t.negative || t.regex.test(e) && t.negative;
-        }
-      },
-      required: {
-        name: "required",
-        init: function init(a, e) {
-          return {};
-        },
-        validate: function validate(a, e, t) {
-          return !(0 !== e.length || t.negative) || !!(0 < e.length && t.negative);
-        },
-        blockSubmit: !0
-      },
-      match: {
-        name: "match",
-        init: function init(a, e) {
-          var t = a.parents("form").first().find('[name="' + a.data("validation" + e + "Match") + '"]').first();
-          return t.bind("validation.validation", function () {
-            a.trigger("change.validation", {
-              submitting: !0
-            });
-          }), {
-            element: t
-          };
-        },
-        validate: function validate(a, e, t) {
-          return e !== t.element.val() && !t.negative || e === t.element.val() && t.negative;
-        },
-        blockSubmit: !0
-      },
-      max: {
-        name: "max",
-        init: function init(a, e) {
-          return {
-            max: a.data("validation" + e + "Max")
-          };
-        },
-        validate: function validate(a, e, t) {
-          return parseFloat(e, 10) > parseFloat(t.max, 10) && !t.negative || parseFloat(e, 10) <= parseFloat(t.max, 10) && t.negative;
-        }
-      },
-      min: {
-        name: "min",
-        init: function init(a, e) {
-          return {
-            min: a.data("validation" + e + "Min")
-          };
-        },
-        validate: function validate(a, e, t) {
-          return parseFloat(e) < parseFloat(t.min) && !t.negative || parseFloat(e) >= parseFloat(t.min) && t.negative;
-        }
-      },
-      maxlength: {
-        name: "maxlength",
-        init: function init(a, e) {
-          return {
-            maxlength: a.data("validation" + e + "Maxlength")
-          };
-        },
-        validate: function validate(a, e, t) {
-          return e.length > t.maxlength && !t.negative || e.length <= t.maxlength && t.negative;
-        }
-      },
-      minlength: {
-        name: "minlength",
-        init: function init(a, e) {
-          return {
-            minlength: a.data("validation" + e + "Minlength")
-          };
-        },
-        validate: function validate(a, e, t) {
-          return e.length < t.minlength && !t.negative || e.length >= t.minlength && t.negative;
-        }
-      },
-      maxchecked: {
-        name: "maxchecked",
-        init: function init(a, e) {
-          var t = a.parents("form").first().find('[name="' + a.attr("name") + '"]');
-          return t.bind("click.validation", function () {
-            a.trigger("change.validation", {
-              includeEmpty: !0
-            });
-          }), {
-            maxchecked: a.data("validation" + e + "Maxchecked"),
-            elements: t
-          };
-        },
-        validate: function validate(a, e, t) {
-          return t.elements.filter(":checked").length > t.maxchecked && !t.negative || t.elements.filter(":checked").length <= t.maxchecked && t.negative;
-        },
-        blockSubmit: !0
-      },
-      minchecked: {
-        name: "minchecked",
-        init: function init(a, e) {
-          var t = a.parents("form").first().find('[name="' + a.attr("name") + '"]');
-          return t.bind("click.validation", function () {
-            a.trigger("change.validation", {
-              includeEmpty: !0
-            });
-          }), {
-            minchecked: a.data("validation" + e + "Minchecked"),
-            elements: t
-          };
-        },
-        validate: function validate(a, e, t) {
-          return t.elements.filter(":checked").length < t.minchecked && !t.negative || t.elements.filter(":checked").length >= t.minchecked && t.negative;
-        },
-        blockSubmit: !0
-      }
-    },
-    builtInValidators: {
-      email: {
-        name: "Email",
-        type: "shortcut",
-        shortcut: "validemail"
-      },
-      validemail: {
-        name: "Validemail",
-        type: "regex",
-        regex: "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}",
-        message: "Not a valid email address\x3c!-- data-validator-validemail-message to override --\x3e"
-      },
-      passwordagain: {
-        name: "Passwordagain",
-        type: "match",
-        match: "password",
-        message: "Does not match the given password\x3c!-- data-validator-paswordagain-message to override --\x3e"
-      },
-      positive: {
-        name: "Positive",
-        type: "shortcut",
-        shortcut: "number,positivenumber"
-      },
-      negative: {
-        name: "Negative",
-        type: "shortcut",
-        shortcut: "number,negativenumber"
-      },
-      number: {
-        name: "Number",
-        type: "regex",
-        regex: "([+-]?\\d+(\\.\\d*)?([eE][+-]?[0-9]+)?)?",
-        message: "Must be a number\x3c!-- data-validator-number-message to override --\x3e"
-      },
-      integer: {
-        name: "Integer",
-        type: "regex",
-        regex: "[+-]?\\d+",
-        message: "No decimal places allowed\x3c!-- data-validator-integer-message to override --\x3e"
-      },
-      positivenumber: {
-        name: "Positivenumber",
-        type: "min",
-        min: 0,
-        message: "Must be a positive number\x3c!-- data-validator-positivenumber-message to override --\x3e"
-      },
-      negativenumber: {
-        name: "Negativenumber",
-        type: "max",
-        max: 0,
-        message: "Must be a negative number\x3c!-- data-validator-negativenumber-message to override --\x3e"
-      },
-      required: {
-        name: "Required",
-        type: "required",
-        message: "This is required\x3c!-- data-validator-required-message to override --\x3e"
-      },
-      checkone: {
-        name: "Checkone",
-        type: "minchecked",
-        minchecked: 1,
-        message: "Check at least one option\x3c!-- data-validation-checkone-message to override --\x3e"
-      }
-    }
-  },
-      g = function g(a) {
-    return a.toLowerCase().replace(/(^|\s)([a-z])/g, function (a, e, t) {
-      return e + t.toUpperCase();
-    });
-  },
-      h = function h(a) {
-    var e = a.val(),
-        t = a.attr("type");
-    return "checkbox" === t && (e = a.is(":checked") ? e : ""), "radio" === t && (e = 0 < m('input[name="' + a.attr("name") + '"]:checked').length ? e : ""), e;
-  };
-
-  m.fn.jqBootstrapValidation = function (a) {
-    return t.methods[a] ? t.methods[a].apply(this, Array.prototype.slice.call(arguments, 1)) : "object" != _typeof(a) && a ? (m.error("Method " + a + " does not exist on jQuery.jqBootstrapValidation"), null) : t.methods.init.apply(this, arguments);
-  }, m.jqBootstrapValidation = function (a) {
-    m(":input").not("[type=image],[type=submit]").jqBootstrapValidation.apply(this, arguments);
-  };
-}(jQuery);
 
 /***/ }),
 
@@ -119273,17 +119793,14 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/frontend.js ./resources/js/theme/jquery.easing.min.js ./resources/js/theme/jqBootstrapValidation.min.js ./resources/js/theme/contact_me.min.js ./resources/js/theme/agency.min.js ./resources/sass/frontend.scss ./resources/sass/backend.scss ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************!*\
+  !*** multi ./resources/js/frontend.js ./resources/js/theme/jquery.easing.min.js ./resources/sass/frontend.scss ./resources/sass/backend.scss ***!
+  \***********************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /home/udibagas/apps/qiblat/resources/js/frontend.js */"./resources/js/frontend.js");
 __webpack_require__(/*! /home/udibagas/apps/qiblat/resources/js/theme/jquery.easing.min.js */"./resources/js/theme/jquery.easing.min.js");
-__webpack_require__(/*! /home/udibagas/apps/qiblat/resources/js/theme/jqBootstrapValidation.min.js */"./resources/js/theme/jqBootstrapValidation.min.js");
-__webpack_require__(/*! /home/udibagas/apps/qiblat/resources/js/theme/contact_me.min.js */"./resources/js/theme/contact_me.min.js");
-__webpack_require__(/*! /home/udibagas/apps/qiblat/resources/js/theme/agency.min.js */"./resources/js/theme/agency.min.js");
 __webpack_require__(/*! /home/udibagas/apps/qiblat/resources/sass/frontend.scss */"./resources/sass/frontend.scss");
 module.exports = __webpack_require__(/*! /home/udibagas/apps/qiblat/resources/sass/backend.scss */"./resources/sass/backend.scss");
 

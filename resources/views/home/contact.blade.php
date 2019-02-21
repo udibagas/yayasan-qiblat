@@ -46,4 +46,4 @@
         </div>
     </div>
 </section>
-<iframe class="embed-responsive-item" src="{{$settings['maps_src']}}" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+<!-- <iframe class="embed-responsive-item" src="{{$settings['maps_src']}}" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe> -->

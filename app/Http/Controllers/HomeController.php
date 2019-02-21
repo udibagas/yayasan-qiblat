@@ -44,7 +44,7 @@ class HomeController extends Controller
             'programs' => Program::all(),
             // 'socialMedia' => SocialMedia::all(),
             'galleries' => ProgramGallery::limit(6)->latest()->get(),
-            'posts' => Post::limit(3)->active()->latest()->get()
+            'posts' => Post::limit(4)->active()->latest()->get()
         ]);
     }
 }

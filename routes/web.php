@@ -28,6 +28,7 @@ Route::resource('user', 'UserController')->except(['create', 'edit', 'show']);
 Route::resource('post', 'PostController')->except(['create', 'edit', 'show']);
 Route::resource('postCategory', 'PostCategoryController')->except(['create', 'edit', 'show']);
 Route::resource('carousel', 'CarouselController')->except(['create', 'edit', 'show']);
+Route::post('donation/callback', 'DonationController@callback');
 Route::resource('donation', 'DonationController')->except(['edit']);
 Route::get('program/getList', 'ProgramController@getList');
 Route::resource('program', 'ProgramController')->except(['create', 'edit']);
@@ -40,6 +41,16 @@ Route::resource('setting', 'SettingController');
 Route::post('backup', 'BackupController@store');
 Route::get('backup', 'BackupController@index');
 Route::delete('backup', 'BackupController@destroy');
+
+Route::get('/mailcreated', function () {
+    $donation = App\Donation::find(1);
+    return new App\Mail\DonationCreated($donation);
+});
+
+Route::get('/mailcompleted', function () {
+    $donation = App\Donation::find(1);
+    return new App\Mail\DonationCompleted($donation);
+});
 
 // untuk SPA backend
 Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');

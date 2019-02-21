@@ -10,8 +10,8 @@ class TeamController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN);
+        $this->middleware('auth')->except(['index']);
+        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['index']);
     }
 
     /**
@@ -21,15 +21,26 @@ class TeamController extends Controller
      */
     public function index(Request $request)
     {
-        $sort = $request->sort ? $request->sort : 'title';
-        $order = $request->order == 'ascending' ? 'asc' : 'desc';
+        if ($request->ajax())
+        {
+            $sort = $request->sort ? $request->sort : 'title';
+            $order = $request->order == 'ascending' ? 'asc' : 'desc';
+    
+            return Team::when($request->keyword, function ($q) use ($request) {
+                return $q->where('name', 'LIKE', '%' . $request->keyword . '%')
+                    ->orWhere('description', 'LIKE', '%' . $request->keyword . '%');
+            })->when($request->status, function ($q) use ($request) {
+                return $q->whereIn('status', $request->status);
+            })->orderBy($sort, $order)->paginate($request->pageSize);
+        }
 
-        return Team::when($request->keyword, function ($q) use ($request) {
-            return $q->where('name', 'LIKE', '%' . $request->keyword . '%')
-                ->orWhere('description', 'LIKE', '%' . $request->keyword . '%');
-        })->when($request->status, function ($q) use ($request) {
-            return $q->whereIn('status', $request->status);
-        })->orderBy($sort, $order)->paginate($request->pageSize);
+        return view('team.index', [
+            'title' => 'Team Kami',
+            'team' => Team::all(),
+            'breadcrumbs' => [
+                'Team Kami' => '#'
+            ]
+        ]);
     }
 
     /**

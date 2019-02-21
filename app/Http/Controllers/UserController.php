@@ -108,6 +108,12 @@ class UserController extends Controller
             return response(['message' => 'Tidak boleh menghapus user sendiri'], 500);
         }
 
+        $hasDonation = Donation::where('user_id', $user->id)->get();
+
+        if ($hasDonation) {
+            return response(['message' => 'User memiliki data donasi'], 500);
+        }
+
         $user->delete();
         return ['message' => 'OK'];
     }

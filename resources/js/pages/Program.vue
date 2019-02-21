@@ -149,15 +149,9 @@ export default {
             order: 'ascending',
             filters: {},
             paginatedData: {},
-            showFormPackage: false,
-            selectedProgram: {}
         }
     },
     methods: {
-        showPackage(program) {
-            this.selectedProgram = program
-            this.showFormPackage = true
-        },
         closeForm: function() {
             this.error = {};
             this.formErrors = {};

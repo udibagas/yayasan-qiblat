@@ -32,4 +32,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function scopeMember($q) {
+        return $q->where('role', self::ROLE_MEMBER);
+    }
+
+    public function scopeUser($q) {
+        return $q->where('role', self::ROLE_USER);
+    }
+
+    public function scopeAdmin($q) {
+        return $q->where('role', self::ROLE_ADMIN);
+    }
 }

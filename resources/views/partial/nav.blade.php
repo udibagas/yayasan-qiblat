@@ -16,7 +16,7 @@
                 <a class="nav-link" href="{{url('/program')}}">Program Kami</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url('/donation/create')}}">Donasi</a>
+                <a class="nav-link" href="{{url('/program')}}">Donasi</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{url('/programGallery')}}">Galeri Program</a>
