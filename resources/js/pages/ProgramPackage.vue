@@ -42,6 +42,13 @@
                 </template>
             </el-table-column>
 
+            <el-table-column prop="flexible_amount" label="Jumlah Flexible" sortable="custom" column-key="flexible_amount"
+            :filters="[{value: 0, text: 'No'},{value: 1, text: 'Yes'}]">
+                <template slot-scope="scope">
+                    <span :class="scope.row.flexible_amount ? 'text-success' : 'text-danger'">{{scope.row.flexible_amount ? 'Yes' : 'No'}}</span>
+                </template>
+            </el-table-column>
+
             <el-table-column fixed="right" width="40px">
                 <template slot-scope="scope">
                     <el-dropdown>

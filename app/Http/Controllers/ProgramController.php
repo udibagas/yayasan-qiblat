@@ -57,8 +57,8 @@ class ProgramController extends Controller
     public function show(Program $program)
     {
         return view('program.show', [
-            'title' => $program->name,
             'program' => $program,
+            'title' => $program->name,
             'breadcrumbs' => [
                 'Program' => url('/program'),
                 $program->name => '#'

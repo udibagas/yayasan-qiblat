@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CarouselRequest;
 use App\Carousel;
+use App\CarouselButton;
 
 class CarouselController extends Controller
 {
@@ -40,7 +41,9 @@ class CarouselController extends Controller
      */
     public function store(CarouselRequest $request)
     {
-        return Carousel::create($request->all());
+        $carousel = Carousel::create($request->all());
+        $carousel->buttons()->createMany($request->buttons);
+        return $carousel;
     }
 
     /**
@@ -64,6 +67,15 @@ class CarouselController extends Controller
     public function update(CarouselRequest $request, Carousel $carousel)
     {
         $carousel->update($request->all());
+        
+        foreach ($request->buttons as $i) {
+            if (isset($i['id'])) {
+                CarouselButton::find($i['id'])->update($i);
+            } else {
+                $carousel->buttons()->create($i);
+            }
+        }
+
         return $carousel;
     }
 

@@ -1,5 +1,13 @@
-<section id="donasi" style="background:rgba(0,0,0,.5);padding: 30px 0;">
+<section id="donasi">
     <div class="container">
+
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Laporan Donasi</h2>
+                <h3 class="section-subheading text-muted">Berikut adalah laporan donasi yang sudah masuk sampai hari ini</h3>
+            </div>
+        </div>
+
         <div class="row text-center">
             <div class="col-md-3">
                 <span class="fa-stack fa-4x">
@@ -36,5 +44,8 @@
         </div>
         <br>
         <a href="{{url('/program')}}" class="btn btn-lg btn-primary btn-block" style="height:70px;line-height:50px;">DONASI SEKARANG</a>
+        @auth
+        <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="height:70px;line-height:50px;">LIHAT DONASI SAYA</a>
+        @endauth
     </div>
-</section>
+</section> 

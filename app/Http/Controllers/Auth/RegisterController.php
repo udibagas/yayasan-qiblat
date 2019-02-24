@@ -72,7 +72,8 @@ class RegisterController extends Controller
             'api_token' => str_random(60),
             'phone' => $data['phone'],
             'address' => $data['address'],
-            'role' => 0
+            'role' => 0,
+            'status' => 1
         ]);
     }
 }

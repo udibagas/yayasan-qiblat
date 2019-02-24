@@ -3,7 +3,7 @@
 @section('content')
 @include('partial.breadcrumbs')
 
-<section id="programs" style="padding:20px 0">
+<section id="programs" style="padding:30px 0">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
@@ -25,6 +25,10 @@
             </div>
             @endforeach
         </div>
+
+        @auth
+        <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="height:70px;line-height:50px;">LIHAT DONASI SAYA</a>
+        @endauth
     </div>
 </section>
 
@@ -32,9 +36,9 @@
 
 @push('script')
 <script>
-setTimeout(function() {
-    var element = document.getElementById("mainNav");
-    element.classList.add("navbar-shrink");
-}, 300)
+    setTimeout(function() {
+        var element = document.getElementById("mainNav");
+        element.classList.add("navbar-shrink");
+    }, 300)
 </script>
-@endpush
+@endpush 

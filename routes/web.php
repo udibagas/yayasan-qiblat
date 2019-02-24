@@ -2,6 +2,8 @@
 
 use App\Setting;
 use App\SocialMedia;
+use App\Carousel;
+use App\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +27,10 @@ Route::get('navigation', 'NavigationController@index');
 Route::post('uploadImage', 'PostCategoryController@uploadImage');
 
 Route::resource('user', 'UserController')->except(['create', 'edit', 'show']);
-Route::resource('post', 'PostController')->except(['create', 'edit', 'show']);
+Route::resource('post', 'PostController')->except(['create', 'edit']);
 Route::resource('postCategory', 'PostCategoryController')->except(['create', 'edit', 'show']);
 Route::resource('carousel', 'CarouselController')->except(['create', 'edit', 'show']);
+Route::delete('carouselButton/{carouselButton}', 'CarouselButtonController@destroy');
 Route::post('donation/callback', 'DonationController@callback');
 Route::resource('donation', 'DonationController')->except(['edit']);
 Route::get('program/getList', 'ProgramController@getList');
@@ -41,6 +44,10 @@ Route::resource('setting', 'SettingController');
 Route::post('backup', 'BackupController@store');
 Route::get('backup', 'BackupController@index');
 Route::delete('backup', 'BackupController@destroy');
+
+Route::get('brosur', function() {
+    return response()->download(public_path('/brosur.pdf'));
+});
 
 Route::get('/mailcreated', function () {
     $donation = App\Donation::find(1);
@@ -65,4 +72,16 @@ View::composer('partial.footer', function($view) {
 
     $view->with('settings', $settings)
         ->with('socialMedia', SocialMedia::all());
+});
+
+View::composer('home.jumbotron', function($view) {
+    $view->with('slider', Carousel::active()->first());
+});
+
+View::composer('home.post', function($view) {
+    $view->with('posts', Post::limit(4)->active()->post()->latest()->get());
+});
+
+View::composer('partial.nav', function($view) {
+    $view->with('pages', Post::active()->page()->get());
 });

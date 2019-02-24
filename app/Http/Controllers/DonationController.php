@@ -16,7 +16,8 @@ class DonationController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['callback']);
-        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['index', 'callback']);
+        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)
+            ->except(['index', 'callback', 'create', 'store']);
     }
 
     /**

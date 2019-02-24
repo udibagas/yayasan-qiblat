@@ -1,13 +1,14 @@
+@if ($slider)
 <header class="masthead">
     <div class="container">
         <div class="intro-text">
-            <div class="intro-heading text-uppercase">YAYASAN QIBLAT</div>
-            <div class="intro-lead-in">
-                Kewajiban dakwah yang di bebankan pada setiap kamu muslimin untuk melahirkan gerakan positif bagi kemajuan bangsa dan negara, Gerakan dakwah tersebut bukan hanya di atas mimbar tetapi juga akan lebih banyak pada aplikasi kemasyarakatan inilah yang di contohkan rasulullah Shallallahu ‘alaihi wasalam agar kita terus beramal berbuat sesuatu untuk agama Allah dengan berdakwah.
-            </div>
+            <div class="intro-heading text-uppercase">{{ $slider->title }}</div>
+            <div class="intro-lead-in">{{ $slider->description }}</div>
             <br>
-            <a class="btn btn-primary btn-xl text-uppercase" href="{{url('/program')}}" style="margin-right:15px;">Donasi Sekarang</a>
-            <a class="btn btn-primary btn-xl text-uppercase" href="{{url('/brosur')}}">Download Brosur</a>
+            @foreach ($slider->buttons as $b)
+            <a class="btn btn-{{$b->type}} btn-xl text-uppercase" href="{{url($b->url)}}" @if (!$loop->last) style="margin-right:15px;"@endif>{{$b->label}}</a>
+            @endforeach
         </div>
     </div>
 </header>
+@endif

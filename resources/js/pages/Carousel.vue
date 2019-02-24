@@ -32,7 +32,7 @@
                 </template>
             </el-table-column>
             <el-table-column prop="title" label="Title" sortable="custom"></el-table-column>
-            <el-table-column prop="description" label="Description" sortable="custom"></el-table-column>
+            <!-- <el-table-column prop="description" label="Description" sortable="custom"></el-table-column> -->
 
             <el-table-column prop="status" label="Tampilkan" sortable="custom" column-key="status"
             :filters="[{value: 0, text: 'Tidak'},{value: 1, text: 'Ya'}]">
@@ -72,7 +72,7 @@
             </el-col>
         </el-row>
 
-        <el-dialog :visible.sync="showForm" :title="formTitle" width="700px" v-loading="loading" :close-on-click-modal="false" @close="closeForm">
+        <el-dialog :visible.sync="showForm" :title="formTitle" width="900px" v-loading="loading" :close-on-click-modal="false" @close="closeForm">
             <el-alert type="error" title="ERROR"
                 :description="error.message + '\n' + error.file + ':' + error.line"
                 v-show="error.message"
@@ -104,7 +104,7 @@
                                 </el-form-item>
 
                                 <el-form-item label="Keterangan">
-                                    <el-input type="textarea" rows="3" placeholder="Keterangan" v-model="formModel.description"></el-input>
+                                    <el-input type="textarea" rows="5" placeholder="Keterangan" v-model="formModel.description"></el-input>
                                     <div class="error-feedback" v-if="formErrors.description">{{formErrors.description[0]}}</div>
                                 </el-form-item>
                             </el-tab-pane>
@@ -116,7 +116,7 @@
                                 </el-form-item>
 
                                 <el-form-item label="Description">
-                                    <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_en"></el-input>
+                                    <el-input type="textarea" rows="5" placeholder="Description" v-model="formModel.description_en"></el-input>
                                     <div class="error-feedback" v-if="formErrors.description_en">{{formErrors.description_en[0]}}</div>
                                 </el-form-item>
                             </el-tab-pane>
@@ -128,7 +128,7 @@
                                 </el-form-item>
 
                                 <el-form-item label="Description">
-                                    <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_ar"></el-input>
+                                    <el-input type="textarea" rows="5" placeholder="Description" v-model="formModel.description_ar"></el-input>
                                     <div class="error-feedback" v-if="formErrors.description_ar">{{formErrors.description_ar[0]}}</div>
                                 </el-form-item>
                             </el-tab-pane>
@@ -137,6 +137,28 @@
                         <el-form-item label="Tampilkan">
                             <el-switch v-model="formModel.status"></el-switch>
                         </el-form-item>
+
+                        <h4>Tombol</h4>
+                        <table class="table table-sm table-striped">
+                            <thead>
+                                <th>Label Id</th>
+                                <th>Label En</th>
+                                <th>Label Ar</th>
+                                <th>Type</th>
+                                <th>URL</th>
+                                <th> <el-button @click="addButton" type="primary"><i class="el-icon-plus"></i></el-button> </th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(b, i) in formModel.buttons" :key="i">
+                                    <td><el-input v-model="formModel.buttons[i].label"></el-input></td>
+                                    <td><el-input v-model="formModel.buttons[i].label_en"></el-input></td>
+                                    <td><el-input v-model="formModel.buttons[i].label_ar"></el-input></td>
+                                    <td><el-input v-model="formModel.buttons[i].type"></el-input></td>
+                                    <td><el-input v-model="formModel.buttons[i].url"></el-input></td>
+                                    <td><el-button type="danger" @click="deleteButton(i)"><i class="el-icon-delete"></i></el-button></td>
+                                </tr>
+                            </tbody>
+                        </table>
 
                         <el-form-item>
                             <el-button type="primary" @click="save">Simpan</el-button>
@@ -279,8 +301,31 @@ export default {
             this.formTitle = 'Tambah Slider'
             this.error = {}
             this.formErrors = {}
-            this.formModel = {}
+            this.formModel = {
+                buttons: [{label: '', label_en: '', label_ar: '', type: '', url: ''}]
+            }
             this.showForm = true
+        },
+        addButton() {
+            this.formModel.buttons.push({label: '', label_en: '', label_ar: '', type: '', url: ''});
+        },
+        deleteButton(i) {
+            // kalau belum ada di database langsung hapus aja gak masalah
+            if (this.formModel.buttons[i].id == undefined) {
+                this.formModel.buttons.splice(i,1);
+                return;
+            }
+
+            // kalau sudah ada di database harus konfirmasi
+            if (!confirm('Anda yakin?')) {
+                return;
+            }
+
+            axios.delete(BASE_URL + '/carouselButton/' + this.formModel.buttons[i].id).then(r => {
+                this.formModel.buttons.splice(i,1);
+            }).catch(e => {
+                console.log(e);
+            });
         },
         editData: function(data) {
             this.formTitle = 'Edit Slider'

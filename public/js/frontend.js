@@ -3433,7 +3433,68 @@ __webpack_require__.r(__webpack_exports__);
       disabled: false,
       buttonLabel: '',
       xenditResponse: null,
-      amountFinal: 0 // xenditResponse: {"id":"5c6d064d0718f34ae954be31","external_id":"donasi_qiblat_4","user_id":"57fdbb445eec38910d3a4c47","status":"PENDING","merchant_name":"Your Company","merchant_profile_picture_url":"https:\/\/xnd-companies.s3.amazonaws.com\/prod\/1476344224287_930.png","amount":3000000,"payer_email":"udibagas@gmail.com","description":"Percetakan Mushaf - Paket C","expiry_date":"2019-02-21T07:48:29.415Z","invoice_url":"https:\/\/invoice-staging.xendit.co\/web\/invoices\/5c6d064d0718f34ae954be31","available_banks":[{"bank_code":"MANDIRI","collection_type":"POOL","bank_account_number":"8860838041787","transfer_amount":3000000,"bank_branch":"Virtual Account","account_holder_name":"YOUR COMPANY","identity_amount":0},{"bank_code":"BRI","collection_type":"POOL","bank_account_number":"2621545825240","transfer_amount":3000000,"bank_branch":"Virtual Account","account_holder_name":"YOUR COMPANY","identity_amount":0},{"bank_code":"BNI","collection_type":"POOL","bank_account_number":"880845684047","transfer_amount":3000000,"bank_branch":"Virtual Account","account_holder_name":"YOUR COMPANY","identity_amount":0},{"bank_code":"PERMATA","collection_type":"POOL","bank_account_number":"821447574437","transfer_amount":3000000,"bank_branch":"Virtual Account","account_holder_name":"YOUR COMPANY","identity_amount":0}],"available_ewallets":[],"should_exclude_credit_card":false,"should_send_email":false,"created":"2019-02-20T07:48:29.649Z","updated":"2019-02-20T07:48:29.649Z"}
+      amountFinal: 0 // xenditResponse: {
+      //     "id": "59d4c981997f96da6b69d24a",
+      //     "external_id": "demo-1475801962607",
+      //     "user_id": "59d4c95053db7ba6123971b1",
+      //     "status": "PENDING",
+      //     "merchant_name": "Xendit",
+      //     "merchant_profile_picture_url": "https://du8nwjtfkinx.cloudfront.net/xendit.png",
+      //     "amount": 13000,
+      //     "payer_email": "sample_email@xendit.co",
+      //     "description": "Trip to Bali",
+      //     "expiry_date": "2017-10-05T11:44:00.736Z",
+      //     "invoice_url": "https://invoice-staging.xendit.co/web/invoices/57f6f439b33bed606c4dae86",
+      //     "available_banks": [
+      //         {
+      //             "bank_code": "MANDIRI",
+      //             "collection_type": "POOL",
+      //             "bank_account_number": "88464100767",
+      //             "transfer_amount": 13000,
+      //             "bank_branch": "Virtual Account",
+      //             "account_holder_name": "XENDIT",
+      //             "identity_amount": 0
+      //         },
+      //         {
+      //             "bank_code": "BCA",
+      //             "collection_type": "POOL",
+      //             "bank_account_number": "02938103212",
+      //             "transfer_amount": 13000,
+      //             "bank_branch": "Virtual Account",
+      //             "account_holder_name": "XENDIT",
+      //             "identity_amount": 0
+      //         },
+      //         {
+      //             "bank_code": "BNI",
+      //             "collection_type": "POOL",
+      //             "bank_account_number": "26215100282",
+      //             "transfer_amount": 13000,
+      //             "bank_branch": "Virtual Account",
+      //             "account_holder_name": "XENDIT",
+      //             "identity_amount": 0
+      //         },
+      //         {
+      //             "bank_code": "BRI",
+      //             "collection_type": "POOL",
+      //             "bank_account_number": "8808104859",
+      //             "transfer_amount": 13000,
+      //             "bank_branch": "Virtual Account",
+      //             "account_holder_name": "XENDIT",
+      //             "identity_amount": 0
+      //         }
+      //     ],
+      //     "available_retail_outlets": [
+      //         {
+      //             "retail_outlet_name": "ALFAMART",
+      //             "payment_code": "ALFA123456",
+      //             "transfer_amount": 54000
+      //         }
+      //     ],
+      //     "should_exclude_credit_card": false,
+      //     "should_send_email": false,
+      //     "created": "2017-10-04T11:44:01.137Z",
+      //     "updated": "2017-10-04T11:44:01.137Z"
+      // }
 
     };
   },
@@ -107065,11 +107126,7 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.flexible
-      ? _c("p", [
-          _c("i", [_vm._v("Masukkan jumlah yang akan Anda donasikan:")])
-        ])
-      : _vm._e(),
+    _vm._m(0),
     _vm._v(" "),
     _c("input", {
       directives: [
@@ -107113,7 +107170,16 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", [
+      _c("i", [_vm._v("Masukkan jumlah yang akan Anda donasikan:")])
+    ])
+  }
+]
 render._withStripped = true
 
 

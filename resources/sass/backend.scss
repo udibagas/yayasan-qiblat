@@ -1,3 +1,9 @@
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
 @import '~element-ui/lib/theme-chalk/index.css';
 @import '~element-ui/lib/theme-chalk/display.css';
 
@@ -15,14 +21,6 @@ body {
   height: 100%;
 }
 
-hr {
-  border: 1px solid #ddd;
-  border-bottom: none;
-  border-right: none;
-  border-left: none;
-  margin: 15px 0;
-}
-
 .error-feedback {
   color: #f56c6c;
   font-size: 12px;
@@ -32,23 +30,6 @@ hr {
   width: 70px;
 }
 
-h4 {
-  font-size: 18px;
-  font-weight: normal;
-}
-
-.text-muted {
-    color: #999;
-}
-
 .el-form-item__label {
     font-weight: bold;
-}
-
-.text-success {
-  color: green;
-}
-
-.text-danger {
-  color: red;
 }

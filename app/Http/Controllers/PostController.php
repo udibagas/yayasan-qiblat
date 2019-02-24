@@ -10,17 +10,41 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['show', 'index']);
+        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['show', 'index']);
     }
 
     public function index(Request $request)
     {
-        $sort = $request->sort ? $request->sort : 'name';
-        $order = $request->order == 'ascending' ? 'asc' : 'desc';
+        if ($request->ajax())
+        {
+            $sort = $request->sort ? $request->sort : 'name';
+            $order = $request->order == 'ascending' ? 'asc' : 'desc';
+    
+            return Post::when($request->keyword, function ($q) use ($request) {
+                return $q->where('name', 'LIKE', '%' . $request->keyword . '%');
+            })->orderBy($sort, $order)->paginate($request->pageSize);
+        }
 
-        return Post::when($request->keyword, function ($q) use ($request) {
-            return $q->where('name', 'LIKE', '%' . $request->keyword . '%');
-        })->orderBy($sort, $order)->paginate($request->pageSize);
+        return view('post.index', [
+            'posts' => Post::latest()->post()->paginate(10),
+            'title' => 'Artikel',
+            'breadcrumbs' => [
+                'Artikel' => '#'
+            ]
+        ]);
+    }
+
+    public function show(Post $post)
+    {
+        return view('post.show', [
+            'post' => $post,
+            'title' => $post->title,
+            'breadcrumbs' => [
+                'Artikel' => url('/post'),
+                $post->title => '#'
+            ]
+        ]);
     }
 
     public function store(PostRequest $request)

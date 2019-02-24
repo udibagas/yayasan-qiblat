@@ -1,16 +1,26 @@
-<div class="row mb-2">
-    @foreach ($posts as $p)
-    <div class="col-md-6">
-        <div class="card flex-md-row mb-4 shadow-sm h-md-250">
-            <div class="card-body d-flex flex-column align-items-start">
-                <strong class="d-inline-block mb-2 text-primary">World</strong>
-                <h3 class="mb-0"> <a class="text-dark" href="#">Featured post</a> </h3>
-                <div class="mb-1 text-muted">Nov 12</div>
-                <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-                <a href="#">Continue reading</a>
+<section id="artikel">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">Berita & Artikel</h2>
+                <h3 class="section-subheading text-muted">&nbsp;</h3>
             </div>
-            <svg class="bd-placeholder-img card-img-right flex-auto d-none d-lg-block" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect fill="#55595c" width="100%" height="100%"/><text fill="#eceeef" dy=".3em" x="50%" y="50%">Thumbnail</text></svg>
+        </div>
+        <div class="row mb-2">
+            @foreach ($posts as $p)
+            <div class="col-md-6">
+                <div class="card flex-md-row mb-4 shadow-sm h-md-250">
+                    <img src="{{$p->image}}" alt="{{$p->title}}" style="height:180px;">
+                    <div class="card-body d-flex flex-column align-items-start" style="height:180px;overflow:hidden;">
+                        <!-- <strong class="d-inline-block mb-2 text-primary">World</strong> -->
+                        <h3 class="mb-0"> <a class="text-dark" href="{{url('post/'.$p->id)}}">{{$p->title}}</a> </h3>
+                        <div class="mb-1 text-muted">{{date('d M Y', strtotime($p->updated_at))}}</div>
+                        <div class="card-text mb-auto" style="height:50px;overflow:hidden;">{!! $p->content !!}</div>
+                        <a href="{{url('post/'.$p->id)}}">Lanjut membaca</a>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
-    @endforeach
-</div>
+</section> 

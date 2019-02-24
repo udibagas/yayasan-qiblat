@@ -37,6 +37,13 @@
                 </template>
             </el-table-column> -->
             <el-table-column prop="title" label="Judul" sortable="custom"></el-table-column>
+            <el-table-column prop="type" label="Jenis" sortable="custom"></el-table-column>
+            <el-table-column prop="status" label="Status" sortable="custom" column-key="status"
+            :filters="[{value: 0, text: 'Inactive'},{value: 1, text: 'Active'}]">
+                <template slot-scope="scope">
+                    <span :class="scope.row.status ? 'text-success' : 'text-danger'">{{scope.row.status ? 'Active' : 'Inactive'}}</span>
+                </template>
+            </el-table-column>
             <el-table-column prop="updated_at" label="Terakhir Diupdate" sortable="custom" width="150px"></el-table-column>
 
             <el-table-column fixed="right" width="40px">
@@ -92,7 +99,7 @@
                     <div class="error-feedback" v-if="formErrors.file">{{formErrors.file[0]}}</div>
                 </el-col>
                 <el-col :span="20">
-                    <el-form :model="formModel">
+                    <el-form :model="formModel" :label-width="120">
                         <el-tabs tab-position="top" type="card">
                             <el-tab-pane label="Indonesia">
                                 <br>
@@ -130,7 +137,7 @@
                                     <div class="error-feedback" v-if="formErrors.content_ar">{{formErrors.content_ar[0]}}</div>
                                 </el-form-item>
                             </el-tab-pane>
-                            <el-tab-pane label="Galeri">
+                            <!-- <el-tab-pane label="Galeri">
                                 <br>
                                 <el-row :gutter="15">
                                     <el-col :span="16" style="height:400px;overflow:auto;">
@@ -158,8 +165,20 @@
                                     </el-col>
                                 </el-row>
                                 <br>
-                            </el-tab-pane>
+                            </el-tab-pane> -->
                         </el-tabs>
+
+                        <el-form-item label="Jenis">
+                            <el-select placeholder="Jenis" v-model="formModel.type" style="width:100%;">
+                                <el-option value="post" label="Post"></el-option>
+                                <el-option value="page" label="Page"></el-option>
+                            </el-select>
+                            <div class="error-feedback" v-if="formErrors.type">{{formErrors.type[0]}}</div>
+                        </el-form-item>
+
+                        <el-form-item label="Status">
+                            <el-switch v-model="formModel.status"></el-switch>
+                        </el-form-item>
 
                         <el-form-item>
                             <el-button type="primary" @click="save">Simpan</el-button>
@@ -327,6 +346,7 @@ export default {
         },
         editData: function(data) {
             this.formTitle = 'Edit Post'
+            data.status = !!data.status
             this.formModel = JSON.parse(JSON.stringify(data));
             this.error = {}
             this.formErrors = {}

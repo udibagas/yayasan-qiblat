@@ -16,20 +16,14 @@
             </div>
             <div class="col-md-8">
                 <div class="card mb-4 shadow-sm">
-                    <div class="card-header">
+                    <div class="card-header bg-warning">
                         <h4 class="my-0 font-weight-normal">{{$package->name}}</h4>
                     </div>
                     <div class="card-body">
                         <h1 class="card-title pricing-card-title">Rp {{number_format($package->price, 0, ',', '.')}}</h1>
                         <p class="text-muted">{!! nl2br($package->description) !!}</p>
-                        
-                        <donate-button 
-                        amount="{{$package->price}}" 
-                        label="DONASI SEKARANG" 
-                        remark="{{$package->program->name}} - {{$package->name}}"
-                        package="{{$package->id}}" 
-                        :flexible="{{$package->flexible_amount}}"
-                        program="{{$package->program->id}}">
+
+                        <donate-button amount="{{$package->price}}" label="DONASI SEKARANG" remark="{{$package->program->name}} - {{$package->name}}" package="{{$package->id}}" :flexible="{{$package->flexible_amount}}" program="{{$package->program->id}}">
                         </donate-button>
                     </div>
                 </div>
@@ -38,4 +32,4 @@
     </div>
 </section>
 
-@endsection
+@endsection 

@@ -12,9 +12,9 @@ class Carousel extends Model
         'title_ar', 'description_ar'
     ];
 
-    protected $with = ['carouselButtons'];
+    protected $with = ['buttons'];
 
-    public function carouselButtons()
+    public function buttons()
     {
         return $this->hasMany(CarouselButton::class);
     }
