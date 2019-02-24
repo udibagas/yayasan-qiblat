@@ -49,6 +49,8 @@ Route::get('brosur', function() {
     return response()->download(public_path('/brosur.pdf'));
 });
 
+Route::get('contact', 'HomeController@contact');
+
 Route::get('/mailcreated', function () {
     $donation = App\Donation::find(1);
     return new App\Mail\DonationCreated($donation);

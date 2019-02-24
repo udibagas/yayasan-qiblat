@@ -1,5 +1,3 @@
-@include('home.contact')
-
 <!-- Footer -->
 <footer>
     <div class="container">

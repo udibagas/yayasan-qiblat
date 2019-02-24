@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top navbar-shrink" id="mainNav">
     <div class="container">
-        <a class="navbar-brand" href="{{url('/')}}">{{ config('app.name', 'Laravel') }}</a>
+        <a class="navbar-brand" href="{{url('/')}}">
+            <img src="{{asset('img/logo.png')}}" alt="">
+            <!-- {{ config('app.name', 'Laravel') }} -->
+        </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
@@ -15,13 +18,13 @@
                 </li>
                 @endforeach
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/program')}}">Program Kami</a>
+                    <a class="nav-link" href="{{url('/program')}}">Program</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/program')}}">Donasi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/programGallery')}}">Galeri Program</a>
+                    <a class="nav-link" href="{{url('/programGallery')}}">Galeri</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/team')}}">Team</a>

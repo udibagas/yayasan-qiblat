@@ -54,11 +54,11 @@ class NavigationController extends Controller
                 'label' => 'Post',
                 'icon' => 'file'
             ],
-            [
-                'path' => '/postCategory',
-                'label' => 'Post Category',
-                'icon' => 'tags'
-            ],
+            // [
+            //     'path' => '/postCategory',
+            //     'label' => 'Post Category',
+            //     'icon' => 'tags'
+            // ],
             [
                 'path' => '/team',
                 'label' => 'Team',

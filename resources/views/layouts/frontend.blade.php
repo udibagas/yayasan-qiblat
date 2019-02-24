@@ -34,7 +34,9 @@
   </body>
   <script>
     const BASE_URL = '{{url("/")}}'
+    @auth
     const USER = {!! auth()->user() !!}
+    @endauth
   </script>
   <script src="{{ asset('js/frontend.js') }}"></script>
   @stack('script')

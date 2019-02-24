@@ -192,18 +192,37 @@ class DonationController extends Controller
         //     ]
         // }" \'http://localhost:8000/donation/callback'
 
+        // {
+        //     "id": "579c8d61f23fa4ca35e52da4",
+        //     "user_id": "5781d19b2e2385880609791c",
+        //     "external_id": "invoice_123124123",
+        //     "is_high": true,
+        //     "status": "PAID",
+        //     "merchant_name": "Xendit",
+        //     "amount": 50000,
+        //     "payer_email": "albert@xendit.co",
+        //     "description": "This is a description",
+        //     "paid_amount": 50000,
+        //     "payment_method": "POOL",
+        //     "adjusted_received_amount": 47500,
+        //     "updated": "2016-10-10T08:15:03.404Z",
+        //     "created": "2016-10-10T08:15:03.404Z"
+        // }
+
         $data = file_get_contents("php://input");
         $donation = Donation::where('external_id', $data['external_id'])->first();
+        $donation->status = $data['status'];
+        $donation->save();
 
-        if ($donation) 
-        {
-            $donation->update($data);
+        // if ($donation) 
+        // {
+        //     $donation->update($data);
 
-            Mail::to($donation->user)
-                ->cc(User::where('role', User::ROLE_ADMIN)->get())
-                ->queue(new DonationCompleted($donation));
+        //     Mail::to($donation->user)
+        //         ->cc(User::where('role', User::ROLE_ADMIN)->get())
+        //         ->queue(new DonationCompleted($donation));
             
-        }
+        // }
 
         return ['message' => 'OK'];
     }

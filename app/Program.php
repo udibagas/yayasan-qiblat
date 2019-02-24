@@ -16,4 +16,8 @@ class Program extends Model
     public function packages() {
         return $this->hasMany(ProgramPackage::class);
     }
+
+    public function galleries() {
+        return $this->hasMany(ProgramGallery::class);
+    }
 }

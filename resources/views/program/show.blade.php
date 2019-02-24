@@ -43,6 +43,8 @@
     </div>
 </section>
 
+@include('home.gallery', ['galleries' => $program->galleries])
+
 @endsection
 
 @push('script')
