@@ -16,9 +16,9 @@
 @include('home.gallery')
 
 <!-- Team -->
-@if (count($team) > 0)
+<!-- @if (count($team) > 0)
 @include('home.team')
-@endif
+@endif -->
 
 @include('home.post')
 

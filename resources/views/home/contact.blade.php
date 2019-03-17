@@ -9,19 +9,19 @@
         <div class="row text-center">
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="height:301px">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h4 class="service-heading">Nomor HP/WA</h4>
+                        <h4 class="service-heading">Nomor HP / WA</h4>
                         <p class="text-muted">{{$settings['contact_phone']}}</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="height:301px">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
@@ -33,7 +33,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="height:301px">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i>
@@ -46,4 +46,4 @@
         </div>
     </div>
 </section>
-<iframe class="embed-responsive-item" src="{{$settings['maps_src']}}" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+<iframe class="embed-responsive-item" src="{{$settings['maps_src']}}" width="100%" height="300" frameborder="0" style="border:0" allowfullscreen></iframe> 
