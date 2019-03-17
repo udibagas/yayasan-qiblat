@@ -1,26 +1,30 @@
 <template>
     <div>
+        <hr>
         <div v-if="xenditResponse">
-            <iframe :src="xenditResponse.invoice_url" frameborder="0" style="width:100%;height:700px;"></iframe>
+            <!-- <h1>Terimakasih!</h1>
+            <p>
+                Terimakasih atas donasi Anda. Silakan transfer ke bank berikut sejumlah 
+                <span class="amount">Rp {{xenditResponse.amount | formatNumber}}</span> 
+                sebelum <span class="time">{{ xenditResponse.expiry_date | readableDateTime }} WIB</span>  :
+            </p>
+            
+            <ul>
+                <li v-for="b in xenditResponse.available_banks" :key="b.bank_code">
+                    <h5 class="bank-code"> {{b.bank_code}} </h5>
+                    Nomor Virtual Account <span class="account-number">{{b.bank_account_number}}</span> <br>
+                    A.n <span class="account-name">{{b.account_holder_name}}</span>
+                    <hr>
+                </li>
+
+            </ul> -->
+            <iframe :src="xenditResponse.invoice_url" frameborder="0" style="width:100%;height:500px;"></iframe>
         </div>
         <div v-if="!xenditResponse">
-            <p><i>Masukkan jumlah yang akan Anda donasikan (USD):</i></p>
-            <el-row :gutter="15">
-                <el-col :span="16">
-                    <el-input type="number" v-model="data.price" :disabled="!data.flexible_amount"></el-input>
-                </el-col>
-                <el-col :span="8">
-                    <el-input-number style="width:100%" v-model="qty" :min="1"></el-input-number>
-                </el-col>
-            </el-row><br>
+            <p><i>Masukkan jumlah yang akan Anda donasikan:</i></p>
+            <input type="number" v-model="amountFinal" class="form-control input-lg" :disabled="!flexible"><br>
             <p><i>Tulis keterangan tambahan jika ada:</i></p>
             <textarea class="form-control" rows="3" v-model="additionalRemark" placeholder="Keterangan"></textarea><br>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-for="(c, i) in currencies" :key="i">
-                    <h3>{{c.rate * data.price  * qty | formatNumber}} <small>{{c.currency}}</small></h3>
-                </li>
-            </ul>
-            <br>
             <button v-show="!xenditResponse" :disabled="disabled" class="btn btn-block btn-primary btn-lg" @click="donate">{{buttonLabel}}</button>
         </div>
     </div>
@@ -30,16 +34,10 @@
 import moment from 'moment'
 
 export default {
-    props: ['paket', 'label'],
+    props: ['program', 'package', 'amount', 'remark', 'label', 'flexible'],
     filters: {
         readableDateTime(v) {
             return moment(v).format('DD MMM YYYY HH:mm')
-        }
-    },
-    computed: {
-        amountFinal() {
-            // cari rate dalam rupiah
-            return this.data.price * parseFloat(this.idr_rate.rate) * this.qty
         }
     },
     data() {
@@ -47,11 +45,8 @@ export default {
             disabled: false,
             buttonLabel: '',
             xenditResponse: null,
+            amountFinal: 0,
             additionalRemark: '',
-            qty: 1,
-            data: {},
-            currencies: [],
-            idr_rate: 1
             // xenditResponse: {
             //     "id": "59d4c981997f96da6b69d24a",
             //     "external_id": "demo-1475801962607",
@@ -118,48 +113,36 @@ export default {
     },
     mounted() {
         this.buttonLabel = this.label
-        this.getData()
-        axios.get(BASE_URL + '/currencyRate').then(r => {
-            this.currencies = r.data
-            this.idr_rate = r.data.find(d => d.currency == 'IDR')
-        }).catch(e => console.log(e))
+        this.amountFinal = this.amount
     },
     methods: {
-        getData() {
-            axios.get(BASE_URL + '/programPackage/' + this.paket).then(r => {
-                this.data = r.data
-            }).catch(e => console.log(e))
-        },
         donate() {
-            // if (!confirm('Anda yakin akan melakukan donasi?')) return;
+            if (!confirm('Anda yakin akan melakukan donasi?')) return;
 
-            this.$confirm('Anda yakin akan melakukan donasi?', 'Confirm').then(() => {
-                let data = {
-                    program_id: this.data.program_id,
-                    program_package_id: this.data.id,
-                    amount: this.amountFinal,
-                    qty: this.qty,
-                    remark: this.data.program.name + ' - ' + this.data.name + ' : ' + this.additionalRemark
+            let data = {
+                program_id: this.program,
+                program_package_id: this.package,
+                amount: this.amountFinal,
+                remark: this.remark + ' : ' + this.additionalRemark
+            }
+            
+            this.disabled = true
+            this.buttonLabel = 'Mohon tunggu...'
+            // simpan di database
+            axios.post(BASE_URL + '/donation', data).then(r => {
+                this.buttonLabel = this.label
+                this.disabled = false
+                console.log(r)
+                if (r.data.error_code) {
+                    alert('Terjadi kesalahan. ' + r.data.error_code + ' ' + r.data.message)
+                    return
                 }
-                
-                this.disabled = true
-                this.buttonLabel = 'Mohon tunggu...'
-                // simpan di database
-                axios.post(BASE_URL + '/donation', data).then(r => {
-                    this.buttonLabel = this.label
-                    this.disabled = false
-                    if (r.data.error_code) {
-                        alert('Terjadi kesalahan. ' + r.data.error_code + ' ' + r.data.message)
-                        return
-                    }
-                    this.xenditResponse = r.data
-                }).catch(e => {
-                    this.buttonLabel = this.label
-                    this.disabled = false
-                    console.log(e)
-                })
-
-            }).catch(e => console.log(e))
+                this.xenditResponse = r.data
+            }).catch(e => {
+                this.buttonLabel = this.label
+                this.disabled = false
+                console.log(e)
+            })
         }
     }
 }

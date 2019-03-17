@@ -3,8 +3,8 @@
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Laporan Donasi</h2>
-                <h3 class="section-subheading text-muted">Berikut adalah laporan donasi yang sudah masuk sampai hari ini</h3>
+                <h2 class="section-heading text-uppercase">Prestasi Yayasan</h2>
+                <h3 class="section-subheading text-muted">Berikut adalah prestasi yayasan kami</h3>
             </div>
         </div>
 

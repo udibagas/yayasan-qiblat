@@ -1,11 +1,37 @@
-- tentang kami
-- hubungi kami
-- benerin footer
-- login sosmed
+Cpanel website:
+Link : yayasanqiblat.com/cpanel
+username : yayasanq
+password : yaQi77886xifg
+
+Account Xendit :
+Username : yayasan.qiblat@gmail.com
+Password : yaQi77886xifg
+
+
+kristonovo posted 4 years ago
+Configuration Eloquent
+I´m having no access to run composer on my clients server - so what to do when I change my controllers folderstructure?
+
+ 
+nesl247 replied 4 years ago
+You need to upload
+
+/bootstrap
+/vendor/composer
+I think that's it.
+
+ 
+Ardenexal replied 4 years ago
+the exact files that change are
+
+/vendor/autoload.php
+/vendor/composer_real.php
+/vendor/composer/autoload_classmap.php
+
+
+- delete user gagal
+- redirect user buat lengkapi profile kalau login via sosmed ==> today
 - template email
-
-- form donasi
-
 
 
 Menu = Home, Donasi, Artikel, Kontak

@@ -12,7 +12,7 @@ import Donation from './pages/Donation'
 import Program from './pages/Program'
 import ProgramGallery from './pages/ProgramGallery'
 import ProgramPackage from './pages/ProgramPackage'
-import Team from './pages/Team'
+import CurrencyRate from './pages/CurrencyRate'
 import SocialMedia from './pages/SocialMedia'
 
 Vue.use(VueRouter)
@@ -68,10 +68,15 @@ let routes = [
         name: 'programGallery',
         component: ProgramGallery
     },
+    // {
+    //     path: '/team',
+    //     name: 'team',
+    //     component: Team
+    // },
     {
-        path: '/team',
-        name: 'team',
-        component: Team
+        path: '/currencyRate',
+        name: 'currencyRate',
+        component: CurrencyRate
     },
     {
         path: '/donation',

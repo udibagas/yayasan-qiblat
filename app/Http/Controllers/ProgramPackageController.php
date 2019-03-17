@@ -54,8 +54,12 @@ class ProgramPackageController extends Controller
         return ProgramPackage::create($request->all());
     }
 
-    public function show(ProgramPackage $programPackage)
+    public function show(Request $request, ProgramPackage $programPackage)
     {
+        if ($request->ajax()) {
+            return $programPackage;
+        }
+
         return view('programPackage.show', [
             'title' => $programPackage->name,
             'programPackage' => $programPackage,

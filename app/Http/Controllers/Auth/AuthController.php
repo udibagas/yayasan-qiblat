@@ -29,6 +29,7 @@ class AuthController extends Controller
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
         return redirect('/');
+        // return redirect('/register?name='.$user->name.'&email='.$user->email);
     }
 
     /**
@@ -40,16 +41,40 @@ class AuthController extends Controller
      */
     public function findOrCreateUser($user, $provider)
     {
-        $authUser = User::where('provider_id', $user->id)->first();
+        $authUser = User::where('provider_id', $user->id);
+
         if ($authUser) {
             return $authUser;
-        } else {
+        }
+        
+        else 
+        {
+            if (!empty($user->email)) 
+            {
+                // sudah pernah daftar manual
+                $authUser = User::where('email', $user->email)->first();
+
+                $authUser->update([
+                    'provider' => $provider,
+                    'provider_id' => $user->id,
+                ]);
+
+                return $authUser;
+            }
+
+            // bikin user baru
             $data = User::create([
                 'name' => $user->name,
                 'email' => !empty($user->email) ? $user->email : '',
                 'provider' => $provider,
-                'provider_id' => $user->id
+                'provider_id' => $user->id,
+                'api_token' => str_random(60),
+                // 'phone' => $data['phone'],
+                // 'address' => $data['address'],
+                'role' => 0,
+                'status' => 1
             ]);
+
             return $data;
         }
     }

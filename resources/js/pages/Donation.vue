@@ -28,7 +28,8 @@
                 <el-table-column prop="program" label="Program" sortable="custom"></el-table-column>
                 <el-table-column prop="package" label="Paket" sortable="custom"></el-table-column>
                 <el-table-column prop="remark" label="Keterangan" sortable="custom"></el-table-column>
-                <el-table-column prop="payment_method" label="Metode Pembayaran" sortable="custom"></el-table-column>
+                <!-- <el-table-column prop="payment_method" label="Metode Pembayaran" sortable="custom"></el-table-column> -->
+                <el-table-column width="50" prop="qty" label="Qty" align="center" header-align="center"></el-table-column>
                 <el-table-column prop="amount" label="Jumlah" sortable="custom" align="right" header-align="right">
                     <template slot-scope="scope">
                         Rp {{ scope.row.amount | formatNumber }}

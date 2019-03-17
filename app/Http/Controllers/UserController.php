@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Donation;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 

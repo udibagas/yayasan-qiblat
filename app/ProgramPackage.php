@@ -14,10 +14,21 @@ class ProgramPackage extends Model
         'price', 'flexible_amount'
     ];
 
+    protected $appends = ['prices'];
+
     protected $with = ['program'];
 
     public function program()
     {
         return $this->belongsTo(Program::class);
+    }
+
+    public function getPricesAttribute() {
+        $prices = [];
+        foreach (CurrencyRate::all() as $c) {
+            $prices[$c->currency] = $this->price * $c->rate;
+        }
+
+        return $prices;
     }
 }

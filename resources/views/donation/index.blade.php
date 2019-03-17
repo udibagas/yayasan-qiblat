@@ -17,6 +17,7 @@
                     @if (auth()->user()->role === App\User::ROLE_ADMIN)
                     <th>Donatur</th>
                     @endif
+                    <th class="text-center">Qty</th>
                     <th class="text-right">Jumlah</th>
                     <th class="text-center">Status</th>
                 </tr>
@@ -31,7 +32,8 @@
                     @if (auth()->user()->role === App\User::ROLE_ADMIN)
                     <td>{{$d->user}}</td>
                     @endif
-                    <td class="text-right">Rp {{number_format($d->amount)}}</td>
+                    <td class="text-center">{{number_format($d->qty)}}</td>
+                    <td class="text-right" style="width:150px">Rp {{number_format($d->amount)}}</td>
                     <td class="text-center">{{$d->status}}</td>
                 </tr>
                 @endforeach

@@ -40,6 +40,7 @@ Route::resource('programPackage', 'ProgramPackageController')->except(['create',
 Route::resource('team', 'TeamController')->except(['create', 'edit', 'show']);
 Route::resource('socialMedia', 'SocialMediaController')->except(['create', 'edit', 'show']);
 Route::resource('setting', 'SettingController');
+Route::resource('currencyRate', 'CurrencyRateController')->only(['index', 'store', 'update', 'destroy']);
 
 Route::post('backup', 'BackupController@store');
 Route::get('backup', 'BackupController@index');
@@ -59,6 +60,21 @@ Route::get('/mailcreated', function () {
 Route::get('/mailcompleted', function () {
     $donation = App\Donation::find(1);
     return new App\Mail\DonationCompleted($donation);
+});
+
+Route::get('/migrate', function()  {
+    // Artisan::call('clear-compiled');
+    // Artisan::call('route:clear');
+    // Artisan::call('cache:clear');
+    // Artisan::call('config:clear');
+    // Artisan::call('view:clear');
+    Artisan::call('migrate');
+    echo 'refresh complete';
+});
+
+Route::get('/down-bismillah12345', function()  {
+    Artisan::call('down');
+    echo 'App is Down!';
 });
 
 // untuk SPA backend

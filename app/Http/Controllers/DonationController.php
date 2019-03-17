@@ -115,11 +115,12 @@ class DonationController extends Controller
             $donation->expired_at = date('Y-m-d H:i:s', strtotime($response['expiry_date']));
             $donation->status = $response['status'];
             $donation->external_id = $external_id;
+            // $donation->invoice_url = $response[ 'invoice_url'];
             $donation->save();
 
-            Mail::to($donation->user)
-                ->cc(User::where('role', User::ROLE_ADMIN)->get())
-                ->queue(new DonationCreated($donation));
+            // Mail::to($donation->user)
+            //     ->cc(User::where('role', User::ROLE_ADMIN)->get())
+            //     ->queue(new DonationCreated($donation));
         }
         
         else {
@@ -214,15 +215,15 @@ class DonationController extends Controller
         $donation->status = $data['status'];
         $donation->save();
 
-        // if ($donation) 
-        // {
-        //     $donation->update($data);
+        if ($donation) 
+        {
+            $donation->update($data);
 
-        //     Mail::to($donation->user)
-        //         ->cc(User::where('role', User::ROLE_ADMIN)->get())
-        //         ->queue(new DonationCompleted($donation));
+            // Mail::to($donation->user)
+            //     ->cc(User::where('role', User::ROLE_ADMIN)->get())
+            //     ->queue(new DonationCompleted($donation));
             
-        // }
+        }
 
         return ['message' => 'OK'];
     }

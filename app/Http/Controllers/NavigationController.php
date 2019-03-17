@@ -45,6 +45,11 @@ class NavigationController extends Controller
                 'icon' => 'money-bill-alt'
             ],
             [
+                'path' => '/currencyRate',
+                'label' => 'Currency Rate',
+                'icon' => 'money-bill-alt'
+            ],
+            [
                 'path' => '/carousel',
                 'label' => 'Slider',
                 'icon' => 'image'
@@ -59,11 +64,11 @@ class NavigationController extends Controller
             //     'label' => 'Post Category',
             //     'icon' => 'tags'
             // ],
-            [
-                'path' => '/team',
-                'label' => 'Team',
-                'icon' => 'users'
-            ],
+            // [
+            //     'path' => '/team',
+            //     'label' => 'Team',
+            //     'icon' => 'users'
+            // ],
             [
                 'path' => '/socialMedia',
                 'label' => 'Media Sosial',
