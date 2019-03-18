@@ -13,6 +13,36 @@ class Program extends Model
         'icon'
     ];
 
+    public function getNameAttribute($v)
+    {
+        $locale = app()->getLocale();
+
+        if ($locale == 'en') {
+            return $this->name_en;
+        }
+
+        if ($locale == 'ar') {
+            return $this->name_ar;
+        }
+
+        return $v;
+    }
+
+    public function getDescriptionAttribute($v)
+    {
+        $locale = app()->getLocale();
+
+        if ($locale == 'en') {
+            return $this->description_en;
+        }
+
+        if ($locale == 'ar') {
+            return $this->description_ar;
+        }
+
+        return $v;
+    }
+
     public function packages() {
         return $this->hasMany(ProgramPackage::class);
     }

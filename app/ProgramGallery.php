@@ -13,6 +13,36 @@ class ProgramGallery extends Model
         'title_ar', 'description_ar',
     ];
 
+    public function getTitleAttribute($v)
+    {
+        $locale = app()->getLocale();
+
+        if ($locale == 'en') {
+            return $this->title_en;
+        }
+
+        if ($locale == 'ar') {
+            return $this->title_ar;
+        }
+
+        return $v;
+    }
+
+    public function getContentAttribute($v)
+    {
+        $locale = app()->getLocale();
+
+        if ($locale == 'en') {
+            return $this->content_en;
+        }
+
+        if ($locale == 'ar') {
+            return $this->content_ar;
+        }
+
+        return $v;
+    }
+
     protected $with = ['program'];
 
     public function program() {

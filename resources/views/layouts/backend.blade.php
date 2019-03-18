@@ -28,9 +28,7 @@
     <script>
         const BASE_URL = '{{url("/")}}'
         @auth
-        const USER = {
-            !!auth() - > user() !!
-        }
+        const USER = {!! auth()->user() !!}
         @endauth
     </script>
 </body>

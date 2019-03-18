@@ -44,7 +44,12 @@ class HomeController extends Controller
             'programs' => Program::all(),
             'socialMedia' => SocialMedia::all(),
             'galleries' => ProgramGallery::limit(6)->latest()->get(),
-            'pages' => Post::active()->page()->get()
+            'pages' => Post::active()->page()->get(),
+            // untuk SEO
+            'title' => 'Home',
+            'description' => $settings['description'],
+            'keyword' => '',
+            'image' => ''
         ]);
     }
 
@@ -62,7 +67,12 @@ class HomeController extends Controller
             'title' => 'Hubungi Kami',
             'breadcrumbs' => [
                 'Hubungi Kami' => '#'
-            ]
+            ],
+            // untuk SEO
+            'title' => 'Hubungi Kami',
+            'description' => 'Hubungi Kami',
+            'keyword' => '',
+            'image' => ''
         ]);
     }
 }

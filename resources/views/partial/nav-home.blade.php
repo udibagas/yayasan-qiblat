@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#page-top">Home</a>
+                    <a class="nav-link js-scroll-trigger" href="#page-top">{{ __('home') }}</a>
                 </li>
                 @foreach ($pages as $p)
                 <li class="nav-item">
@@ -18,26 +18,26 @@
                 </li>
                 @endforeach
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#programs">Program</a>
+                    <a class="nav-link js-scroll-trigger" href="#programs">{{ __('program') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#donasi">Donasi</a>
+                    <a class="nav-link js-scroll-trigger" href="#donasi">{{ __('donation') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#portfolio">Galeri</a>
+                    <a class="nav-link js-scroll-trigger" href="#portfolio">{{ __('gallery') }}</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#team">Team</a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#artikel">Artikel</a>
+                    <a class="nav-link js-scroll-trigger" href="#artikel">{{ __('posts') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#contact">Hubungi Kami</a>
+                    <a class="nav-link js-scroll-trigger" href="#contact">{{ __('contactus') }}</a>
                 </li>
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="event.preventDefault(); window.location.href = '/login'">Login</a>
+                    <a class="nav-link" href="#" onclick="event.preventDefault(); window.location.href = '/login'">{{ __('login') }}</a>
                 </li>
                 @else
                 <li class="nav-item">
@@ -51,6 +51,17 @@
                     </form>
                 </li>
                 @endguest
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <img src="{{ asset('/img/'.app()->getLocale().'.png')}}" alt="{{ app()->getLocale() }}" style="height:14px;"> <span class="caret"></span>
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        @foreach (['id' => 'Bahasa Indonesia', 'en' => 'English', 'ar' => 'العربية'] as $lang => $desc)
+                        <a class="dropdown-item" onClick="window.location.href = '{{url('locale/'.$lang)}}'" href="#"><img src="{{ asset('/img/'.$lang.'.png')}}" alt="{{$lang}}" style="height:14px;margin-right:5px">{{$desc}}</a>
+                        @endforeach
+                    </div>
+                </li>
             </ul>
         </div>
     </div>

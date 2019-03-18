@@ -4,6 +4,7 @@ use App\Setting;
 use App\SocialMedia;
 use App\Carousel;
 use App\Post;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,11 @@ use App\Post;
 */
 
 Auth::routes();
+
+Route::get('locale/{locale}', function ($locale) {
+    Session::put('locale', $locale);
+    return redirect()->back();
+});
 
 // untuk login via sosmed
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');

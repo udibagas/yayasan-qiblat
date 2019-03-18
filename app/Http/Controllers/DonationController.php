@@ -53,7 +53,12 @@ class DonationController extends Controller
             'donations' => $donations,
             'breadcrumbs' => [
                 'Donasi Saya' => '#',
-            ]
+            ],
+            // untuk SEO
+            'title' => 'Donasi Saya',
+            'description' => 'Donasi Saya',
+            'keyword' => '',
+            'image' => ''
         ]);
 
     }
@@ -78,7 +83,12 @@ class DonationController extends Controller
                 'Donasi' => url('program'),
                 $package->program->name => url('program/'.$package->program_id),
                 $package->name => '#'
-            ]
+            ],
+            // untuk SEO
+            'title' => $package->program->name,
+            'description' => $package->program->description,
+            'keyword' => '',
+            'image' => ''
         ]);
     }
 
@@ -94,7 +104,17 @@ class DonationController extends Controller
             'program_id' => 'required',
             'program_package_id' => 'required',
             'amount' => 'required',
+            'phone' => 'required'
+        ], [], [
+            'phone' => 'No. HP'
         ]);
+
+        // update phone if change
+        if ($request->phone != $request->user()->phone) {
+            $user = $request->user();
+            $user->phone = $request->phone;
+            $user->save();
+        }
 
         $input = $request->all();
         $input['user_id'] = $request->user()->id;

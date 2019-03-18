@@ -39,7 +39,12 @@ class ProgramController extends Controller
             'programs' => Program::all(),
             'breadcrumbs' => [
                 'Program Kami' => '#'
-            ]
+            ],
+            // untuk SEO
+            'title' => 'Program Kami',
+            'description' => 'Program Kami',
+            'keyword' => '',
+            'image' => ''
         ]);
     }
 
@@ -62,7 +67,12 @@ class ProgramController extends Controller
             'breadcrumbs' => [
                 'Program' => url('/program'),
                 $program->name => '#'
-            ]
+            ],
+            // untuk SEO
+            'title' => $program->name,
+            'description' => $program->description,
+            'keyword' => '',
+            'image' => ''
         ]);
     }
 

@@ -4,6 +4,19 @@
             <iframe :src="xenditResponse.invoice_url" frameborder="0" style="width:100%;height:700px;"></iframe>
         </div>
         <div v-if="!xenditResponse">
+            <!-- <h3>Informasi Donatur</h3> -->
+            <el-form label-width="130px" label-position="left">
+                <el-form-item label="Nama Donatur">
+                    <el-input disabled v-model="user.name"></el-input>
+                </el-form-item>
+                <el-form-item label="Email">
+                    <el-input disabled v-model="user.email"></el-input>
+                </el-form-item>
+                <el-form-item label="No. HP">
+                    <el-input v-model="user.phone"></el-input>
+                    <div class="el-form-item__error" v-if="formErrors.phone">{{formErrors.phone[0]}}</div>
+                </el-form-item>
+            </el-form>
             <p><i>Masukkan jumlah yang akan Anda donasikan (USD):</i></p>
             <el-row :gutter="15">
                 <el-col :span="16">
@@ -51,69 +64,9 @@ export default {
             qty: 1,
             data: {},
             currencies: [],
-            idr_rate: 1
-            // xenditResponse: {
-            //     "id": "59d4c981997f96da6b69d24a",
-            //     "external_id": "demo-1475801962607",
-            //     "user_id": "59d4c95053db7ba6123971b1",
-            //     "status": "PENDING",
-            //     "merchant_name": "Xendit",
-            //     "merchant_profile_picture_url": "https://du8nwjtfkinx.cloudfront.net/xendit.png",
-            //     "amount": 13000,
-            //     "payer_email": "sample_email@xendit.co",
-            //     "description": "Trip to Bali",
-            //     "expiry_date": "2017-10-05T11:44:00.736Z",
-            //     "invoice_url": "https://invoice-staging.xendit.co/web/invoices/57f6f439b33bed606c4dae86",
-            //     "available_banks": [
-            //         {
-            //             "bank_code": "MANDIRI",
-            //             "collection_type": "POOL",
-            //             "bank_account_number": "88464100767",
-            //             "transfer_amount": 13000,
-            //             "bank_branch": "Virtual Account",
-            //             "account_holder_name": "XENDIT",
-            //             "identity_amount": 0
-            //         },
-            //         {
-            //             "bank_code": "BCA",
-            //             "collection_type": "POOL",
-            //             "bank_account_number": "02938103212",
-            //             "transfer_amount": 13000,
-            //             "bank_branch": "Virtual Account",
-            //             "account_holder_name": "XENDIT",
-            //             "identity_amount": 0
-            //         },
-            //         {
-            //             "bank_code": "BNI",
-            //             "collection_type": "POOL",
-            //             "bank_account_number": "26215100282",
-            //             "transfer_amount": 13000,
-            //             "bank_branch": "Virtual Account",
-            //             "account_holder_name": "XENDIT",
-            //             "identity_amount": 0
-            //         },
-            //         {
-            //             "bank_code": "BRI",
-            //             "collection_type": "POOL",
-            //             "bank_account_number": "8808104859",
-            //             "transfer_amount": 13000,
-            //             "bank_branch": "Virtual Account",
-            //             "account_holder_name": "XENDIT",
-            //             "identity_amount": 0
-            //         }
-            //     ],
-            //     "available_retail_outlets": [
-            //         {
-            //             "retail_outlet_name": "ALFAMART",
-            //             "payment_code": "ALFA123456",
-            //             "transfer_amount": 54000
-            //         }
-            //     ],
-            //     "should_exclude_credit_card": false,
-            //     "should_send_email": false,
-            //     "created": "2017-10-04T11:44:01.137Z",
-            //     "updated": "2017-10-04T11:44:01.137Z"
-            // }
+            idr_rate: { currency: 'IDR', rate: 15000 },
+            user: USER,
+            formErrors: {}
         }
     },
     mounted() {
@@ -131,7 +84,15 @@ export default {
             }).catch(e => console.log(e))
         },
         donate() {
-            // if (!confirm('Anda yakin akan melakukan donasi?')) return;
+            if (!this.user.phone) {
+                this.$message({
+                    message: 'Mohon isi No. HP',
+                    type: 'error',
+                    showClose: true
+                });
+
+                return;
+            }
 
             this.$confirm('Anda yakin akan melakukan donasi?', 'Confirm').then(() => {
                 let data = {
@@ -139,7 +100,8 @@ export default {
                     program_package_id: this.data.id,
                     amount: this.amountFinal,
                     qty: this.qty,
-                    remark: this.data.program.name + ' - ' + this.data.name + ' : ' + this.additionalRemark
+                    remark: this.data.program.name + ' - ' + this.data.name + ' : ' + this.additionalRemark,
+                    phone: this.user.phone
                 }
                 
                 this.disabled = true
@@ -156,7 +118,18 @@ export default {
                 }).catch(e => {
                     this.buttonLabel = this.label
                     this.disabled = false
-                    console.log(e)
+                    if (e.response.status == 422) {
+                        this.formErrors = e.response.data.errors;
+                    }
+
+                    if (e.response.status == 500) {
+                        this.formErrors = {}
+                        this.$message({
+                            message: e.response.data,
+                            type: 'error',
+                            showClose: true
+                        })
+                    }
                 })
 
             }).catch(e => console.log(e))
@@ -166,14 +139,5 @@ export default {
 </script>
 
 <style scoped>
-
-.amount, 
-.time, 
-.account-number, 
-.account-name {
-    font-weight: bold;
-    color: red;
-    font-size: 16px;
-}
 
 </style>

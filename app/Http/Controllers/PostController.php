@@ -31,7 +31,12 @@ class PostController extends Controller
             'title' => 'Artikel',
             'breadcrumbs' => [
                 'Artikel' => '#'
-            ]
+            ],
+            // untuk SEO
+            'title' => __('posts'),
+            'description' => __('posts'),
+            'keyword' => '',
+            'image' => ''
         ]);
     }
 
@@ -43,7 +48,12 @@ class PostController extends Controller
             'breadcrumbs' => [
                 'Artikel' => url('/post'),
                 $post->title => '#'
-            ]
+            ],
+            // untuk SEO
+            'title' => $post->title,
+            'description' => $post->title,
+            'keyword' => '',
+            'image' => ''
         ]);
     }
 
@@ -61,7 +71,12 @@ class PostController extends Controller
             'breadcrumbs' => [
                 'Artikel' => url('/post'),
                 $post->title => '#'
-            ]
+            ],
+            // untuk SEO
+            'title' => $post->title,
+            'description' => $post->title,
+            'keyword' => '',
+            'image' => ''
         ]);
     }
 

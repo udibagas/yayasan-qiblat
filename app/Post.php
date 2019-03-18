@@ -15,6 +15,34 @@ class Post extends Model
         'user_id', 'status', 'type'
     ];
 
+    public function getTitleAttribute($v) {
+        $locale = app()->getLocale();
+        
+        if ($locale == 'en') {
+            return $this->title_en;
+        }
+
+        if ($locale == 'ar') {
+            return $this->title_ar;
+        }
+        
+        return $v;
+    }
+
+    public function getContentAttribute($v) {
+        $locale = app()->getLocale();
+        
+        if ($locale == 'en') {
+            return $this->content_en;
+        }
+
+        if ($locale == 'ar') {
+            return $this->content_ar;
+        }
+        
+        return $v;
+    }
+
     public function scopeActive($q) {
         return $q->where('status', 1);
     }

@@ -32,7 +32,12 @@ class ProgramGalleryController extends Controller
             'galleries' => ProgramGallery::paginate(),
             'breadcrumbs' => [
                 'Galeri Program' => '#'
-            ]
+            ],
+            // untuk SEO
+            'title' => __('galleries'),
+            'description' => __('galleries'),
+            'keyword' => '',
+            'image' => ''
         ]);
     }
 
