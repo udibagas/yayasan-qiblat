@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -14,31 +15,33 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-
+    <link rel="icon" href="{{ asset('img/logo-qiblat-square.jpeg') }}">
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
-  </head>
+</head>
 
-  <body id="page-top">
+<body id="page-top">
     <div id="app">
-      @if (url()->current() == url('home') || url()->current() == url('/'))
+        @if (url()->current() == url('home') || url()->current() == url('/'))
         @include('partial.nav-home')
-      @else
+        @else
         @include('partial.nav')
-      @endif
+        @endif
 
-      @yield('content')
-      @include('partial.footer')
+        @yield('content')
+        @include('partial.footer')
     </div>
-  </body>
-  <script>
+</body>
+<script>
     const BASE_URL = '{{url("/")}}'
     @auth
-    const USER = {!! auth()->user() !!}
+    const USER = {
+        !!auth() - > user() !!
+    }
     @endauth
-  </script>
-  <script src="{{ asset('js/frontend.js') }}"></script>
-  @stack('script')
+</script>
+<script src="{{ asset('js/frontend.js') }}"></script>
+@stack('script')
 
-</html>
+</html> 

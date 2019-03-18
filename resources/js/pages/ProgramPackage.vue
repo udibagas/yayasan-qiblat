@@ -26,8 +26,8 @@
         @filter-change="filterChange"
         @sort-change="sortChange">
             <el-table-column type="index" width="50" :index="paginatedData.from"> </el-table-column>
-            <el-table-column prop="program.name" width="200" label="Program" sortable="custom"></el-table-column>
-            <el-table-column prop="name" width="150" label="Paket" sortable="custom"></el-table-column>
+            <el-table-column prop="program.name" label="Program" sortable="custom"></el-table-column>
+            <el-table-column prop="name" label="Paket" sortable="custom"></el-table-column>
 
             <el-table-column prop="price" width="120" label="Harga (USD)" sortable="custom" align="center" header-align="center">
                 <template slot-scope="scope">
@@ -42,13 +42,6 @@
             </el-table-column>
 
             <el-table-column width="150" prop="flexible_amount" label="Jumlah Flexible" sortable="custom" column-key="flexible_amount"
-            :filters="[{value: 0, text: 'No'},{value: 1, text: 'Yes'}]">
-                <template slot-scope="scope">
-                    <span :class="scope.row.flexible_amount ? 'text-success' : 'text-danger'">{{scope.row.flexible_amount ? 'Yes' : 'No'}}</span>
-                </template>
-            </el-table-column>
-
-            <el-table-column width="100" prop="status" label="Status" sortable="custom" column-key="status"
             :filters="[{value: 0, text: 'No'},{value: 1, text: 'Yes'}]">
                 <template slot-scope="scope">
                     <span :class="scope.row.flexible_amount ? 'text-success' : 'text-danger'">{{scope.row.flexible_amount ? 'Yes' : 'No'}}</span>
@@ -143,7 +136,7 @@
                     <div class="error-feedback" v-if="formErrors.program_id">{{formErrors.program_id[0]}}</div>
                 </el-form-item>
 
-                <el-form-item label="Harga">
+                <el-form-item label="Harga (USD)">
                     <el-input type="number" placeholder="Harga" v-model="formModel.price"></el-input>
                     <div class="error-feedback" v-if="formErrors.price">{{formErrors.price[0]}}</div>
                 </el-form-item>
@@ -367,11 +360,6 @@ export default {
     created: function() {
         axios.get(BASE_URL + '/currencyRate').then(r => {
             this.currencies = r.data
-            // fx.rate = r.data.map(d => {
-            //     let o = {}
-            //     o[d.currency] = parseFloat(d.rate)
-            //     return o
-            // })
         }).catch(e => console.log(e))
 
         this.getProgram()

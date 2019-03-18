@@ -210,14 +210,13 @@ class DonationController extends Controller
         //     "created": "2016-10-10T08:15:03.404Z"
         // }
 
-        $data = file_get_contents("php://input");
-        $donation = Donation::where('external_id', $data['external_id'])->first();
-        $donation->status = $data['status'];
-        $donation->save();
+        $donation = Donation::where('external_id', $request->external_id)->first();
 
         if ($donation) 
         {
-            $donation->update($data);
+            $donation->status = $request->status;
+            $donation->save();
+            // $donation->update($request->all());
 
             // Mail::to($donation->user)
             //     ->cc(User::where('role', User::ROLE_ADMIN)->get())

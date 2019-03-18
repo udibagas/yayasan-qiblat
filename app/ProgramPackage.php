@@ -18,6 +18,10 @@ class ProgramPackage extends Model
 
     protected $with = ['program'];
 
+    protected $casts = [
+        'flexible_amount' => 'boolean'
+    ];
+
     public function program()
     {
         return $this->belongsTo(Program::class);

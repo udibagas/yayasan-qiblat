@@ -50,6 +50,14 @@ Route::get('brosur', function() {
     return response()->download(public_path('/brosur.pdf'));
 });
 
+Route::get('privacy', function() {
+    return 'privacy policy';
+});
+
+Route::get('tos', function() {
+    return 'TOS';
+});
+
 Route::get('contact', 'HomeController@contact');
 
 Route::get('/mailcreated', function () {
