@@ -88,6 +88,8 @@ Route::get('/down-bismillah12345', function()  {
 // untuk SPA backend
 Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');
 
+Route::get('/{slug}', 'PostController@showBySlug');
+
 View::composer('partial.footer', function($view) {
     $setting = Setting::all();
     $settings = [];

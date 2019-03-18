@@ -10,8 +10,8 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['show', 'index']);
-        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['show', 'index']);
+        $this->middleware('auth')->except(['show', 'index', 'showBySlug']);
+        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['show', 'index', 'showBySlug']);
     }
 
     public function index(Request $request)
@@ -37,6 +37,24 @@ class PostController extends Controller
 
     public function show(Post $post)
     {
+        return view('post.show', [
+            'post' => $post,
+            'title' => $post->title,
+            'breadcrumbs' => [
+                'Artikel' => url('/post'),
+                $post->title => '#'
+            ]
+        ]);
+    }
+
+    public function showBySlug($slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+
+        if (!$post) {
+            abort(404);
+        }
+
         return view('post.show', [
             'post' => $post,
             'title' => $post->title,
