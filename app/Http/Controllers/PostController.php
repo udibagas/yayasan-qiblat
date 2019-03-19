@@ -51,7 +51,7 @@ class PostController extends Controller
             ],
             // untuk SEO
             'title' => $post->title,
-            'description' => $post->title,
+            'description' => str_limit(strip_tags($post->content), 150),
             'keyword' => '',
             'image' => ''
         ]);
@@ -74,7 +74,7 @@ class PostController extends Controller
             ],
             // untuk SEO
             'title' => $post->title,
-            'description' => $post->title,
+            'description' => str_limit(strip_tags($post->content), 150),
             'keyword' => '',
             'image' => ''
         ]);

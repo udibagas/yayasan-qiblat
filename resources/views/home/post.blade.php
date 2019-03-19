@@ -13,10 +13,10 @@
                     <img src="{{$p->image}}" alt="{{$p->title}}" style="height:180px;">
                     <div class="card-body d-flex flex-column align-items-start" style="height:180px;overflow:hidden;">
                         <!-- <strong class="d-inline-block mb-2 text-primary">World</strong> -->
-                        <h3 class="mb-0"> <a class="text-dark" href="{{url('/'.$p->slug)}}">{{$p->title}}</a> </h3>
+                        <h4 class="mb-0"> <a class="text-dark" href="{{url('/'.$p->slug)}}">{{str_limit($p->title, 100)}}</a> </h4>
                         <div class="mb-1 text-muted">{{date('d M Y', strtotime($p->updated_at))}}</div>
-                        <div class="card-text mb-auto" style="height:50px;overflow:hidden;">{!! $p->content !!}</div>
-                        <a href="{{url('post/'.$p->id)}}">Lanjut membaca</a>
+                        <!-- <div class="card-text mb-auto" style="height:50px;overflow:hidden;">{!! $p->content !!}</div> -->
+                        <!-- <a href="{{url('post/'.$p->id)}}">Lanjut membaca</a> -->
                     </div>
                 </div>
             </div>
