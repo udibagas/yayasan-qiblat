@@ -30,7 +30,14 @@ class DonationController extends Controller
         $sort = $request->sort ? $request->sort : 'updated_at';
         $order = $request->order == 'ascending' ? 'asc' : 'desc';
 
-        $donations = Donation::selectRaw('donations.*, users.name AS user, programs.name AS program, program_packages.name AS package')
+        $donations = Donation::selectRaw('
+                donations.*, 
+                users.name AS user, 
+                users.phone AS phone, 
+                users.email AS email, 
+                programs.name AS program, 
+                program_packages.name AS package
+            ')
             ->join('users', 'users.id', '=', 'donations.user_id')
             ->join('programs', 'programs.id', '=', 'donations.program_id')
             ->join('program_packages', 'program_packages.id', '=', 'donations.program_package_id')

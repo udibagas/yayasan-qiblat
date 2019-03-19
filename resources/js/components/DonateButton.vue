@@ -19,22 +19,27 @@
             </el-form>
             <p><i>Masukkan jumlah yang akan Anda donasikan (USD):</i></p>
             <el-row :gutter="15">
-                <el-col :span="16">
+                <el-col :span="12">
                     <el-input type="number" v-model="data.price" :disabled="!data.flexible_amount"></el-input>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="12">
                     <el-input-number style="width:100%" v-model="qty" :min="1"></el-input-number>
                 </el-col>
             </el-row><br>
             <p><i>Tulis keterangan tambahan jika ada:</i></p>
-            <textarea class="form-control" rows="3" v-model="additionalRemark" placeholder="Keterangan"></textarea><br>
+            <textarea class="form-control" rows="3" v-model="additionalRemark" placeholder="Keterangan"></textarea>
+            <div class="attention">Untuk program masjid, sumur, dan mujamma' ta'limi tuliskan nama yang akan dicantumkan di prasasti</div>
+            <br>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" v-for="(c, i) in currencies" :key="i">
-                    <h3>{{c.rate * data.price  * qty | formatNumber}} <small>{{c.currency}}</small></h3>
+                <li class="list-group-item text-right" v-for="(c, i) in currencies" :key="i">
+                    <h3>
+                        {{c.rate * data.price  * qty | formatNumber}} <small>{{c.currency}}</small>
+                        <img :src="'/img/currency/' + c.currency +'.jpeg'" alt="" style="border:1px solid #ddd;">
+                    </h3>
                 </li>
             </ul>
             <br>
-            <button v-show="!xenditResponse" :disabled="disabled" class="btn btn-block btn-primary btn-lg" @click="donate">{{buttonLabel}}</button>
+            <button v-show="!xenditResponse" :disabled="disabled" class="btn btn-block btn-primary btn-lg" @click="donate" style="border-radius:30px">{{buttonLabel}}</button>
         </div>
     </div>
 </template>
@@ -94,6 +99,16 @@ export default {
                 return;
             }
 
+            if (!this.additionalRemark) {
+                this.$message({
+                    message: 'Mohon isi keterangan',
+                    type: 'error',
+                    showClose: true
+                });
+
+                return;
+            }
+
             this.$confirm('Anda yakin akan melakukan donasi?', 'Confirm').then(() => {
                 let data = {
                     program_id: this.data.program_id,
@@ -139,5 +154,8 @@ export default {
 </script>
 
 <style scoped>
-
+.attention {
+    background: yellow;
+    padding: 0 10px;
+}
 </style>

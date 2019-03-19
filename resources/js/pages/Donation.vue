@@ -25,6 +25,9 @@
                 <el-table-column type="index" width="50" :index="paginatedData.from"> </el-table-column>
                 <el-table-column prop="updated_at" label="Waktu" sortable="custom"></el-table-column>
                 <el-table-column prop="user" label="Donatur" sortable="custom"></el-table-column>
+                <el-table-column prop="phone" label="Phone" sortable="custom"></el-table-column>
+                <el-table-column prop="email" label="Email" sortable="custom"></el-table-column>
+                <el-table-column prop="address" label="Alamat" sortable="custom"></el-table-column>
                 <el-table-column prop="program" label="Program" sortable="custom"></el-table-column>
                 <el-table-column prop="package" label="Paket" sortable="custom"></el-table-column>
                 <el-table-column prop="remark" label="Keterangan" sortable="custom"></el-table-column>

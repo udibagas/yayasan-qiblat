@@ -22,5 +22,11 @@
             </div>
             @endforeach
         </div>
+
+        <div class="text-center">
+            @if (\App\Post::active()->post()->count() > 10)
+                <a href="{{url('post')}}" class="btn btn-lg btn-block btn-primary" style="border-radius:40px">{{__('readmore')}}</a>
+            @endif
+        </div>
     </div>
 </section> 

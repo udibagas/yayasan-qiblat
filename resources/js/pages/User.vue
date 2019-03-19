@@ -28,6 +28,8 @@
                 <el-table-column type="index" width="50" :index="paginatedData.from"> </el-table-column>
                 <el-table-column prop="name" label="Name" sortable="custom"></el-table-column>
                 <el-table-column prop="email" label="Email" sortable="custom"></el-table-column>
+                <el-table-column prop="phone" label="Phone" sortable="custom"></el-table-column>
+                <el-table-column prop="address" label="Alamat" sortable="custom"></el-table-column>
                 <el-table-column prop="role" label="Role" sortable="custom" 
                 column-key="role"
                 :filters="[{value: 0, text: 'Member'},{value: 1, text: 'User'}, {value: 9, text: 'Admin'}]">
@@ -92,6 +94,16 @@
                     <el-form-item label="Email">
                         <el-input placeholder="Email" v-model="formModel.email"></el-input>
                         <div class="error-feedback" v-if="formErrors.email">{{formErrors.email[0]}}</div>
+                    </el-form-item>
+
+                    <el-form-item label="Phone">
+                        <el-input placeholder="Phone" v-model="formModel.phone"></el-input>
+                        <div class="error-feedback" v-if="formErrors.phone">{{formErrors.phone[0]}}</div>
+                    </el-form-item>
+
+                    <el-form-item label="Alamat">
+                        <el-input type="textarea" rows="5" placeholder="Alamat" v-model="formModel.address"></el-input>
+                        <div class="error-feedback" v-if="formErrors.address">{{formErrors.address[0]}}</div>
                     </el-form-item>
 
                     <el-form-item label="Password">

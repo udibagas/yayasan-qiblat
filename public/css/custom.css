@@ -1,0 +1,36 @@
+.btn-primary {
+  background-color: #119894;
+  border-color: #119894;
+}
+
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active {
+  background-color: #255859 !important;
+  border-color: #255859 !important;
+}
+
+a {
+  color: #119894;
+}
+
+.text-primary,
+a:hover:not(.btn), 
+a:focus:not(.btn), 
+a:active:not(.btn) {
+    color: #255859 !important;
+}
+
+.bg-primary {
+  background-color: #119894 !important;
+}
+
+.btn-sosmed {
+    height: 80px;
+    line-height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    background-color: #119894;
+    color: #fff;
+    margin: 20px;
+}

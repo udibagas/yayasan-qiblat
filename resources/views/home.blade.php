@@ -15,11 +15,6 @@
 <!-- Gallery -->
 @include('home.gallery')
 
-<!-- Team -->
-<!-- @if (count($team) > 0)
-@include('home.team')
-@endif -->
-
 @include('home.post')
 
 @include('home.contact')

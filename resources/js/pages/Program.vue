@@ -67,56 +67,73 @@
                 style="margin-bottom:15px;">
             </el-alert>
 
-            <el-form label-width="120px" label-position="right" :model="formModel">
-                <el-tabs tab-position="top" type="card">
-                    <el-tab-pane label="Indonesia">
-                        <br>
-                        <el-form-item label="Nama Program">
-                            <el-input placeholder="Nama Program" v-model="formModel.name"></el-input>
-                            <div class="error-feedback" v-if="formErrors.name">{{formErrors.name[0]}}</div>
-                        </el-form-item>
+            <el-row :gutter="15">
+                <el-col :span="6">
+                    <el-upload
+                    ref="upload"
+                    class="avatar-uploader"
+                    :action="baseUrl + '/uploadImage'"
+                    :show-file-list="false"
+                    :on-error="handleUploadImageError"
+                    :on-success="handleUploadImageSuccess">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                    <div class="error-feedback" v-if="formErrors.file">{{formErrors.file[0]}}</div>
+                </el-col>
+                <el-col :span="18">
+                    <el-form label-width="120px" label-position="right" :model="formModel">
+                        <el-tabs tab-position="top" type="card">
+                            <el-tab-pane label="Indonesia">
+                                <br>
+                                <el-form-item label="Nama Program">
+                                    <el-input placeholder="Nama Program" v-model="formModel.name"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.name">{{formErrors.name[0]}}</div>
+                                </el-form-item>
 
-                        <el-form-item label="Keterangan">
-                            <el-input type="textarea" rows="3" placeholder="Keterangan" v-model="formModel.description"></el-input>
-                            <div class="error-feedback" v-if="formErrors.description">{{formErrors.description[0]}}</div>
-                        </el-form-item>
-                    </el-tab-pane>
-                    <el-tab-pane label="English">
-                        <br>
-                        <el-form-item label="Program Name">
-                            <el-input placeholder="Program Name" v-model="formModel.name_en"></el-input>
-                            <div class="error-feedback" v-if="formErrors.name_en">{{formErrors.name_en[0]}}</div>
-                        </el-form-item>
+                                <el-form-item label="Keterangan">
+                                    <el-input type="textarea" rows="3" placeholder="Keterangan" v-model="formModel.description"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.description">{{formErrors.description[0]}}</div>
+                                </el-form-item>
+                            </el-tab-pane>
+                            <el-tab-pane label="English">
+                                <br>
+                                <el-form-item label="Program Name">
+                                    <el-input placeholder="Program Name" v-model="formModel.name_en"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.name_en">{{formErrors.name_en[0]}}</div>
+                                </el-form-item>
 
-                        <el-form-item label="Description">
-                            <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_en"></el-input>
-                            <div class="error-feedback" v-if="formErrors.description_en">{{formErrors.description_en[0]}}</div>
-                        </el-form-item>
-                    </el-tab-pane>
-                    <el-tab-pane label="Arabic">
-                        <br>
-                        <el-form-item label="Program Name">
-                            <el-input placeholder="Program Name" v-model="formModel.name_ar"></el-input>
-                            <div class="error-feedback" v-if="formErrors.name_ar">{{formErrors.name_ar[0]}}</div>
-                        </el-form-item>
+                                <el-form-item label="Description">
+                                    <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_en"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.description_en">{{formErrors.description_en[0]}}</div>
+                                </el-form-item>
+                            </el-tab-pane>
+                            <el-tab-pane label="Arabic">
+                                <br>
+                                <el-form-item label="Program Name">
+                                    <el-input placeholder="Program Name" v-model="formModel.name_ar"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.name_ar">{{formErrors.name_ar[0]}}</div>
+                                </el-form-item>
 
-                        <el-form-item label="Description">
-                            <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_ar"></el-input>
-                            <div class="error-feedback" v-if="formErrors.description_ar">{{formErrors.description_ar[0]}}</div>
+                                <el-form-item label="Description">
+                                    <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_ar"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.description_ar">{{formErrors.description_ar[0]}}</div>
+                                </el-form-item>
+                            </el-tab-pane>
+                        </el-tabs>
+
+                        <el-form-item label="Icon">
+                            <el-input placeholder="Icon" v-model="formModel.icon"></el-input>
+                            <div class="error-feedback" v-if="formErrors.icon">{{formErrors.icon[0]}}</div>
                         </el-form-item>
-                    </el-tab-pane>
-                </el-tabs>
+                    </el-form>
+                </el-col>
+            </el-row>
 
-                <el-form-item label="Icon">
-                    <el-input placeholder="Icon" v-model="formModel.icon"></el-input>
-                    <div class="error-feedback" v-if="formErrors.icon">{{formErrors.icon[0]}}</div>
-                </el-form-item>
-
-                <el-form-item>
-                    <el-button type="primary" @click="save">Simpan</el-button>
-                    <el-button @click="showForm = false">Batal</el-button>
-                </el-form-item>
-            </el-form>
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="save">Simpan</el-button>
+                <el-button @click="showForm = false">Batal</el-button>
+            </span>
 
         </el-dialog>
 
@@ -149,13 +166,28 @@ export default {
             order: 'ascending',
             filters: {},
             paginatedData: {},
+            imageUrl: ''
         }
     },
     methods: {
         closeForm: function() {
             this.error = {};
             this.formErrors = {};
+            if (this.$refs.upload) {
+                this.$refs.upload.clearFiles();
+            }
+            this.imageUrl = ''
             this.showForm = false
+        },
+        handleUploadImageSuccess(res, file, fileList) {
+            this.imageUrl = URL.createObjectURL(file.raw);
+            this.formModel.image = res.path
+            this.$forceUpdate();
+        },
+        handleUploadImageError(err, file, fileList) {
+            this.formErrors.file = [JSON.parse(err.message).message]
+            this.$forceUpdate();
+            console.log(err);
         },
         sortChange: function(column) {
             if (this.sort !== column.prop || this.order !== column.order) {
@@ -242,6 +274,7 @@ export default {
             this.formModel = JSON.parse(JSON.stringify(data));
             this.error = {}
             this.formErrors = {}
+            this.imageUrl = data.image
             this.showForm = true
         },
         deleteData: function(id) {

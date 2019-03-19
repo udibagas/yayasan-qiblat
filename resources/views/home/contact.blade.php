@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">HUBUNGI KAMI</h2>
+                <h2 class="section-heading text-uppercase">{{ __('contactus') }}</h2>
                 <h3 class="section-subheading text-muted">Hubungi kami untuk informasi lengkap mengenai program kami</h3>
             </div>
         </div>
@@ -38,7 +38,7 @@
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
                             <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h4 class="service-heading">Alamat</h4>
+                        <h4 class="service-heading">{{ __('address') }}</h4>
                         <p class="text-muted">{!! nl2br($settings['contact_address']) !!}</p>
                     </div>
                 </div>

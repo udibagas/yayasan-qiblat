@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Galeri Program</h2>
+                <h2 class="section-heading text-uppercase">{{ __('galleries') }}</h2>
                 <h3 class="section-subheading text-muted">Berikut foto kegiatan program kami yang telah berjalan.</h3>
             </div>
         </div>

@@ -10,7 +10,7 @@ class Program extends Model
         'name', 'description', 
         'name_en', 'description_en', 
         'name_ar', 'description_ar', 
-        'icon'
+        'icon', 'image'
     ];
 
     public function getNameAttribute($v)

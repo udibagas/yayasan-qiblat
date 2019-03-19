@@ -113,7 +113,7 @@ View::composer('home.jumbotron', function($view) {
 });
 
 View::composer('home.post', function($view) {
-    $view->with('posts', Post::limit(4)->active()->post()->latest()->get());
+    $view->with('posts', Post::limit(10)->active()->post()->latest()->get());
 });
 
 View::composer('partial.nav', function($view) {

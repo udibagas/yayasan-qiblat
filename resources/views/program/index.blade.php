@@ -15,10 +15,14 @@
             @foreach ($programs as $p)
             <div class="col-md-4" style="height:250px;">
                 <a href="/program/{{$p->id}}" class="no-decoration-on-hover">
+                    @if (!$p->image)
                     <span class="fa-stack fa-4x">
                         <i class="fas fa-circle fa-stack-2x text-primary"></i>
                         <i class="{{$p->icon}} fa-stack-1x fa-inverse"></i>
                     </span>
+                    @else
+                    <img src="{{$p->image}}" class="program-icon" alt="">
+                    @endif
                     <h4 class="service-heading">{{$p->name}}</h4>
                     <p class="text-muted">{{$p->description}}</p>
                 </a>
@@ -27,7 +31,7 @@
         </div>
 
         @auth
-        <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="height:70px;line-height:50px;">LIHAT DONASI SAYA</a>
+        <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="height:70px;line-height:50px;border-radius:60px">LIHAT DONASI SAYA</a>
         @endauth
     </div>
 </section>
