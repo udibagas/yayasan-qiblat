@@ -4,7 +4,7 @@
     "program": "مشاريعنا",
     "programs": "مشاريعنا",
     "ourprograms": "مشاريعنا",
-    "donation": "هبة",
+    "donation": "تبرع",
     "gallery": "جاليري",
     "galleries": "جاليري",
     "post": "المقالات",
@@ -33,5 +33,11 @@
     "enteramount": "ادخل قيمة المبلغ تبرعتك",
     "additionalinfo": "اكتب معلومات إضافية ( خاص مشروع جامع وآبار ومركز التعليمي اكتب اسم الذي سيظهر في رخام المشروع )",
     "myaddress": "شارع هنجوار كوتابونقا ( بين البوابتين ) شيباناس - إندونيسيا",
-    "donationachievement": "إنجازاتكم"
+    "donationachievement": "إنجازاتكم",
+    "MYDONATION": "اظهر تبرعي",
+    "Donasi untuk program ini": "تبرع لهذا البرنامج",
+    "Lihat Masjid Anda": "ترى مسجدك",
+    "Donasi Saya": "تبرعي",
+    "name": "اسم",
+    "Confirm Password": "تأكيد كلمة المرور"
 }

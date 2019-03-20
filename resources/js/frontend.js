@@ -7,6 +7,7 @@ import locale from 'element-ui/lib/locale/lang/en'
 import store from './store'
 import moment from 'moment'
 import DonateForm from './components/DonateForm'
+import MessageForm from './components/MessageForm'
 
 Vue.filter('readableDate', function(v) {
     return v ? moment(v).format("DD/MMM/YYYY") : "";
@@ -33,5 +34,5 @@ Vue.use(ElementUI, { locale });
 const app = new Vue({
     el: '#app',
     store,
-    components: { DonateForm }
+    components: { DonateForm, MessageForm }
 });

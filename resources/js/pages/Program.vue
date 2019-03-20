@@ -20,7 +20,7 @@
         </el-form>
 
         <el-table :data="paginatedData.data" stripe
-        :default-sort = "{prop: 'name', order: 'ascending'}"
+        :default-sort = "{prop: 'name_id', order: 'ascending'}"
         v-loading="loading"
         style="border-top:1px solid #eee;"
         @filter-change="filterChange"
@@ -162,7 +162,7 @@ export default {
             keyword: '',
             page: 1,
             pageSize: 10,
-            sort: 'name',
+            sort: 'name_id',
             order: 'ascending',
             filters: {},
             paginatedData: {},

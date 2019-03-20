@@ -8,12 +8,12 @@
             </div>
         </div>
 
-        <div class="row text-center">
+        <div class="row justify-content-center text-center">
             @foreach ($achievements as $p)
             <div class="col-md-2">
-                <img src="{{$p->image}}" class="program-icon" alt="">
+                <img src="{{$p->image}}" class="" alt="">
                 <h4 class="service-heading">{{$p->name}}</h4>
-                <p class="text-muted">{{$p->description}}</p>
+                <!-- <p class="text-muted">{{$p->description}}</p> -->
                 <h2>{{$p->achievement}}</h2>
             </div>
             @endforeach

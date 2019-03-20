@@ -46,7 +46,7 @@ class HomeController extends Controller
             'galleries' => ProgramGallery::limit(6)->latest()->get(),
             'pages' => Post::active()->page()->get(),
             // untuk SEO
-            'title' => 'Home',
+            'title' => __('home'),
             'description' => $settings['description'],
             'keyword' => '',
             'image' => ''
@@ -64,13 +64,13 @@ class HomeController extends Controller
 
         return view('contact', [
             'settings' => $settings,
-            'title' => 'Hubungi Kami',
+            'title' => __('contactus'),
             'breadcrumbs' => [
-                'Hubungi Kami' => '#'
+                __('contactus') => '#'
             ],
             // untuk SEO
-            'title' => 'Hubungi Kami',
-            'description' => 'Hubungi Kami',
+            'title' => __('contactus'),
+            'description' => __('contactus'),
             'keyword' => '',
             'image' => ''
         ]);

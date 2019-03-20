@@ -51,15 +51,18 @@ class AuthController extends Controller
         {
             if (!empty($user->email)) 
             {
-                // sudah pernah daftar manual
                 $authUser = User::where('email', $user->email)->first();
-
-                $authUser->update([
-                    'provider' => $provider,
-                    'provider_id' => $user->id,
-                ]);
-
-                return $authUser;
+                
+                // sudah pernah daftar manual
+                if ($authUser) 
+                {
+                    $authUser->update([
+                        'provider' => $provider,
+                        'provider_id' => $user->id,
+                    ]);
+    
+                    return $authUser;
+                }
             }
 
             // bikin user baru
@@ -69,8 +72,6 @@ class AuthController extends Controller
                 'provider' => $provider,
                 'provider_id' => $user->id,
                 'api_token' => str_random(60),
-                // 'phone' => $data['phone'],
-                // 'address' => $data['address'],
                 'role' => 0,
                 'status' => 1
             ]);

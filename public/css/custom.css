@@ -34,3 +34,17 @@ a:active:not(.btn) {
     color: #fff;
     margin: 20px;
 }
+
+.el-popover {
+  padding: 0;
+  box-shadow: none;
+}
+
+.el-card__header {
+    background-color: #255859;
+    color: white;
+}
+
+.el-card__body {
+  background-color: #eee;
+}

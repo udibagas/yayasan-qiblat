@@ -1,6 +1,5 @@
 1. Pemindahan domain ke domain utama 
     C. Link keblah.com http://keblah.com/index.php?action=picture/category ( lihat masjid anda) => ON PROGRESS
-4. Laporan donasi dirubah jadi Prestasi yayasan (dirubah secara manual tidak otomatis) => DONE
 11. Kolom keterangan pada form donasi, dibuat wajib => ON PROGRESS
 12. Tulisaketerangan “Untuk program masjid, sumur dan mujamma ta’limi tuliskan nama yang akan dicantumkan dalam prasasti” (menggunakan attention) => ON PROGRESS
 
@@ -38,12 +37,6 @@ the exact files that change are
 /vendor/autoload.php
 /vendor/composer_real.php
 /vendor/composer/autoload_classmap.php
-
-
-- delete user gagal
-- redirect user buat lengkapi profile kalau login via sosmed ==> today
-- template email
-
 
 - integrasi dengan quill untuk resize image di editor
 

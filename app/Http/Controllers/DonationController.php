@@ -35,8 +35,8 @@ class DonationController extends Controller
                 users.name AS user, 
                 users.phone AS phone, 
                 users.email AS email, 
-                programs.name AS program, 
-                program_packages.name AS package
+                programs.name_id AS program, 
+                program_packages.name_id AS package
             ')
             ->join('users', 'users.id', '=', 'donations.user_id')
             ->join('programs', 'programs.id', '=', 'donations.program_id')
@@ -44,8 +44,8 @@ class DonationController extends Controller
             ->when($request->user()->role == \App\User::ROLE_MEMBER, function($q) use ($request) {
                 return $q->where('user_id', $request->user()->id);
             })->when($request->keyword, function ($q) use ($request) {
-                return $q->where('programs.name', 'LIKE', '%' . $request->keyword . '%')
-                    ->orWhere('program_packages.name', 'LIKE', '%' . $request->keyword . '%')
+                return $q->where('programs.name_id', 'LIKE', '%' . $request->keyword . '%')
+                    ->orWhere('program_packages.name_id', 'LIKE', '%' . $request->keyword . '%')
                     ->orWhere('users.name', 'LIKE', '%' . $request->keyword . '%');
             })->when($request->status, function ($q) use ($request) {
                 return $q->whereIn('status', $request->status);
@@ -56,14 +56,14 @@ class DonationController extends Controller
         }
 
         return view('donation.index', [
-            'title' => 'Donasi Saya',
+            'title' => __('Donasi Saya'),
             'donations' => $donations,
             'breadcrumbs' => [
-                'Donasi Saya' => '#',
+                __('Donasi Saya') => '#',
             ],
             // untuk SEO
-            'title' => 'Donasi Saya',
-            'description' => 'Donasi Saya',
+            'title' => __('Donasi Saya'),
+            'description' => __('Donasi Saya'),
             'keyword' => '',
             'image' => ''
         ]);
@@ -87,7 +87,7 @@ class DonationController extends Controller
             'title' => 'Donasi',
             'package' => $package,
             'breadcrumbs' => [
-                'Donasi' => url('program'),
+                __('programs') => url('program'),
                 $package->program->name => url('program/'.$package->program_id),
                 $package->name => '#'
             ],

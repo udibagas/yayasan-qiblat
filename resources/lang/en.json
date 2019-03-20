@@ -20,7 +20,7 @@
     "LOGIN": "LOGIN",
     "email": "Email",
     "readmore": "Read More",
-    "MYDONATION": "SEE MY DONATION",
+    "MYDONATION": "SHOW MY DONATION",
     "password": "Password",
     "google": "Google",
     "facebook": "Facebook",
@@ -35,5 +35,8 @@
     "enteramount": "Enter Amount",
     "additionalinfo": "Enter additional information",
     "myaddress": "",
-    "donationachievement": "Donation Achievement"
+    "donationachievement": "Donation Achievement",
+    "Donasi untuk program ini": "Donate for this program",
+    "Lihat Masjid Anda": "See Your Mosque",
+    "Donasi Saya": "My Donation"
 }

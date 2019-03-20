@@ -5,7 +5,7 @@
 
 <section id="donation" style="padding:20px 0">
     <div class="container">
-        <h1 class="text-center">Donasi Saya</h1>
+        <h1 class="text-center">{{__('Donasi Saya')}}</h1>
         <br>
         <table class="table table-striped table-hover">
             <thead>

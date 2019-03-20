@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <p class="text-muted">{!! nl2br($p->description) !!}</p>
                             <a href="{{url('donation/create?package='.$p->id)}}" class="btn btn-lg btn-block btn-primary" style="border-radius:30px">
-                                Donasi untuk program ini
+                                {{__('Donasi untuk program ini')}}
                             </a>
                         </div>
                     </div>

@@ -28,10 +28,10 @@ class ProgramGalleryController extends Controller
         }
 
         return view('programGallery.index', [
-            'title' => 'Galeri Program',
+            'title' => __('galleries'),
             'galleries' => ProgramGallery::paginate(),
             'breadcrumbs' => [
-                'Galeri Program' => '#'
+                __('galleries') => '#'
             ],
             // untuk SEO
             'title' => __('galleries'),

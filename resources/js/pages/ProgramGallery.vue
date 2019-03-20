@@ -130,7 +130,7 @@
 
                         <el-form-item label="Program">
                             <el-select placeholder="Program" v-model="formModel.program_id" style="width:100%;">
-                            <el-option v-for="p in programs" :value="p.id" :label="p.name" :key="p.id"></el-option>
+                            <el-option v-for="p in programs" :value="p.id" :label="p.name_id" :key="p.id"></el-option>
                             </el-select>
                             <div class="error-feedback" v-if="formErrors.program_id">{{formErrors.program_id[0]}}</div>
                         </el-form-item>

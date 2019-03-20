@@ -3,21 +3,21 @@
         <div v-if="xenditResponse">
             <iframe :src="xenditResponse.invoice_url" frameborder="0" style="width:100%;height:700px;"></iframe>
         </div>
-        <div v-if="!xenditResponse">
+        <div v-if="!xenditResponse" v-loading="disabled">
             <!-- <h3>Informasi Donatur</h3> -->
             <el-form label-width="130px" label-position="left">
-                <el-form-item label="Nama Donatur">
+                <el-form-item :label="lang[locale]['Nama Donatur']">
                     <el-input disabled v-model="user.name"></el-input>
                 </el-form-item>
-                <el-form-item label="Email">
+                <el-form-item :label="lang[locale]['Email']">
                     <el-input disabled v-model="user.email"></el-input>
                 </el-form-item>
-                <el-form-item label="No. HP">
+                <el-form-item :label="lang[locale]['Phone']">
                     <el-input v-model="user.phone"></el-input>
                     <div class="el-form-item__error" v-if="formErrors.phone">{{formErrors.phone[0]}}</div>
                 </el-form-item>
             </el-form>
-            <p><i>Masukkan jumlah yang akan Anda donasikan (USD):</i></p>
+            <p><i>{{lang[locale]['enterAmount']}}:</i></p>
             <el-row :gutter="15">
                 <el-col :span="12">
                     <el-input type="number" v-model="data.price" :disabled="!data.flexible_amount"></el-input>
@@ -26,9 +26,9 @@
                     <el-input-number style="width:100%" v-model="qty" :min="1"></el-input-number>
                 </el-col>
             </el-row><br>
-            <p><i>Tulis keterangan tambahan jika ada:</i></p>
-            <textarea class="form-control" rows="3" v-model="additionalRemark" placeholder="Keterangan"></textarea>
-            <div class="attention">Untuk program masjid, sumur, dan mujamma' ta'limi tuliskan nama yang akan dicantumkan di prasasti</div>
+            <p><i>{{lang[locale]['enterAdditionalInfo']}}:</i></p>
+            <textarea class="form-control" rows="3" v-model="additionalRemark"></textarea>
+            <!-- <div class="attention">Untuk program masjid, sumur, dan mujamma' ta'limi tuliskan nama yang akan dicantumkan di prasasti</div> -->
             <br>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-right" v-for="(c, i) in currencies" :key="i">
@@ -62,6 +62,7 @@ export default {
     },
     data() {
         return {
+            locale: LOCALE,
             disabled: false,
             buttonLabel: '',
             xenditResponse: null,
@@ -71,7 +72,39 @@ export default {
             currencies: [],
             idr_rate: { currency: 'IDR', rate: 15000 },
             user: USER,
-            formErrors: {}
+            formErrors: {},
+            lang: {
+                id: {
+                    "Nama Donatur": "Nama Donatur",
+                    "Email": "Email",
+                    "Phone": "No. HP",
+                    "enterAmount": "Masukkan jumlah yang akan Anda donasikan (USD)",
+                    "enterAdditionalInfo": "Tulis keterangan tambahan jika ada. Untuk program masjid, sumur, dan mujamma' ta'limi tuliskan nama yang akan dicantumkan di prasasti",
+                    "enterPhone": "Mohon isi no. HP",
+                    "andaYakin": "Apakah anda yakin?",
+                    "mohonTunggu": "Mohon Tunggu"
+                },
+                en: {
+                    "Nama Donatur": "Donor Name",
+                    "Email": "Email",
+                    "Phone": "Phone",
+                    "enterAmount": "Enter amount (USD)",
+                    "enterAdditionalInfo": "Enter additional information if any.",
+                    "enterPhone": "Please enter phone number",
+                    "andaYakin": "Are you sure?",
+                    "mohonTunggu": "Please wait a moment"
+                },
+                ar: {
+                    "Nama Donatur": "اسم المانحة",
+                    "Email": "البريد الإلكتروني",
+                    "Phone": "رقم الجوال / الوتساب",
+                    "enterAmount": "ادخل قيمة المبلغ تبرعتك",
+                    "enterAdditionalInfo": "اكتب معلومات إضافية ( خاص مشروع جامع وآبار ومركز التعليمي اكتب اسم الذي سيظهر في رخام المشروع )",
+                    "enterPhone": "يرجى إدخال رقم الهاتف",
+                    "andaYakin": "هل أنت واثق؟",
+                    "mohonTunggu": "فضلا انتظر لحظة"
+                },
+            }
         }
     },
     mounted() {
@@ -91,7 +124,7 @@ export default {
         donate() {
             if (!this.user.phone) {
                 this.$message({
-                    message: 'Mohon isi No. HP',
+                    message: this.lang[this.locale]['enterPhone'],
                     type: 'error',
                     showClose: true
                 });
@@ -100,20 +133,21 @@ export default {
             }
 
             // kalau sumur, masjid, mujamma
-            // if (this.paket.program.name) {
-            //     if (!this.additionalRemark) {
-            //         this.$message({
-            //             message: 'Mohon isi keterangan',
-            //             type: 'error',
-            //             showClose: true
-            //         });
+            let programName = this.data.program.name_id.toLowerCase()
+            if (programName.includes('pembangunan masjid') || programName.includes('sumur') || programName.includes('mujamma')) {
+                if (!this.additionalRemark) {
+                    this.$message({
+                        message: this.lang[this.locale]['enterAdditionalInfo'],
+                        type: 'error',
+                        showClose: true
+                    });
     
-            //         return;
-            //     }
-            // }
+                    return;
+                }
+            }
 
 
-            this.$confirm('Anda yakin akan melakukan donasi?', 'Confirm').then(() => {
+            this.$confirm(this.lang[this.locale]['andaYakin'], 'Confirm').then(() => {
                 let data = {
                     program_id: this.data.program_id,
                     program_package_id: this.data.id,
@@ -124,13 +158,17 @@ export default {
                 }
                 
                 this.disabled = true
-                this.buttonLabel = 'Mohon tunggu...'
+                this.buttonLabel = this.lang[this.locale]['mohonTunggu'] + '...'
                 // simpan di database
                 axios.post(BASE_URL + '/donation', data).then(r => {
                     this.buttonLabel = this.label
                     this.disabled = false
                     if (r.data.error_code) {
-                        alert('Terjadi kesalahan. ' + r.data.error_code + ' ' + r.data.message)
+                        this.$message({
+                            message: 'ERROR. ' + r.data.error_code + ' ' + r.data.message,
+                            type: 'error',
+                            showClose: true
+                        })
                         return
                     }
                     this.xenditResponse = r.data

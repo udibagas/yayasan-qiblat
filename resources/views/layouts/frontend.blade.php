@@ -45,11 +45,25 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-    <link rel="icon" href="{{ asset('img/logo-qiblat-square.jpg') }}">
+    <link rel="icon" href="{{ asset('img/logo-qiblat-square.ico') }}">
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+
+    <meta name="google-site-verification" content="YV7U65FEOqQ-YcBG9Or4HxTfS0fQA4uaDadbvYrw1tc" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136632642-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-136632642-1');
+    </script>
 </head>
 
 <body id="page-top">
@@ -70,6 +84,8 @@
 
         @yield('content')
         @include('partial.footer')
+
+        <!-- <message-form phone="+6285880002900"></message-form> -->
     </div>
 </body>
 <script>
