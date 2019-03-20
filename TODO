@@ -1,9 +1,11 @@
-- Bug di multi lang untuk backend
-- width qty di form donasi kurang lebar
+1. Pemindahan domain ke domain utama 
+    C. Link keblah.com http://keblah.com/index.php?action=picture/category ( lihat masjid anda) => ON PROGRESS
+4. Laporan donasi dirubah jadi Prestasi yayasan (dirubah secara manual tidak otomatis) => DONE
+11. Kolom keterangan pada form donasi, dibuat wajib => ON PROGRESS
+12. Tulisaketerangan “Untuk program masjid, sumur dan mujamma ta’limi tuliskan nama yang akan dicantumkan dalam prasasti” (menggunakan attention) => ON PROGRESS
+
+
 - seo friendly untuk program
-- ganti logo tulisan arab yg terang
-- warna website
-- bendera currency
 - translation: breadcrumb, header, title, description
 - subscribe system
 
@@ -43,73 +45,7 @@ the exact files that change are
 - template email
 
 
-Menu = Home, Donasi, Artikel, Kontak
-
-1. Halaman Home = merupakan halaman landing, dengan layout yang sudah di setujui, jika masih ada link yang kosong di biarkan saja dulu.
-2. Halaman Donasi = halaman yang berisikan brosur dengan penyesuain sedikit, yaitu
-
-Option untuk donasi no 1 - 12 mengikuti apa yang ada dalam brosur, kemudian di no 13 di buat menjadi (zakat,infaq,sodaqoh,donasi umum)
-
-Untuk pilihan menu donasi contoh masjid, terdapat 2 option maka harus di buat semua optionnya
-
-Mengenai informasi spek d samakan dengan apa yang ada di brosur
-
-Element atau aset image, akan di berikan dengan google drive nanti, berupa PNG
-
-    3. Halaman artikel dan 4. halaman kontak = berisi artikel,di sesuaikan saja dengan yang sudah ada.
-Art
-
-
-Fitur website
-
-Xendit(payment geteway), alih bahasa, login/register
-
-    1. Mengenai Integrasi dengan Xendit
-Harus ada payemnt via = virtual account, cc, pembayaran via alfa, ovo (e wallet)
-
-    2. Alih bahasa = website di buat dengan bahasa indonesia untuk bahasa selain indonesia di kosongkan saja
-
-    3. Login/register = fungsi untuk login ke website dengan 3 opsi( register email langsung, google, dan facebook)
-
-Alur website
-Flow untuk melakukan donasi
-
-- Pengunjung login atau daftar jika blm memiliki akun
-- Pengunjung klik halaman donasi
-- Halaman donasi berupa optional 13 jenis donasi dengan icon png dan informasi sesuai brosur
-- Pengunjung memilih optional yang ingin di donasikan, lalu tunjukan nomonal donasi sesuai brosur, mengisi form informasi wajib no hp, nama, alamat 
-- Pengunjung Submit form
-- Akan dapat informasi cara pembayaran (melalui bank apa saja (xendit)
-- Pengunjung melakukan pembayaran
-- Pembayaran otomatis dikonfirmasi
-- dan mendapatkan notifikasi sms
-- Pengunjung bisa melihat histori donasi beserta statusnya
-
 - integrasi dengan quill untuk resize image di editor
-
-Module donasi
-- halaman index
-- form donasi
-    - pilih paket
-    - cara pembayaran
-
-- donors 
-    => jadikan 1 sama user, 
-    => bedain di vue component aja
-
-- front end
-    - Home (landing page)
-    - Show post
-        - slider galery di atas
-        - content di bawah
-    - Show post by category (Index post)
-    - Index donasi berdasarkan jenis
-    - Show jenis donasi
-        - slider galery di atas
-        - content di bawah
-        - galeri donasi
-        - tombol donate per paket donasi
-        - summary donasi masuk untuk jenis terkait semua paket
 
 LOGIN pake social media:
 - https://medium.com/@kiddy.xyz/tutorial-login-laravel-dengan-socialite-facebook-twitter-google-github-linkedin-5743fb97fa2b

@@ -31,7 +31,7 @@
                     <img v-if="scope.row.image" class="thumbnail" :src="scope.row.image" alt="">
                 </template>
             </el-table-column>
-            <el-table-column prop="title" label="Title" sortable="custom"></el-table-column>
+            <el-table-column prop="title_id" label="Title" sortable="custom"></el-table-column>
             <!-- <el-table-column prop="description" label="Description" sortable="custom"></el-table-column> -->
 
             <el-table-column prop="status" label="Tampilkan" sortable="custom" column-key="status"
@@ -99,13 +99,13 @@
                             <el-tab-pane label="Indonesia">
                                 <br>
                                 <el-form-item label="Judul">
-                                    <el-input placeholder="Judul" v-model="formModel.title"></el-input>
-                                    <div class="error-feedback" v-if="formErrors.title">{{formErrors.title[0]}}</div>
+                                    <el-input placeholder="Judul" v-model="formModel.title_id"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.title_id">{{formErrors.title_id[0]}}</div>
                                 </el-form-item>
 
                                 <el-form-item label="Keterangan">
-                                    <el-input type="textarea" rows="5" placeholder="Keterangan" v-model="formModel.description"></el-input>
-                                    <div class="error-feedback" v-if="formErrors.description">{{formErrors.description[0]}}</div>
+                                    <el-input type="textarea" rows="5" placeholder="Keterangan" v-model="formModel.description_id"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.description_id">{{formErrors.description_id[0]}}</div>
                                 </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane label="English">
@@ -150,7 +150,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(b, i) in formModel.buttons" :key="i">
-                                    <td><el-input v-model="formModel.buttons[i].label"></el-input></td>
+                                    <td><el-input v-model="formModel.buttons[i].label_id"></el-input></td>
                                     <td><el-input v-model="formModel.buttons[i].label_en"></el-input></td>
                                     <td><el-input v-model="formModel.buttons[i].label_ar"></el-input></td>
                                     <td><el-input v-model="formModel.buttons[i].type"></el-input></td>
@@ -302,12 +302,12 @@ export default {
             this.error = {}
             this.formErrors = {}
             this.formModel = {
-                buttons: [{label: '', label_en: '', label_ar: '', type: '', url: ''}]
+                buttons: [{label_id: '', label_en: '', label_ar: '', type: '', url: ''}]
             }
             this.showForm = true
         },
         addButton() {
-            this.formModel.buttons.push({label: '', label_en: '', label_ar: '', type: '', url: ''});
+            this.formModel.buttons.push({label_id: '', label_en: '', label_ar: '', type: '', url: ''});
         },
         deleteButton(i) {
             // kalau belum ada di database langsung hapus aja gak masalah

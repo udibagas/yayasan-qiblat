@@ -5,6 +5,7 @@ use App\SocialMedia;
 use App\Carousel;
 use App\Post;
 use Illuminate\Support\Facades\Session;
+use App\Achievement;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::post('donation/callback', 'DonationController@callback');
 Route::resource('donation', 'DonationController')->except(['edit']);
 Route::get('program/getList', 'ProgramController@getList');
 Route::resource('program', 'ProgramController')->except(['create', 'edit']);
+Route::resource('achievement', 'AchievementController')->except(['create', 'edit']);
 Route::resource('programGallery', 'ProgramGalleryController')->except(['create', 'edit']);
 Route::resource('programPackage', 'ProgramPackageController')->except(['create', 'edit']);
 Route::resource('team', 'TeamController')->except(['create', 'edit', 'show']);
@@ -53,7 +55,7 @@ Route::get('backup', 'BackupController@index');
 Route::delete('backup', 'BackupController@destroy');
 
 Route::get('brosur', function() {
-    return response()->download(public_path('/brosur.pdf'));
+    return response()->download(public_path('/Yayasan Qiblat 1440 H - '.strtoupper(app()->getLocale()).'.pdf'));
 });
 
 Route::get('privacy', function() {
@@ -83,7 +85,7 @@ Route::get('/migrate', function()  {
     // Artisan::call('config:clear');
     // Artisan::call('view:clear');
     Artisan::call('migrate');
-    echo 'refresh complete';
+    echo 'migrated';
 });
 
 Route::get('/down-bismillah12345', function()  {
@@ -118,4 +120,12 @@ View::composer('home.post', function($view) {
 
 View::composer('partial.nav', function($view) {
     $view->with('pages', Post::active()->page()->get());
+});
+
+View::composer('partial.nav-ar', function($view) {
+    $view->with('pages', Post::active()->page()->get());
+});
+
+View::composer('home.achievement', function($view) {
+    $view->with('achievements', Achievement::all());
 });

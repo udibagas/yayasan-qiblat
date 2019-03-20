@@ -22,8 +22,8 @@ class ProgramGalleryController extends Controller
             $order = $request->order == 'ascending' ? 'asc' : 'desc';
 
             return ProgramGallery::when($request->keyword, function ($q) use ($request) {
-                return $q->where('title', 'LIKE', '%' . $request->keyword . '%')
-                    ->where('description', 'LIKE', '%' . $request->keyword . '%');
+                return $q->where('title_id', 'LIKE', '%' . $request->keyword . '%')
+                    ->where('description_id', 'LIKE', '%' . $request->keyword . '%');
             })->orderBy($sort, $order)->paginate($request->pageSize);
         }
 

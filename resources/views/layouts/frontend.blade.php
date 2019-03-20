@@ -45,7 +45,7 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-    <link rel="icon" href="{{ asset('img/logo-qiblat-square.jpeg') }}">
+    <link rel="icon" href="{{ asset('img/logo-qiblat-square.jpg') }}">
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/frontend.css') }}" rel="stylesheet">
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
@@ -55,9 +55,17 @@
 <body id="page-top">
     <div id="app">
         @if (url()->current() == url('home') || url()->current() == url('/'))
+        @if (app()->getLocale() == 'ar')
+        @include('partial.nav-home-ar')
+        @else
         @include('partial.nav-home')
+        @endif
+        @else
+        @if (app()->getLocale() == 'ar')
+        @include('partial.nav-ar')
         @else
         @include('partial.nav')
+        @endif
         @endif
 
         @yield('content')

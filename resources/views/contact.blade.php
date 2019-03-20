@@ -7,8 +7,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">HUBUNGI KAMI</h2>
-                <h3 class="section-subheading text-muted">Hubungi kami untuk informasi lengkap mengenai program kami</h3>
+                <h2 class="section-heading text-uppercase">{{ __('contactus') }}</h2>
+                <h3 class="section-subheading text-muted">{{ __('hubungikamiuntukinfolengkap') }}</h3>
             </div>
         </div>
         <div class="row text-center">
@@ -17,7 +17,7 @@
                     <i class="fas fa-circle fa-stack-2x text-primary"></i>
                     <i class="fa fa-phone fa-stack-1x fa-inverse"></i>
                 </span>
-                <h4 class="service-heading">Nomor HP/WA</h4>
+                <h4 class="service-heading">{{ __('phoneorwa') }}</h4>
                 <p class="text-muted">{{$settings['contact_phone']}}</p>
             </div>
             <div class="col-md-4">
@@ -25,7 +25,7 @@
                     <i class="fas fa-circle fa-stack-2x text-primary"></i>
                     <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
                 </span>
-                <h4 class="service-heading">Email</h4>
+                <h4 class="service-heading">{{ __('email') }}</h4>
                 <p class="text-muted">{{$settings['contact_email']}}</p>
             </div>
             <div class="col-md-4">
@@ -33,8 +33,14 @@
                     <i class="fas fa-circle fa-stack-2x text-primary"></i>
                     <i class="fa fa-map-marker fa-stack-1x fa-inverse"></i>
                 </span>
-                <h4 class="service-heading">Alamat</h4>
-                <p class="text-muted">{!! nl2br($settings['contact_address']) !!}</p>
+                <h4 class="service-heading">{{ __('address') }}</h4>
+                <p class="text-muted">
+                    @if (app()->getLocale() == 'ar')
+                    {{ __('myaddress') }}
+                    @else
+                    {!! nl2br($settings['contact_address']) !!}
+                    @endif
+                </p>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">Berita & Artikel</h2>
+                <h2 class="section-heading text-uppercase">{{ __('newsnarticle')}}</h2>
                 <h3 class="section-subheading text-muted">&nbsp;</h3>
             </div>
         </div>
@@ -25,7 +25,7 @@
 
         <div class="text-center">
             @if (\App\Post::active()->post()->count() > 10)
-                <a href="{{url('post')}}" class="btn btn-lg btn-block btn-primary" style="border-radius:40px">{{__('readmore')}}</a>
+            <a href="{{url('post')}}" class="btn btn-lg btn-block btn-primary" style="border-radius:40px">{{__('readmore')}}</a>
             @endif
         </div>
     </div>

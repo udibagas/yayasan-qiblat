@@ -8,7 +8,7 @@ class ProgramGallery extends Model
 {
     protected $fillable = [
         'user_id', 'program_id', 'image_path', 
-        'title', 'description',
+        'title_id', 'description_id',
         'title_en', 'description_en',
         'title_ar', 'description_ar',
     ];
@@ -25,7 +25,7 @@ class ProgramGallery extends Model
             return $this->title_ar;
         }
 
-        return $v;
+        return $this->title_id;
     }
 
     public function getContentAttribute($v)
@@ -40,7 +40,7 @@ class ProgramGallery extends Model
             return $this->content_ar;
         }
 
-        return $v;
+        return $this->content_id;
     }
 
     protected $with = ['program'];

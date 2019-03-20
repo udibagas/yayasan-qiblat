@@ -24,25 +24,25 @@ class ProgramController extends Controller
         // untuk backend
         if ($request->ajax())
         {
-            $sort = $request->sort ? $request->sort : 'name';
+            $sort = $request->sort ? $request->sort : 'name_id';
             $order = $request->order == 'ascending' ? 'asc' : 'desc';
     
             return Program::when($request->keyword, function ($q) use ($request) {
-                return $q->where('name', 'LIKE', '%' . $request->keyword . '%')
-                    ->orWhere('description', 'LIKE', '%' . $request->keyword . '%');
+                return $q->where('name_id', 'LIKE', '%' . $request->keyword . '%')
+                    ->orWhere('description_id', 'LIKE', '%' . $request->keyword . '%');
             })->orderBy($sort, $order)->paginate($request->pageSize);
         }
 
         // untuk frontend
         return view('program.index', [
-            'title' => 'Program Kami',
+            'title' => __('ourprograms'),
             'programs' => Program::all(),
             'breadcrumbs' => [
-                'Program Kami' => '#'
+                __('ourprograms') => '#'
             ],
             // untuk SEO
-            'title' => 'Program Kami',
-            'description' => 'Program Kami',
+            'title' => __('ourprograms'),
+            'description' => __('ourprograms'),
             'keyword' => '',
             'image' => ''
         ]);
@@ -65,7 +65,7 @@ class ProgramController extends Controller
             'program' => $program,
             'title' => $program->name,
             'breadcrumbs' => [
-                'Program' => url('/program'),
+                __('program') => url('/program'),
                 $program->name => '#'
             ],
             // untuk SEO

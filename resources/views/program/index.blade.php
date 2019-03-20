@@ -7,8 +7,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">PROGRAM KAMI</h2>
-                <h3 class="section-subheading text-muted">Anda ingin berdonasi pada program apa?</h3>
+                <h2 class="section-heading text-uppercase">{{ __('ourprograms')}}</h2>
+                <h3 class="section-subheading text-muted">{{ __('whatisourprogram')}}</h3>
             </div>
         </div>
         <div class="row text-center">
@@ -31,7 +31,7 @@
         </div>
 
         @auth
-        <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="height:70px;line-height:50px;border-radius:60px">LIHAT DONASI SAYA</a>
+        <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="height:70px;line-height:50px;border-radius:60px">{{ __('MYDONATION') }}</a>
         @endauth
     </div>
 </section>

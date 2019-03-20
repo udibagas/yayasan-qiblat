@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Program extends Model
 {
     protected $fillable = [
-        'name', 'description', 
+        'name_id', 'description_id', 
         'name_en', 'description_en', 
         'name_ar', 'description_ar', 
         'icon', 'image'
@@ -25,7 +25,7 @@ class Program extends Model
             return $this->name_ar;
         }
 
-        return $v;
+        return $this->name_id;
     }
 
     public function getDescriptionAttribute($v)
@@ -40,7 +40,7 @@ class Program extends Model
             return $this->description_ar;
         }
 
-        return $v;
+        return $this->description_id;
     }
 
     public function packages() {

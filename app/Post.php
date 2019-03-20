@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = [
-        'title', 'content',
+        'title_id', 'content_id',
         'title_en', 'content_en',
         'title_ar', 'content_ar',
-        'slug', 'slug_en', 'slug_ar',
+        'slug_id', 'slug_en', 'slug_ar',
         'post_category_id', 'image',
         'user_id', 'status', 'type'
     ];
@@ -25,8 +25,8 @@ class Post extends Model
         if ($locale == 'ar') {
             return $this->title_ar;
         }
-        
-        return $v;
+
+        return $this->title_id;
     }
 
     public function getContentAttribute($v) {
@@ -39,8 +39,22 @@ class Post extends Model
         if ($locale == 'ar') {
             return $this->content_ar;
         }
+
+        return $this->content_id;
+    }
+
+    public function getSlugAttribute($v) {
+        $locale = app()->getLocale();
         
-        return $v;
+        if ($locale == 'en') {
+            return $this->slug_en;
+        }
+
+        if ($locale == 'ar') {
+            return $this->slug_ar;
+        }
+
+        return $this->slug_id;
     }
 
     public function scopeActive($q) {

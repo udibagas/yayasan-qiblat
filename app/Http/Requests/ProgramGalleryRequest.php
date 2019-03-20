@@ -24,8 +24,8 @@ class ProgramGalleryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'description' => 'required',
+            'title_id' => 'required',
+            'description_id' => 'required',
             'image_path' => 'required',
         ];
     }

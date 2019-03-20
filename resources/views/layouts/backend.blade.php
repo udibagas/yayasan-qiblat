@@ -14,7 +14,7 @@
     <script src="{{ asset('js/backend.js') }}" defer></script>
 
     <!-- Styles -->
-    <link rel="icon" href="{{ asset('img/logo-qiblat-square.jpeg') }}">
+    <link rel="icon" href="{{ asset('img/logo-qiblat-square.jpg') }}">
     <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
 </head>
 

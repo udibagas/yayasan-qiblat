@@ -42,10 +42,10 @@
                 </div>
                 <div class="card mb-4 shadow">
                     <div class="card-header bg-primary">
-                        <h4 class="my-0 font-weight-normal text-white">FORM DONASI</h4>
+                        <h4 class="my-0 font-weight-normal text-white">{{ __('donationform') }}</h4>
                     </div>
                     <div class="card-body">
-                        <donate-button :paket="{{$package->id}}" label="{{ __('donatenow') }}"></donate-button>
+                        <donate-form :paket="{{$package->id}}" label="{{ __('donatenow') }}"></donate-form>
                     </div>
                 </div>
             </div>

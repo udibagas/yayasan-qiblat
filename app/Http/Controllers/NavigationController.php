@@ -25,6 +25,11 @@ class NavigationController extends Controller
                 'icon' => 'list'
             ],
             [
+                'path' => '/achievement',
+                'label' => 'Prestasi',
+                'icon' => 'chart-bar'
+            ],
+            [
                 'path' => '/programPackage',
                 'label' => 'Paket Program',
                 'icon' => 'list'

@@ -24,8 +24,8 @@ class ProgramRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'description' => 'required'
+            'name_id' => 'required',
+            'description_id' => 'required'
         ];
     }
 }

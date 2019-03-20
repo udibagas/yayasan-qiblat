@@ -8,7 +8,7 @@ class ProgramPackage extends Model
 {
     protected $fillable = [
         'program_id', 
-        'name', 'description', 
+        'name_id', 'description_id', 
         'name_en', 'description_en', 
         'name_ar', 'description_ar', 
         'price', 'flexible_amount'
@@ -34,7 +34,7 @@ class ProgramPackage extends Model
             return $this->name_ar;
         }
 
-        return $v;
+        return $this->name_id;
     }
 
     public function getDescriptionAttribute($v)
@@ -49,7 +49,7 @@ class ProgramPackage extends Model
             return $this->description_ar;
         }
 
-        return $v;
+        return $this->description_id;
     }
 
     public function program()

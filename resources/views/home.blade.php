@@ -9,8 +9,8 @@
 <!-- Program -->
 @include('home.program')
 
-<!-- Summary -->
-@include('home.summary')
+<!-- Achievement -->
+@include('home.achievement')
 
 <!-- Gallery -->
 @include('home.gallery')

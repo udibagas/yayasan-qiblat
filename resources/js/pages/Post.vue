@@ -36,7 +36,7 @@
                     <img v-if="scope.row.image" class="thumbnail" :src="scope.row.image" alt="">
                 </template>
             </el-table-column> -->
-            <el-table-column prop="title" label="Judul" sortable="custom"></el-table-column>
+            <el-table-column prop="title_id" label="Judul" sortable="custom"></el-table-column>
             <el-table-column prop="type" label="Jenis" sortable="custom"></el-table-column>
             <el-table-column prop="status" label="Status" sortable="custom" column-key="status"
             :filters="[{value: 0, text: 'Inactive'},{value: 1, text: 'Active'}]">
@@ -104,13 +104,13 @@
                             <el-tab-pane label="Indonesia">
                                 <br>
                                 <el-form-item label="">
-                                    <el-input placeholder="Judul" v-model="formModel.title"></el-input>
-                                    <div class="error-feedback" v-if="formErrors.title">{{formErrors.title[0]}}</div>
+                                    <el-input placeholder="Judul" v-model="formModel.title_id"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.title_id">{{formErrors.title_id[0]}}</div>
                                 </el-form-item>
 
                                 <el-form-item label="">
-                                    <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.content"></vue-editor>
-                                    <div class="error-feedback" v-if="formErrors.content">{{formErrors.content[0]}}</div>
+                                    <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.content_id"></vue-editor>
+                                    <div class="error-feedback" v-if="formErrors.content_id">{{formErrors.content[0]}}</div>
                                 </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane label="English">
@@ -205,8 +205,14 @@ export default {
         pageSize: function(v, o) {
             this.requestData()
         },
-        'formModel.title': function(v, o) {
-            this.formModel.slug = v.split(' ').join('-');
+        'formModel.title_id': function(v, o) {
+            this.formModel.slug_id = v.split(' ').join('-');
+        },
+        'formModel.title_en': function(v, o) {
+            this.formModel.slug_en = v.split(' ').join('-');
+        },
+        'formModel.title_ar': function(v, o) {
+            this.formModel.slug_ar = v.split(' ').join('-');
         }
     },
     data: function() {

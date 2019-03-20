@@ -22,12 +22,12 @@ class CarouselController extends Controller
      */
     public function index(Request $request)
     {
-        $sort = $request->sort ? $request->sort : 'title';
+        $sort = $request->sort ? $request->sort : 'title_id';
         $order = $request->order == 'ascending' ? 'asc' : 'desc';
 
         return Carousel::when($request->keyword, function ($q) use ($request) {
-            return $q->where('title', 'LIKE', '%' . $request->keyword . '%')
-                ->orWhere('description', 'LIKE', '%' . $request->keyword . '%');
+            return $q->where('title_id', 'LIKE', '%' . $request->keyword . '%')
+                ->orWhere('description_id', 'LIKE', '%' . $request->keyword . '%');
         })->when($request->status, function ($q) use ($request) {
             return $q->whereIn('status', $request->status);
         })->orderBy($sort, $order)->paginate($request->pageSize);

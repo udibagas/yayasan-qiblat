@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CarouselButton extends Model
 {
-    protected $fillable = ['carousel_id', 'label', 'label_en', 'label_ar', 'url', 'type'];
+    protected $fillable = ['carousel_id', 'label_id', 'label_en', 'label_ar', 'url', 'type'];
 
     public function getLabelAttribute($v)
     {
@@ -20,6 +20,6 @@ class CarouselButton extends Model
             return $this->label_ar;
         }
 
-        return $v;
+        return $this->label_id;
     }
 }

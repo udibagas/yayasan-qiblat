@@ -26,8 +26,8 @@
         @filter-change="filterChange"
         @sort-change="sortChange">
             <el-table-column type="index" width="50" :index="paginatedData.from"> </el-table-column>
-            <el-table-column prop="program.name" label="Program" sortable="custom"></el-table-column>
-            <el-table-column prop="name" label="Paket" sortable="custom"></el-table-column>
+            <el-table-column prop="program.name_id" label="Program" sortable="custom"></el-table-column>
+            <el-table-column prop="name_id" label="Paket" sortable="custom"></el-table-column>
 
             <el-table-column prop="price" width="120" label="Harga (USD)" sortable="custom" align="center" header-align="center">
                 <template slot-scope="scope">
@@ -91,14 +91,14 @@
                     <el-tab-pane label="Indonesia">
                         <br>
                         <el-form-item label="Nama Paket">
-                            <el-input placeholder="Nama Paket Program" v-model="formModel.name"></el-input>
-                            <div class="error-feedback" v-if="formErrors.name">{{formErrors.name[0]}}</div>
+                            <el-input placeholder="Nama Paket Program" v-model="formModel.name_id"></el-input>
+                            <div class="error-feedback" v-if="formErrors.name_id">{{formErrors.name_id[0]}}</div>
                         </el-form-item>
 
                         <el-form-item label="Keterangan">
                             <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description"></vue-editor> -->
-                            <el-input type="textarea" rows="8" placeholder="Keterangan" v-model="formModel.description"></el-input>
-                            <div class="error-feedback" v-if="formErrors.description">{{formErrors.description[0]}}</div>
+                            <el-input type="textarea" rows="8" placeholder="Keterangan" v-model="formModel.description_id"></el-input>
+                            <div class="error-feedback" v-if="formErrors.description_id">{{formErrors.description[0]}}</div>
                         </el-form-item>
                     </el-tab-pane>
                     <el-tab-pane label="English">

@@ -14,58 +14,59 @@ import ProgramGallery from './pages/ProgramGallery'
 import ProgramPackage from './pages/ProgramPackage'
 import CurrencyRate from './pages/CurrencyRate'
 import SocialMedia from './pages/SocialMedia'
+import Achievement from './pages/Achievement'
 
 Vue.use(VueRouter)
 
 let routes = [
     {
-        path: '/home',
-        name: 'home',
+        path: "/home",
+        name: "home",
         component: Dashboard
     },
     {
-        path: '/user',
-        name: 'user',
+        path: "/user",
+        name: "user",
         component: User
     },
     {
-        path: '/post',
-        name: 'post',
+        path: "/post",
+        name: "post",
         component: Post
     },
     {
-        path: '/setting',
-        name: 'setting',
+        path: "/setting",
+        name: "setting",
         component: Setting
     },
     {
-        path: '/backup',
-        name: 'backup',
+        path: "/backup",
+        name: "backup",
         component: Backup
     },
     {
-        path: '/postCategory',
-        name: 'postCategory',
+        path: "/postCategory",
+        name: "postCategory",
         component: PostCategory
     },
     {
-        path: '/carousel',
-        name: 'carousel',
+        path: "/carousel",
+        name: "carousel",
         component: Carousel
     },
     {
-        path: '/program',
-        name: 'program',
+        path: "/program",
+        name: "program",
         component: Program
     },
     {
-        path: '/programPackage',
-        name: 'programPackage',
+        path: "/programPackage",
+        name: "programPackage",
         component: ProgramPackage
     },
     {
-        path: '/programGallery',
-        name: 'programGallery',
+        path: "/programGallery",
+        name: "programGallery",
         component: ProgramGallery
     },
     // {
@@ -74,26 +75,31 @@ let routes = [
     //     component: Team
     // },
     {
-        path: '/currencyRate',
-        name: 'currencyRate',
+        path: "/currencyRate",
+        name: "currencyRate",
         component: CurrencyRate
     },
     {
-        path: '/donation',
-        name: 'donation',
+        path: "/donation",
+        name: "donation",
         component: Donation
     },
     {
-        path: '/donor',
-        name: 'donor',
+        path: "/donor",
+        name: "donor",
         component: Donor
     },
     {
-        path: '/socialMedia',
-        name: 'socialMedia',
+        path: "/socialMedia",
+        name: "socialMedia",
         component: SocialMedia
     },
-]
+    {
+        path: "/achievement",
+        name: "achievement",
+        component: Achievement
+    }
+];
 
 export default new VueRouter({
     base: '/admin',

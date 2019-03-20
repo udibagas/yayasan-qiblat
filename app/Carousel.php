@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Carousel extends Model
 {
     protected $fillable = [
-        'title', 'description', 'image', 'status',
+        'title_id', 'description_id', 'image', 'status',
         'title_en', 'description_en',
         'title_ar', 'description_ar'
     ];
@@ -24,7 +24,7 @@ class Carousel extends Model
             return $this->title_ar;
         }
 
-        return $v;
+        return $this->title_id;
     }
 
     public function getDescriptionAttribute($v)
@@ -39,7 +39,7 @@ class Carousel extends Model
             return $this->description_ar;
         }
 
-        return $v;
+        return $this->description_id;
     }
 
     protected $with = ['buttons'];

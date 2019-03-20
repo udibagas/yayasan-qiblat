@@ -18,19 +18,19 @@ class PostController extends Controller
     {
         if ($request->ajax())
         {
-            $sort = $request->sort ? $request->sort : 'name';
+            $sort = $request->sort ? $request->sort : 'title_id';
             $order = $request->order == 'ascending' ? 'asc' : 'desc';
     
             return Post::when($request->keyword, function ($q) use ($request) {
-                return $q->where('name', 'LIKE', '%' . $request->keyword . '%');
+                return $q->where('title_id', 'LIKE', '%' . $request->keyword . '%');
             })->orderBy($sort, $order)->paginate($request->pageSize);
         }
 
         return view('post.index', [
             'posts' => Post::latest()->post()->paginate(10),
-            'title' => 'Artikel',
+            'title' => __('newsnarticle'),
             'breadcrumbs' => [
-                'Artikel' => '#'
+                __('newsnarticle') => '#'
             ],
             // untuk SEO
             'title' => __('posts'),
@@ -46,7 +46,7 @@ class PostController extends Controller
             'post' => $post,
             'title' => $post->title,
             'breadcrumbs' => [
-                'Artikel' => url('/post'),
+                __('newsnarticle') => url('/post'),
                 $post->title => '#'
             ],
             // untuk SEO
@@ -69,7 +69,7 @@ class PostController extends Controller
             'post' => $post,
             'title' => $post->title,
             'breadcrumbs' => [
-                'Artikel' => url('/post'),
+                __('newsnarticle') => url('/post'),
                 $post->title => '#'
             ],
             // untuk SEO
