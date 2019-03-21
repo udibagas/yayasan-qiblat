@@ -10,9 +10,9 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
                 @guest
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#" onclick="event.preventDefault(); window.location.href = '/login'">{{ __('login') }}</a>
-                </li>
+                </li> -->
                 @else
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="event.preventDefault();

@@ -15,9 +15,8 @@ class DonationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['callback']);
-        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)
-            ->except(['index', 'callback', 'create', 'store']);
+        $this->middleware('auth')->except(['callback', 'create', 'store']);
+        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->only(['index']);
     }
 
     /**
@@ -111,20 +110,31 @@ class DonationController extends Controller
             'program_id' => 'required',
             'program_package_id' => 'required',
             'amount' => 'required',
-            'phone' => 'required'
+            'phone' => 'required',
+            'remark' => 'required'
         ], [], [
             'phone' => 'No. HP'
         ]);
 
-        // update phone if change
-        if ($request->phone != $request->user()->phone) {
-            $user = $request->user();
-            $user->phone = $request->phone;
-            $user->save();
+        // search user by phone or email
+        $user = User::where('phone', $request->phone)
+                    ->when($request->email, function($q) use ($request) {
+                        return $q->orWhere('email', $request->email);
+                    })->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'api_token' => str_random(60),
+                'role' => 0,
+                'status' => 1
+            ]);
         }
 
         $input = $request->all();
-        $input['user_id'] = $request->user()->id;
+        $input['user_id'] = $user->id;
         $donation = Donation::create($input);
 
         $options['secret_api_key'] = env('XENDIT_API_KEY');
@@ -132,7 +142,7 @@ class DonationController extends Controller
         $xenditPHPClient = new XenditClient\XenditPHPClient($options);
 
         $external_id = 'donasi-qiblat-'.$donation->id;
-        $payer_email = $request->user()->email;
+        $payer_email = $user->email;
         $description = $request->remark;
         $amount = $request->amount;
         $response = $xenditPHPClient->createInvoice($external_id, $amount, $payer_email, $description);
@@ -142,7 +152,7 @@ class DonationController extends Controller
             $donation->expired_at = date('Y-m-d H:i:s', strtotime($response['expiry_date']));
             $donation->status = $response['status'];
             $donation->external_id = $external_id;
-            // $donation->invoice_url = $response[ 'invoice_url'];
+            $donation->invoice_url = $response[ 'invoice_url'];
             $donation->save();
 
             // Mail::to($donation->user)
@@ -155,30 +165,6 @@ class DonationController extends Controller
         }
 
         return $response;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Donation $donation)
-    {
-        return $donation->update($request->all());
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Donation $donation)
-    {
-        $donation->delete();
-        return ['message' => 'OK'];
     }
 
     public function callback(Request $request)

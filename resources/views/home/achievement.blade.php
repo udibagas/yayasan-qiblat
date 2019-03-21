@@ -20,9 +20,11 @@
         </div>
 
         <br>
-        <a href="{{url('/program')}}" class="btn btn-lg btn-primary btn-block" style="border-radius:40px">{{ __('DONATENOW') }}</a>
+        <div class="text-center">
+            <a href="{{url('/program')}}" class="btn btn-lg btn-primary" style="border-radius:40px;">{{ __('DONATENOW') }}</a>
+        </div>
         @auth
-        <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="border-radius:40px">{{ __('MYDONATION') }}</a>
+        <!-- <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="border-radius:40px">{{ __('MYDONATION') }}</a> -->
         @endauth
     </div>
 </section> 

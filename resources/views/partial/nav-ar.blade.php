@@ -10,9 +10,9 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
                 @guest
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="{{url('/login')}}">{{ __('login') }}</a>
-                </li>
+                </li> -->
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="{{url('/daftar')}}">{{ __('register') }}</a>
                 </li> -->

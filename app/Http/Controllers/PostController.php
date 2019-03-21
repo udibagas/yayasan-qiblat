@@ -59,7 +59,7 @@ class PostController extends Controller
 
     public function showBySlug($slug)
     {
-        $post = Post::where('slug', $slug)->first();
+        $post = Post::where('slug_'.app()->getLocale(), $slug)->first();
 
         if (!$post) {
             abort(404);

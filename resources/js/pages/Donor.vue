@@ -28,7 +28,7 @@
                 <el-table-column prop="phone" label="Phone" sortable="custom"></el-table-column>
                 <el-table-column prop="address" label="Address" sortable="custom">
                     <template slot-scope="scope">
-                        <span v-html="scope.row.address.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span>
+                        <span v-if="!!scope.row.address" v-html="scope.row.address.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span>
                     </template>
                 </el-table-column>
                 <el-table-column prop="status" label="Status" sortable="custom" column-key="status"

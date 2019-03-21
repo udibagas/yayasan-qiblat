@@ -19,11 +19,9 @@
                         @endif
                         <h2 class="service-heading">{{$program->name}}</h2>
                         <p class="text-muted">{{$program->description}}</p>
-                        <div>
-                        </div>
                     </div>
                 </div>
-                <!-- TODO: list paket  -->
+
                 <div class="card-deck mb-3">
                     @foreach ($program->packages as $p)
                     <div class="card mb-4 shadow">
@@ -31,15 +29,24 @@
                             <h4 class="my-0 font-weight-normal text-white text-center">{{$p->name}}</h4>
                         </div>
                         <ul class="list-group list-group-flush">
-                            @foreach ($p->prices as $curr => $price)
+                            @foreach (\App\CurrencyRate::all() as $curr)
                             <li class="list-group-item text-right" style="font-size:2em">
-                                {{number_format($price, 0, ',', '.')}}  <small>{{$curr}}</small>
-                                <img src="{{asset('img/currency/'.$curr.'.jpeg')}}" alt="" style="border:1px solid #ddd;">
+                                @if (app()->getLocale() == 'ar')
+                                {{str_replace(
+                                    ['0','1','2','3','4','5','6','7','8','9'],
+                                    ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'],
+                                    number_format($p->price * $curr->rate, 0)
+                                )}}
+                                @else
+                                {{number_format($p->price * $curr->rate, 0, ',', '.')}}
+                                @endif
+                                <small>{{app()->getLocale() == 'ar' ? $curr->description : $curr->currency}}</small>
+                                <img src="{{asset('img/currency/'.$curr->currency.'.jpeg')}}" alt="" style="border:1px solid #ddd;">
                             </li>
                             @endforeach
                         </ul>
                         <div class="card-body">
-                            <p class="text-muted">{!! nl2br($p->description) !!}</p>
+                            <p class="text-muted {{app()->getLocale() == 'ar' ? 'text-right' : ''}}">{!! nl2br($p->description) !!}</p>
                             <a href="{{url('donation/create?package='.$p->id)}}" class="btn btn-lg btn-block btn-primary" style="border-radius:30px">
                                 {{__('Donasi untuk program ini')}}
                             </a>
@@ -47,22 +54,13 @@
                     </div>
                     @endforeach
                 </div>
-
-                <!-- TODO: galery  -->
             </div>
+        </div>
+    </div>
 </section>
 
 @if (count($program->galleries))
 @include('home.gallery', ['galleries' => $program->galleries])
 @endif
 
-@endsection
-
-@push('script')
-<script>
-    // setTimeout(function() {
-    //     var element = document.getElementById("mainNav");
-    //     element.classList.add("navbar-shrink");
-    // }, 300)
-</script>
-@endpush 
+@endsection 

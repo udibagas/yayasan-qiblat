@@ -3,6 +3,13 @@ window._ = require('lodash');
 // window.fx = require("money");
 // window.fx.base = "USD"
 
+String.prototype.toArabicDigits= function(){
+    var id= ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+    return this.replace(/[0-9]/g, function(w) {
+        return id[+w]
+    });
+}
+
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');

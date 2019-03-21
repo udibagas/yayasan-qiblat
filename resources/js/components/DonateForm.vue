@@ -7,17 +7,19 @@
             <!-- <h3>Informasi Donatur</h3> -->
             <el-form label-width="130px" label-position="left">
                 <el-form-item :label="lang[locale]['Nama Donatur']">
-                    <el-input disabled v-model="user.name"></el-input>
-                </el-form-item>
-                <el-form-item :label="lang[locale]['Email']">
-                    <el-input disabled v-model="user.email"></el-input>
+                    <el-input :placeholder="lang[locale]['Nama Donatur']" v-model="user.name"></el-input>
+                    <div class="el-form-item__error" v-if="formErrors.name">{{formErrors.name[0]}}</div>
                 </el-form-item>
                 <el-form-item :label="lang[locale]['Phone']">
-                    <el-input v-model="user.phone"></el-input>
+                    <el-input :placeholder="lang[locale]['Phone']" v-model="user.phone"></el-input>
                     <div class="el-form-item__error" v-if="formErrors.phone">{{formErrors.phone[0]}}</div>
                 </el-form-item>
+                <el-form-item :label="lang[locale]['Email']">
+                    <el-input :placeholder="lang[locale]['Email']" v-model="user.email"></el-input>
+                    <div class="el-form-item__error" v-if="formErrors.email">{{formErrors.email[0]}}</div>
+                </el-form-item>
             </el-form>
-            <p><i>{{lang[locale]['enterAmount']}}:</i></p>
+            <p>{{lang[locale]['enterAmount']}}</p>
             <el-row :gutter="15">
                 <el-col :span="12">
                     <el-input type="number" v-model="data.price" :disabled="!data.flexible_amount"></el-input>
@@ -26,14 +28,15 @@
                     <el-input-number style="width:100%" v-model="qty" :min="1"></el-input-number>
                 </el-col>
             </el-row><br>
-            <p><i>{{lang[locale]['enterAdditionalInfo']}}:</i></p>
+            <p>{{lang[locale]['enterAdditionalInfo']}}</p>
             <textarea class="form-control" rows="3" v-model="additionalRemark"></textarea>
             <!-- <div class="attention">Untuk program masjid, sumur, dan mujamma' ta'limi tuliskan nama yang akan dicantumkan di prasasti</div> -->
             <br>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item text-right" v-for="(c, i) in currencies" :key="i">
                     <h3>
-                        {{c.rate * data.price  * qty | formatNumber}} <small>{{c.currency}}</small>
+                        {{locale == 'ar' ? (c.rate * data.price  * qty).toString().toArabicDigits() : (c.rate * data.price  * qty | formatNumber)}} 
+                        <small>{{locale == 'ar' ? c.description : c.currency}}</small>
                         <img :src="'/img/currency/' + c.currency +'.jpeg'" alt="" style="border:1px solid #ddd;">
                     </h3>
                 </li>
@@ -71,7 +74,7 @@ export default {
             data: {},
             currencies: [],
             idr_rate: { currency: 'IDR', rate: 15000 },
-            user: USER,
+            user: { name: '', email: '', phone: '' },
             formErrors: {},
             lang: {
                 id: {
@@ -82,7 +85,8 @@ export default {
                     "enterAdditionalInfo": "Tulis keterangan tambahan jika ada. Untuk program masjid, sumur, dan mujamma' ta'limi tuliskan nama yang akan dicantumkan di prasasti",
                     "enterPhone": "Mohon isi no. HP",
                     "andaYakin": "Apakah anda yakin?",
-                    "mohonTunggu": "Mohon Tunggu"
+                    "mohonTunggu": "Mohon Tunggu",
+                    "enterName": "Mohon isi nama Anda"
                 },
                 en: {
                     "Nama Donatur": "Donor Name",
@@ -92,7 +96,8 @@ export default {
                     "enterAdditionalInfo": "Enter additional information if any.",
                     "enterPhone": "Please enter phone number",
                     "andaYakin": "Are you sure?",
-                    "mohonTunggu": "Please wait a moment"
+                    "mohonTunggu": "Please wait a moment",
+                    "enterName": "Please enter your name"
                 },
                 ar: {
                     "Nama Donatur": "اسم المانحة",
@@ -102,7 +107,8 @@ export default {
                     "enterAdditionalInfo": "اكتب معلومات إضافية ( خاص مشروع جامع وآبار ومركز التعليمي اكتب اسم الذي سيظهر في رخام المشروع )",
                     "enterPhone": "يرجى إدخال رقم الهاتف",
                     "andaYakin": "هل أنت واثق؟",
-                    "mohonTunggu": "فضلا انتظر لحظة"
+                    "mohonTunggu": "فضلا انتظر لحظة",
+                    "enterName": "من فضلك أدخل إسمك"
                 },
             }
         }
@@ -122,6 +128,16 @@ export default {
             }).catch(e => console.log(e))
         },
         donate() {
+            if (!this.user.name) {
+                this.$message({
+                    message: this.lang[this.locale]['enterName'],
+                    type: 'error',
+                    showClose: true
+                });
+
+                return;
+            }
+
             if (!this.user.phone) {
                 this.$message({
                     message: this.lang[this.locale]['enterPhone'],
@@ -153,8 +169,10 @@ export default {
                     program_package_id: this.data.id,
                     amount: this.amountFinal,
                     qty: this.qty,
-                    remark: this.data.program.name_id + ' - ' + this.data.name_id + ' : ' + this.additionalRemark,
-                    phone: this.user.phone
+                    remark: this.data.program.name + ' - ' + this.data.name + ' : ' + this.additionalRemark,
+                    name: this.user.name,
+                    phone: this.user.phone,
+                    email: this.user.email
                 }
                 
                 this.disabled = true

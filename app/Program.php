@@ -13,6 +13,8 @@ class Program extends Model
         'icon', 'image'
     ];
 
+    protected $appends = ['name', 'description'];
+
     public function getNameAttribute($v)
     {
         $locale = app()->getLocale();

@@ -39,9 +39,9 @@
                     <a class="nav-link js-scroll-trigger" href="#contact">{{ __('contactus') }}</a>
                 </li>
                 @guest
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="#" onclick="event.preventDefault(); window.location.href = '/login'">{{ __('login') }}</a>
-                </li>
+                </li> -->
                 @else
                 <li class="nav-item">
                     <a class="nav-link" href="#" onclick="event.preventDefault();

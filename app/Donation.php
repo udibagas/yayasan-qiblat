@@ -14,7 +14,7 @@ class Donation extends Model
         'user_id', 'program_id', 'program_package_id', 'amount',
         'status', 'expired_at', 'confirmed_at', 'payment_method',
         'remark', 'external_id', 'merchant_name', 'billable_amount',
-        'received_amount', 'xendit_fee_amount', 'qty'
+        'received_amount', 'xendit_fee_amount', 'qty', 'invoice_url'
     ];
 
     public function program() {

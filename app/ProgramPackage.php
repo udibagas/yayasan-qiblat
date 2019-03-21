@@ -14,7 +14,7 @@ class ProgramPackage extends Model
         'price', 'flexible_amount'
     ];
 
-    protected $appends = ['prices'];
+    protected $appends = ['prices', 'name', 'description'];
 
     protected $with = ['program'];
 

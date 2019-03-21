@@ -13,13 +13,10 @@
                     </el-button>
                 </div>
                 <p class="message"><strong>Admin:</strong> May I help you?</p>
-                <br>
-                <br>
-                <br>
-                <br>
+                <br> <br> <br> <br>
                 <el-row>
                     <el-col :span="20">
-                        <input class="message-input" placeholder="Your Message" v-model="text"></input>
+                        <input class="message-input" placeholder="Your Message" v-model="text">
                     </el-col>
                     <el-col :span="4" class="text-right">
                         <el-button type="primary" icon="fab fa-telegram-plane" circle @click="sendMessage"></el-button>

@@ -29,7 +29,11 @@
                 <el-table-column prop="name" label="Name" sortable="custom"></el-table-column>
                 <el-table-column prop="email" label="Email" sortable="custom"></el-table-column>
                 <el-table-column prop="phone" label="Phone" sortable="custom"></el-table-column>
-                <el-table-column prop="address" label="Alamat" sortable="custom"></el-table-column>
+                <el-table-column prop="address" label="Address" sortable="custom">
+                    <template slot-scope="scope">
+                        <span v-if="!!scope.row.address" v-html="scope.row.address.replace(/(?:\r\n|\r|\n)/g, '<br>')"></span>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="role" label="Role" sortable="custom" 
                 column-key="role"
                 :filters="[{value: 0, text: 'Member'},{value: 1, text: 'User'}, {value: 9, text: 'Admin'}]">

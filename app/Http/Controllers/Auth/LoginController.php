@@ -53,5 +53,10 @@ class LoginController extends Controller
         $user->login += 1;
         $user->last_login = Carbon::now();
         $user->save();
+
+        // admin langsung login => atau bisa override function redirectTo()
+        if ($user->role == 9) {
+            return redirect('/admin/home');
+        }
     }
 }

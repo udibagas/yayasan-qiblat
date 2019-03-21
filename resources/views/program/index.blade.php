@@ -31,7 +31,7 @@
         </div>
 
         @auth
-        <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="height:70px;line-height:50px;border-radius:60px">{{ __('MYDONATION') }}</a>
+        <!-- <a href="{{url('/donation')}}" class="btn btn-lg btn-primary btn-block" style="height:70px;line-height:50px;border-radius:60px">{{ __('MYDONATION') }}</a> -->
         @endauth
     </div>
 </section>
