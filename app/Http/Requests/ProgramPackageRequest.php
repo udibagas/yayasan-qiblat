@@ -26,8 +26,11 @@ class ProgramPackageRequest extends FormRequest
         return [
             'name_id' => 'required',
             'description_id' => 'required',
+            'name_en' => 'required',
+            'description_en' => 'required',
+            'name_ar' => 'required',
+            'description_ar' => 'required',
             'program_id' => 'required',
-            'price' => 'required',
         ];
     }
 }

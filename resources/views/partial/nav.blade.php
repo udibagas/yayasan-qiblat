@@ -26,9 +26,9 @@
                 <li class="nav-item">
                     <a class="nav-link" target="_blank" href="http://keblah.com/index.php?action=picture/category">{{ __('Lihat Masjid Anda') }}</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="{{url('/programGallery')}}">{{ __('gallery') }}</a>
-                </li>
+                </li> -->
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="{{url('/team')}}">Team</a>
                 </li> -->

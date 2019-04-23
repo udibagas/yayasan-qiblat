@@ -25,7 +25,7 @@
                     <el-input type="number" v-model="data.price" :disabled="!data.flexible_amount"></el-input>
                 </el-col>
                 <el-col :span="12">
-                    <el-input-number style="width:100%" v-model="qty" :min="1"></el-input-number>
+                    <el-input-number :disabled="!data.allow_multiple" style="width:100%" v-model="qty" :step="data.multiple_step" :min="data.minimum_qty"></el-input-number>
                 </el-col>
             </el-row><br>
             <p>{{lang[locale]['enterAdditionalInfo']}}</p>
@@ -33,11 +33,11 @@
             <!-- <div class="attention">Untuk program masjid, sumur, dan mujamma' ta'limi tuliskan nama yang akan dicantumkan di prasasti</div> -->
             <br>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item text-right" v-for="(c, i) in currencies" :key="i">
+                <li class="list-group-item text-right" v-for="(p, i) in data.prices" :key="i">
                     <h3>
-                        {{locale == 'ar' ? (c.rate * data.price  * qty).toString().toArabicDigits() : (c.rate * data.price  * qty | formatNumber)}} 
-                        <small>{{locale == 'ar' ? c.description : c.currency}}</small>
-                        <img :src="'/img/currency/' + c.currency +'.jpeg'" alt="" style="border:1px solid #ddd;">
+                        {{locale == 'ar' ? (p.price  * qty).toString().toArabicDigits() : (p.price  * qty | formatNumber)}} 
+                        <small>{{locale == 'ar' ? p.currency.description : p.currency.currency}}</small>
+                        <img :src="'/img/currency/' + p.currency.currency +'.jpeg'" alt="" style="border:1px solid #ddd;">
                     </h3>
                 </li>
             </ul>
@@ -70,8 +70,8 @@ export default {
             buttonLabel: '',
             xenditResponse: null,
             additionalRemark: '',
-            qty: 1,
             data: {},
+            qty: 0,
             currencies: [],
             idr_rate: { currency: 'IDR', rate: 15000 },
             user: { name: '', email: '', phone: '' },
@@ -100,7 +100,7 @@ export default {
                     "enterName": "Please enter your name"
                 },
                 ar: {
-                    "Nama Donatur": "اسم المانحة",
+                    "Nama Donatur": "اسم المتبرع",
                     "Email": "البريد الإلكتروني",
                     "Phone": "رقم الجوال / الوتساب",
                     "enterAmount": "ادخل قيمة المبلغ تبرعتك",
@@ -125,6 +125,7 @@ export default {
         getData() {
             axios.get(BASE_URL + '/programPackage/' + this.paket).then(r => {
                 this.data = r.data
+                this.qty = r.data.multiple_step
             }).catch(e => console.log(e))
         },
         donate() {
@@ -162,52 +163,52 @@ export default {
                 }
             }
 
+            if (!confirm(this.lang[this.locale]['andaYakin'])) {
+                return
+            }
 
-            this.$confirm(this.lang[this.locale]['andaYakin'], 'Confirm').then(() => {
-                let data = {
-                    program_id: this.data.program_id,
-                    program_package_id: this.data.id,
-                    amount: this.amountFinal,
-                    qty: this.qty,
-                    remark: this.data.program.name + ' - ' + this.data.name + ' : ' + this.additionalRemark,
-                    name: this.user.name,
-                    phone: this.user.phone,
-                    email: this.user.email
+            let data = {
+                program_id: this.data.program_id,
+                program_package_id: this.data.id,
+                amount: this.amountFinal,
+                qty: this.qty,
+                remark: this.data.program.name + ' - ' + this.data.name + ' : ' + this.additionalRemark,
+                name: this.user.name,
+                phone: this.user.phone,
+                email: this.user.email
+            }
+            
+            this.disabled = true
+            this.buttonLabel = this.lang[this.locale]['mohonTunggu'] + '...'
+            // simpan di database
+            axios.post(BASE_URL + '/donation', data).then(r => {
+                this.buttonLabel = this.label
+                this.disabled = false
+                if (r.data.error_code) {
+                    this.$message({
+                        message: 'ERROR. ' + r.data.error_code + ' ' + r.data.message,
+                        type: 'error',
+                        showClose: true
+                    })
+                    return
                 }
-                
-                this.disabled = true
-                this.buttonLabel = this.lang[this.locale]['mohonTunggu'] + '...'
-                // simpan di database
-                axios.post(BASE_URL + '/donation', data).then(r => {
-                    this.buttonLabel = this.label
-                    this.disabled = false
-                    if (r.data.error_code) {
-                        this.$message({
-                            message: 'ERROR. ' + r.data.error_code + ' ' + r.data.message,
-                            type: 'error',
-                            showClose: true
-                        })
-                        return
-                    }
-                    this.xenditResponse = r.data
-                }).catch(e => {
-                    this.buttonLabel = this.label
-                    this.disabled = false
-                    if (e.response.status == 422) {
-                        this.formErrors = e.response.data.errors;
-                    }
+                this.xenditResponse = r.data
+            }).catch(e => {
+                this.buttonLabel = this.label
+                this.disabled = false
+                if (e.response.status == 422) {
+                    this.formErrors = e.response.data.errors;
+                }
 
-                    if (e.response.status == 500) {
-                        this.formErrors = {}
-                        this.$message({
-                            message: e.response.data,
-                            type: 'error',
-                            showClose: true
-                        })
-                    }
-                })
-
-            }).catch(e => console.log(e))
+                if (e.response.status == 500) {
+                    this.formErrors = {}
+                    this.$message({
+                        message: e.response.data,
+                        type: 'error',
+                        showClose: true
+                    })
+                }
+            })
         }
     }
 }

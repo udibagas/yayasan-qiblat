@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from './pages/Dashboard'
 import User from './pages/User'
 import Donor from './pages/Donor'
 import Post from './pages/Post'
@@ -22,7 +21,7 @@ let routes = [
     {
         path: "/home",
         name: "home",
-        component: Dashboard
+        component: Donation
     },
     {
         path: "/user",

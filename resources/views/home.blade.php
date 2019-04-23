@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- Header -->
-@include('home.jumbotron')
+@include('home.carousel')
 
 @include('home.pages')
 
@@ -13,7 +13,7 @@
 @include('home.achievement')
 
 <!-- Gallery -->
-@include('home.gallery')
+<!-- include('home.gallery') -->
 
 @include('home.post')
 

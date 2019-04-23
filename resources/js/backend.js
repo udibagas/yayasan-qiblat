@@ -19,7 +19,7 @@ Vue.filter('readableDateTime', function(v) {
 Vue.filter('formatNumber', function (v) {
     try {
         return parseFloat(v)
-            .toFixed(0)
+            .toFixed(2)
             .toString()
             .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     } catch (error) {

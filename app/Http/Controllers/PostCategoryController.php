@@ -16,11 +16,12 @@ class PostCategoryController extends Controller
 
     public function index(Request $request)
     {
-        $sort = $request->sort ? $request->sort : 'name';
+        $sort = $request->sort ? $request->sort : 'name_id';
         $order = $request->order == 'ascending' ? 'asc' : 'desc';
 
         return PostCategory::when($request->keyword, function ($q) use ($request) {
-            return $q->where('name', 'LIKE', '%' . $request->keyword . '%');
+            return $q->where('name_id', 'LIKE', '%' . $request->keyword . '%')
+                ->orWhere('description_id', 'LIKE', '%' . $request->keyword . '%');
         })->orderBy($sort, $order)->paginate($request->pageSize);
     }
 

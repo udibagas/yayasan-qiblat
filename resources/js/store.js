@@ -10,9 +10,14 @@ export default new Vuex.Store({
             { value: 25, label: 25 },
             { value: 50, label: 50 },
             { value: 100, label: 100 },
-        ]
+        ],
+        currencyList: []
     },
     mutations: {
-        
+        getCurrencyList(state) {
+            axios.get(BASE_URL + '/currencyRate/getList')
+                .then(r => state.currencyList = r.data)
+                .catch(e => console.log(e))
+        }
     }
 })

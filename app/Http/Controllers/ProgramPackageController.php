@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProgramPackageRequest;
 use App\ProgramPackage;
+use App\ProgramPackagePrice;
 
 class ProgramPackageController extends Controller
 {
@@ -51,7 +52,20 @@ class ProgramPackageController extends Controller
      */
     public function store(ProgramPackageRequest $request)
     {
-        return ProgramPackage::create($request->all());
+        $package = ProgramPackage::create($request->all());
+        
+        foreach ($request->prices as $currency => $price) {
+            if ($price == null) {
+                continue;
+            }
+
+            $package->prices()->create([
+                'currency_rate_id' => $currency,
+                'price' => $price
+            ]);
+        }
+
+        return $package;
     }
 
     public function show(Request $request, ProgramPackage $programPackage)
@@ -80,6 +94,28 @@ class ProgramPackageController extends Controller
     public function update(ProgramPackageRequest $request, ProgramPackage $programPackage)
     {
         $programPackage->update($request->all());
+
+        foreach ($request->prices as $currency => $price) {
+            $packagePrice = ProgramPackagePrice::where('program_package_id', $programPackage->id)
+                        ->where('currency_rate_id', $currency)
+                        ->first();
+            
+            if ( $packagePrice) {
+                $packagePrice->update(['price' => $price]);
+            }
+            
+            else {
+                if ($price == null || is_array($price)) {
+                    continue;
+                }
+
+                $programPackage->prices()->create([
+                    'currency_rate_id' => $currency,
+                    'price' => $price
+                ]);
+            }
+        }
+
         return $programPackage;
     }
 

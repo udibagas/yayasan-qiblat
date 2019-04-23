@@ -24,7 +24,9 @@ class PostCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required'
+            'name_id' => 'required',
+            'name_en' => 'required',
+            'name_ar' => 'required'
         ];
     }
 }

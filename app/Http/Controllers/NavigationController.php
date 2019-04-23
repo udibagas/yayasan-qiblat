@@ -25,20 +25,20 @@ class NavigationController extends Controller
                 'icon' => 'list'
             ],
             [
-                'path' => '/achievement',
-                'label' => 'Prestasi',
-                'icon' => 'chart-bar'
-            ],
-            [
                 'path' => '/programPackage',
                 'label' => 'Paket Program',
                 'icon' => 'list'
             ],
             [
-                'path' => '/programGallery',
-                'label' => 'Galeri Program',
-                'icon' => 'image'
+                'path' => '/achievement',
+                'label' => 'Prestasi',
+                'icon' => 'chart-bar'
             ],
+            // [
+            //     'path' => '/programGallery',
+            //     'label' => 'Galeri Program',
+            //     'icon' => 'image'
+            // ],
             [
                 'path' => '/donor',
                 'label' => 'Donor',
@@ -64,11 +64,11 @@ class NavigationController extends Controller
                 'label' => 'Post',
                 'icon' => 'file'
             ],
-            // [
-            //     'path' => '/postCategory',
-            //     'label' => 'Post Category',
-            //     'icon' => 'tags'
-            // ],
+            [
+                'path' => '/postCategory',
+                'label' => 'Post Category',
+                'icon' => 'tags'
+            ],
             // [
             //     'path' => '/team',
             //     'label' => 'Team',

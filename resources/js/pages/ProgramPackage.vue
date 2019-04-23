@@ -26,18 +26,12 @@
         @filter-change="filterChange"
         @sort-change="sortChange">
             <el-table-column type="index" width="50" :index="paginatedData.from"> </el-table-column>
-            <el-table-column prop="program.name_id" label="Program" sortable="custom"></el-table-column>
-            <el-table-column prop="name_id" label="Paket" sortable="custom"></el-table-column>
-
-            <el-table-column prop="price" width="120" label="Harga (USD)" sortable="custom" align="center" header-align="center">
-                <template slot-scope="scope">
-                    {{ scope.row.price | formatNumber }}
-                </template>
-            </el-table-column>
+            <el-table-column min-width="200" prop="program.name_id" label="Program" sortable="custom"></el-table-column>
+            <el-table-column min-width="100" prop="name_id" label="Paket" sortable="custom"></el-table-column>
 
             <el-table-column width="100" v-for="c in currencies" :key="c.id" :label="c.currency" align="center" header-align="center">
                 <template slot-scope="scope">
-                    {{ scope.row.prices[c.currency] | formatNumber }}
+                    {{ getPrice(c.id, scope.row.prices) | formatNumber }}
                 </template>
             </el-table-column>
 
@@ -47,6 +41,17 @@
                     <span :class="scope.row.flexible_amount ? 'text-success' : 'text-danger'">{{scope.row.flexible_amount ? 'Yes' : 'No'}}</span>
                 </template>
             </el-table-column>
+
+            <el-table-column width="100" prop="minimum_qty" label="Min. Qty" sortable="custom"></el-table-column>
+
+            <el-table-column width="170" prop="allow_multiple" label="Berlaku Kelipatan" sortable="custom" column-key="allow_multiple"
+            :filters="[{value: 0, text: 'No'},{value: 1, text: 'Yes'}]">
+                <template slot-scope="scope">
+                    <span :class="scope.row.allow_multiple ? 'text-success' : 'text-danger'">{{scope.row.allow_multiple ? 'Yes' : 'No'}}</span>
+                </template>
+            </el-table-column>
+
+            <el-table-column width="100" prop="multiple_step" label="Kelipatan" sortable="custom"></el-table-column>
 
             <el-table-column fixed="right" width="40px">
                 <template slot-scope="scope">
@@ -79,7 +84,7 @@
             </el-col>
         </el-row>
 
-        <el-dialog :visible.sync="showForm" :title="formTitle" width="700px" v-loading="loading" :close-on-click-modal="false" @close="closeForm">
+        <el-dialog :visible.sync="showForm" :title="formTitle" width="800px" v-loading="loading" :close-on-click-modal="false" @close="closeForm">
             <el-alert type="error" title="ERROR"
                 :description="error.message + '\n' + error.file + ':' + error.line"
                 v-show="error.message"
@@ -113,7 +118,7 @@
                                 <el-form-item label="Keterangan">
                                     <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description"></vue-editor> -->
                                     <el-input type="textarea" rows="8" placeholder="Keterangan" v-model="formModel.description_id"></el-input>
-                                    <div class="error-feedback" v-if="formErrors.description_id">{{formErrors.description[0]}}</div>
+                                    <div class="error-feedback" v-if="formErrors.description_id">{{formErrors.description_id[0]}}</div>
                                 </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane label="English">
@@ -151,17 +156,37 @@
                             <div class="error-feedback" v-if="formErrors.program_id">{{formErrors.program_id[0]}}</div>
                         </el-form-item>
 
-                        <el-form-item label="Harga (USD)">
-                            <el-input type="number" placeholder="Harga" v-model="formModel.price"></el-input>
-                            <div class="error-feedback" v-if="formErrors.price">{{formErrors.price[0]}}</div>
-                        </el-form-item>
-
                         <el-form-item label="Harga Flexibel">
                             <el-switch v-model="formModel.flexible_amount"></el-switch>
+                        </el-form-item>
+
+                        <el-form-item label="Minimum Qty">
+                            <el-input v-model="formModel.minimum_qty" type="number" placeholder="Minimum Qty"></el-input>
+                        </el-form-item>
+
+                        <el-form-item label="Berlaku Kelipatan">
+                            <el-switch v-model="formModel.allow_multiple"></el-switch>
+                        </el-form-item>
+
+                        <el-form-item label="Kelipatan" v-show="!!formModel.allow_multiple">
+                            <el-input v-model="formModel.multiple_step" type="number" placeholder="Kelipatan"></el-input>
                         </el-form-item>
                     </el-form>
                 </el-col>
             </el-row>
+
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr> <th class="text-center" v-for="c in currencies" :key="c.id">{{c.currency}}</th> </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td v-for="c in currencies" :key="c.id">
+                            <input v-model="formModel.prices[c.id]" type="number" class="my-input">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="save">Simpan</el-button>
@@ -192,7 +217,7 @@ export default {
             formTitle: '',
             formErrors: {},
             error: {},
-            formModel: {},
+            formModel: { prices: [] },
             keyword: '',
             page: 1,
             pageSize: 10,
@@ -206,6 +231,10 @@ export default {
         }
     },
     methods: {
+        getPrice(currency, prices) {
+            let price = prices.find(p => p.currency_rate_id == currency)
+            return price ? price.price : 0;
+        },
         handleImageAdded: function(file, Editor, cursorLocation, resetUploader) {
             var formData = new FormData();
             formData.append('file', file)
@@ -318,13 +347,27 @@ export default {
             this.formTitle = 'Tambah Paket Program'
             this.error = {}
             this.formErrors = {}
-            this.formModel = {}
+            this.formModel = { prices: [] }
+            this.currencies.forEach(c => {
+                this.formModel.prices[c.id] = 0
+            });
             this.showForm = true
         },
         editData: function(data) {
             this.formTitle = 'Edit Paket Program'
             data.flexible_amount = !!(data.flexible_amount);
             this.formModel = JSON.parse(JSON.stringify(data));
+            
+            if (data.prices.length == 0) {
+                this.currencies.forEach(c => {
+                    this.formModel.prices[c.id] = 0
+                });
+            } else {
+                data.prices.forEach(p => {
+                    this.formModel.prices[p.currency_rate_id] = p.price
+                });
+            }
+
             this.imageUrl = data.image
             this.error = {}
             this.formErrors = {}
@@ -423,5 +466,12 @@ export default {
 img.thumbnail {
     height: 50px;
     border: 1px solid #ddd;
+}
+
+.my-input {
+    width: 100px;
+    border: 1px solid #ddd;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 </style>

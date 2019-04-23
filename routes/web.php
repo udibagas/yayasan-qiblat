@@ -88,6 +88,10 @@ Route::get('/migrate', function()  {
     echo 'migrated';
 });
 
+Route::get('aaa', function() {
+    return \App\ProgramPackage::all();
+});
+
 Route::get('/down-bismillah12345', function()  {
     Artisan::call('down');
     echo 'App is Down!';

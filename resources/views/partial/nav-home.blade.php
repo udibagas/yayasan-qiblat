@@ -26,9 +26,9 @@
                 <li class="nav-item">
                     <a class="nav-link" onClick="window.open('http://keblah.com/index.php?action=picture/category', '_blank')">{{ __('Lihat Masjid Anda') }}</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#portfolio">{{ __('gallery') }}</a>
-                </li>
+                </li> -->
                 <!-- <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#team">Team</a>
                 </li> -->

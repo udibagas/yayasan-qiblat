@@ -48,4 +48,9 @@ class CurrencyRateController extends Controller
         return ['message' => 'OK'];
     }
 
+    public function getList()
+    {
+        return CurrencyRate::all();
+    }
+
 }

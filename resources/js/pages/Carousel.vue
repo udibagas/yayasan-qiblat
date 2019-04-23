@@ -238,6 +238,19 @@ export default {
             this.requestData();
         },
         save() {
+            let invalid = this.formModel.buttons.filter(b => !b.label_id || !label_en || label_ar)
+
+            if (invalid.length) {
+                this.$message({
+                    message: 'Mohon isi label tombol',
+                    type: 'error',
+                    duration: 10000,
+                    showClose: true
+                })
+                
+                return
+            }
+
             if (!!(this.formModel.id)) {
                 this.update();
             } else {

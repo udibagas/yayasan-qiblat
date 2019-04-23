@@ -20,7 +20,7 @@
         </el-form>
 
         <el-table :data="paginatedData.data" stripe
-        :default-sort = "{prop: 'name', order: 'ascending'}"
+        :default-sort = "{prop: 'name_id', order: 'ascending'}"
         v-loading="loading"
         style="border-top:1px solid #eee;"
         @filter-change="filterChange"
@@ -31,9 +31,9 @@
                     <img v-if="scope.row.image" class="thumbnail" :src="scope.row.image" alt="">
                 </template>
             </el-table-column>
-            <el-table-column prop="name" label="Name" sortable="custom"></el-table-column>
-            <el-table-column prop="slug" label="Slug" sortable="custom"></el-table-column>
-            <el-table-column prop="description" label="Description" sortable="custom"></el-table-column>
+            <el-table-column prop="name_id" label="Name" sortable="custom"></el-table-column>
+            <el-table-column prop="slug_id" label="Slug" sortable="custom"></el-table-column>
+            <el-table-column prop="description_id" label="Description" sortable="custom"></el-table-column>
 
             <el-table-column fixed="right" width="40px">
                 <template slot-scope="scope">
@@ -93,13 +93,18 @@
                             <el-tab-pane label="Indonesia">
                                 <br>
                                 <el-form-item label="Nama Kategori">
-                                    <el-input placeholder="Nama Kategori" v-model="formModel.name"></el-input>
-                                    <div class="error-feedback" v-if="formErrors.name">{{formErrors.name[0]}}</div>
+                                    <el-input placeholder="Nama Kategori" v-model="formModel.name_id"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.name_id">{{formErrors.name_id[0]}}</div>
                                 </el-form-item>
 
                                 <el-form-item label="Keterangan">
-                                    <el-input type="textarea" rows="3" placeholder="Keterangan" v-model="formModel.description"></el-input>
-                                    <div class="error-feedback" v-if="formErrors.description">{{formErrors.description[0]}}</div>
+                                    <el-input type="textarea" rows="3" placeholder="Keterangan" v-model="formModel.description_id"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.description_id">{{formErrors.description_id[0]}}</div>
+                                </el-form-item>
+
+                                <el-form-item label="Slug">
+                                    <el-input placeholder="Slug" v-model="formModel.slug_id"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.slug_id">{{formErrors.slug_id[0]}}</div>
                                 </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane label="English">
@@ -113,6 +118,11 @@
                                     <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_en"></el-input>
                                     <div class="error-feedback" v-if="formErrors.description_en">{{formErrors.description_en[0]}}</div>
                                 </el-form-item>
+
+                                <el-form-item label="Slug">
+                                    <el-input placeholder="Slug" v-model="formModel.slug_en"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.slug_en">{{formErrors.slug_en[0]}}</div>
+                                </el-form-item>
                             </el-tab-pane>
                             <el-tab-pane label="Arabic">
                                 <br>
@@ -125,16 +135,22 @@
                                     <el-input type="textarea" rows="3" placeholder="Description" v-model="formModel.description_ar"></el-input>
                                     <div class="error-feedback" v-if="formErrors.description_ar">{{formErrors.description_ar[0]}}</div>
                                 </el-form-item>
+
+                                <el-form-item label="Slug">
+                                    <el-input placeholder="Slug" v-model="formModel.slug_ar"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.slug_ar">{{formErrors.slug_ar[0]}}</div>
+                                </el-form-item>
                             </el-tab-pane>
                         </el-tabs>
 
-                        <el-form-item>
-                            <el-button type="primary" @click="save">Simpan</el-button>
-                            <el-button @click="showForm = false">Batal</el-button>
-                        </el-form-item>
                     </el-form>
                 </el-col>
             </el-row>
+
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="save">Simpan</el-button>
+                <el-button @click="showForm = false">Batal</el-button>
+            </span>
 
         </el-dialog>
     </el-card>
@@ -149,9 +165,15 @@ export default {
         pageSize: function(v, o) {
             this.requestData()
         },
-        'formModel.name': function(v, o) {
-            this.formModel.slug = v.split(' ').join('-');
-        }
+        'formModel.name_id': function(v, o) {
+            this.formModel.slug_id = v.split(' ').join('-');
+        },
+        'formModel.name_en': function(v, o) {
+            this.formModel.slug_en = v.split(' ').join('-');
+        },
+        'formModel.name_ar': function(v, o) {
+            this.formModel.slug_ar = v.split(' ').join('-');
+        },
     },
     data: function() {
         return {
@@ -165,7 +187,7 @@ export default {
             keyword: '',
             page: 1,
             pageSize: 10,
-            sort: 'name',
+            sort: 'name_id',
             order: 'ascending',
             filters: {},
             paginatedData: {},

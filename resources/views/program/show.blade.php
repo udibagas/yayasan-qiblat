@@ -29,19 +29,19 @@
                             <h4 class="my-0 font-weight-normal text-white text-center">{{$p->name}}</h4>
                         </div>
                         <ul class="list-group list-group-flush">
-                            @foreach (\App\CurrencyRate::all() as $curr)
+                            @foreach ($p->prices as $price)
                             <li class="list-group-item text-right" style="font-size:2em">
                                 @if (app()->getLocale() == 'ar')
                                 {{str_replace(
                                     ['0','1','2','3','4','5','6','7','8','9'],
                                     ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'],
-                                    number_format($p->price * $curr->rate, 0)
+                                    number_format($price->price, 2)
                                 )}}
                                 @else
-                                {{number_format($p->price * $curr->rate, 0, ',', '.')}}
+                                {{number_format($price->price, 2, ',', '.')}}
                                 @endif
-                                <small>{{app()->getLocale() == 'ar' ? $curr->description : $curr->currency}}</small>
-                                <img src="{{asset('img/currency/'.$curr->currency.'.jpeg')}}" alt="" style="border:1px solid #ddd;">
+                                <small>{{app()->getLocale() == 'ar' ? $price->currency->description : $price->currency->currency}}</small>
+                                <img src="{{asset('img/currency/'.$price->currency->currency.'.jpeg')}}" alt="" style="border:1px solid #ddd;">
                             </li>
                             @endforeach
                         </ul>
@@ -63,4 +63,4 @@
 @include('home.gallery', ['galleries' => $program->galleries])
 @endif
 
-@endsection 
+@endsection
