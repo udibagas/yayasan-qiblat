@@ -86,73 +86,88 @@
                 style="margin-bottom:15px;">
             </el-alert>
 
-            <el-form label-width="150px" label-position="right" :model="formModel">
-                <el-tabs tab-position="top" type="card">
-                    <el-tab-pane label="Indonesia">
-                        <br>
-                        <el-form-item label="Nama Paket">
-                            <el-input placeholder="Nama Paket Program" v-model="formModel.name_id"></el-input>
-                            <div class="error-feedback" v-if="formErrors.name_id">{{formErrors.name_id[0]}}</div>
+            <el-row :gutter="15">
+                <el-col :span="6">
+                    <el-upload
+                    ref="upload"
+                    class="avatar-uploader"
+                    :action="baseUrl + '/uploadImage'"
+                    :show-file-list="false"
+                    :on-error="handleUploadImageError"
+                    :on-success="handleUploadImageSuccess">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                    <div class="error-feedback" v-if="formErrors.file">{{formErrors.file[0]}}</div>
+                </el-col>
+                <el-col :span="18">
+                    <el-form label-width="150px" label-position="right" :model="formModel">
+                        <el-tabs tab-position="top" type="card">
+                            <el-tab-pane label="Indonesia">
+                                <br>
+                                <el-form-item label="Nama Paket">
+                                    <el-input placeholder="Nama Paket Program" v-model="formModel.name_id"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.name_id">{{formErrors.name_id[0]}}</div>
+                                </el-form-item>
+
+                                <el-form-item label="Keterangan">
+                                    <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description"></vue-editor> -->
+                                    <el-input type="textarea" rows="8" placeholder="Keterangan" v-model="formModel.description_id"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.description_id">{{formErrors.description[0]}}</div>
+                                </el-form-item>
+                            </el-tab-pane>
+                            <el-tab-pane label="English">
+                                <br>
+                                <el-form-item label="Package Name">
+                                    <el-input placeholder="Package Name" v-model="formModel.name_en"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.name_en">{{formErrors.name_en[0]}}</div>
+                                </el-form-item>
+
+                                <el-form-item label="Description">
+                                    <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description_en"></vue-editor> -->
+                                    <el-input type="textarea" rows="8" placeholder="Description" v-model="formModel.description_en"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.description_en">{{formErrors.description_en[0]}}</div>
+                                </el-form-item>
+                            </el-tab-pane>
+                            <el-tab-pane label="Arabic">
+                                <br>
+                                <el-form-item label="Package Name">
+                                    <el-input placeholder="Package Name" v-model="formModel.name_ar"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.name_ar">{{formErrors.name_ar[0]}}</div>
+                                </el-form-item>
+
+                                <el-form-item label="Description">
+                                    <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description_ar"></vue-editor> -->
+                                    <el-input type="textarea" rows="8" placeholder="Description" v-model="formModel.description_ar"></el-input>
+                                    <div class="error-feedback" v-if="formErrors.description_ar">{{formErrors.description_ar[0]}}</div>
+                                </el-form-item>
+                            </el-tab-pane>
+                        </el-tabs>
+
+                        <el-form-item label="Program">
+                            <el-select placeholder="Program" v-model="formModel.program_id" style="width:100%;">
+                            <el-option v-for="p in programs" :value="p.id" :label="p.name_id" :key="p.id"></el-option>
+                            </el-select>
+                            <div class="error-feedback" v-if="formErrors.program_id">{{formErrors.program_id[0]}}</div>
                         </el-form-item>
 
-                        <el-form-item label="Keterangan">
-                            <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description"></vue-editor> -->
-                            <el-input type="textarea" rows="8" placeholder="Keterangan" v-model="formModel.description_id"></el-input>
-                            <div class="error-feedback" v-if="formErrors.description_id">{{formErrors.description[0]}}</div>
-                        </el-form-item>
-                    </el-tab-pane>
-                    <el-tab-pane label="English">
-                        <br>
-                        <el-form-item label="Package Name">
-                            <el-input placeholder="Package Name" v-model="formModel.name_en"></el-input>
-                            <div class="error-feedback" v-if="formErrors.name_en">{{formErrors.name_en[0]}}</div>
+                        <el-form-item label="Harga (USD)">
+                            <el-input type="number" placeholder="Harga" v-model="formModel.price"></el-input>
+                            <div class="error-feedback" v-if="formErrors.price">{{formErrors.price[0]}}</div>
                         </el-form-item>
 
-                        <el-form-item label="Description">
-                            <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description_en"></vue-editor> -->
-                            <el-input type="textarea" rows="8" placeholder="Description" v-model="formModel.description_en"></el-input>
-                            <div class="error-feedback" v-if="formErrors.description_en">{{formErrors.description_en[0]}}</div>
+                        <el-form-item label="Harga Flexibel">
+                            <el-switch v-model="formModel.flexible_amount"></el-switch>
                         </el-form-item>
-                    </el-tab-pane>
-                    <el-tab-pane label="Arabic">
-                        <br>
-                        <el-form-item label="Package Name">
-                            <el-input placeholder="Package Name" v-model="formModel.name_ar"></el-input>
-                            <div class="error-feedback" v-if="formErrors.name_ar">{{formErrors.name_ar[0]}}</div>
-                        </el-form-item>
+                    </el-form>
+                </el-col>
+            </el-row>
 
-                        <el-form-item label="Description">
-                            <!-- <vue-editor useCustomImageHandler @imageAdded="handleImageAdded" v-model="formModel.description_ar"></vue-editor> -->
-                            <el-input type="textarea" rows="8" placeholder="Description" v-model="formModel.description_ar"></el-input>
-                            <div class="error-feedback" v-if="formErrors.description_ar">{{formErrors.description_ar[0]}}</div>
-                        </el-form-item>
-                    </el-tab-pane>
-                </el-tabs>
-
-                <el-form-item label="Program">
-                    <el-select placeholder="Program" v-model="formModel.program_id" style="width:100%;">
-                    <el-option v-for="p in programs" :value="p.id" :label="p.name_id" :key="p.id"></el-option>
-                    </el-select>
-                    <div class="error-feedback" v-if="formErrors.program_id">{{formErrors.program_id[0]}}</div>
-                </el-form-item>
-
-                <el-form-item label="Harga (USD)">
-                    <el-input type="number" placeholder="Harga" v-model="formModel.price"></el-input>
-                    <div class="error-feedback" v-if="formErrors.price">{{formErrors.price[0]}}</div>
-                </el-form-item>
-
-                <el-form-item label="Harga Flexibel">
-                    <el-switch v-model="formModel.flexible_amount"></el-switch>
-                </el-form-item>
-
-                <el-form-item>
-                    <el-button type="primary" @click="save">Simpan</el-button>
-                    <el-button @click="showForm = false">Batal</el-button>
-                </el-form-item>
-            </el-form>
-
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="save">Simpan</el-button>
+                <el-button @click="showForm = false">Batal</el-button>
+            </span>
         </el-dialog>
-
     </el-card>
 </template>
 
@@ -186,7 +201,8 @@ export default {
             filters: {},
             paginatedData: {},
             programs: [],
-            currencies: []
+            currencies: [],
+            imageUrl: ''
         }
     },
     methods: {
@@ -206,9 +222,23 @@ export default {
                 console.log(err);
             })
         },
+        handleUploadImageSuccess(res, file, fileList) {
+            this.imageUrl = URL.createObjectURL(file.raw);
+            this.formModel.image = res.path
+            this.$forceUpdate();
+        },
+        handleUploadImageError(err, file, fileList) {
+            this.formErrors.file = [JSON.parse(err.message).message]
+            this.$forceUpdate();
+            console.log(err);
+        },
         closeForm: function() {
             this.error = {};
             this.formErrors = {};
+            if (this.$refs.upload) {
+                this.$refs.upload.clearFiles();
+            }
+            this.imageUrl = ''
             this.showForm = false
         },
         sortChange: function(column) {
@@ -295,31 +325,26 @@ export default {
             this.formTitle = 'Edit Paket Program'
             data.flexible_amount = !!(data.flexible_amount);
             this.formModel = JSON.parse(JSON.stringify(data));
+            this.imageUrl = data.image
             this.error = {}
             this.formErrors = {}
             this.showForm = true
         },
         deleteData: function(id) {
-            this.$confirm('Anda yakin akan menghapus data ini?')
-                .then(() => {
-                    axios.delete(BASE_URL + '/programPackage/' + id)
-                        .then(r => {
-                            this.requestData();
-                            this.$message({
-                                message: 'Data BERHASIL dihapus.',
-                                type: 'success'
-                            });
-                        })
-                        .catch(e => {
-                            this.$message({
-                                message: 'Data GAGAL dihapus.',
-                                type: 'error'
-                            });
-                        })
+            this.$confirm('Anda yakin akan menghapus data ini?').then(() => {
+                axios.delete(BASE_URL + '/programPackage/' + id).then(r => {
+                    this.requestData();
+                    this.$message({
+                        message: 'Data BERHASIL dihapus.',
+                        type: 'success'
+                    });
+                }).catch(e => {
+                    this.$message({
+                        message: 'Data GAGAL dihapus.',
+                        type: 'error'
+                    });
                 })
-                .catch(() => {
-
-                });
+            }).catch(() => { });
         },
         refreshData: function() {
             this.keyword = '';
@@ -336,18 +361,16 @@ export default {
             }
             this.loading = true;
 
-            axios.get(BASE_URL + '/programPackage', {params: Object.assign(params, this.filters)})
-                .then(r => {
-                    this.loading = false;
-                    this.paginatedData = r.data
-                })
-                .catch(e => {
-                    this.loading = false;
-                    this.$message({
-                        message: e.response.data.message || e.response.message,
-                        type: 'error'
-                    });
-                })
+            axios.get(BASE_URL + '/programPackage', {params: Object.assign(params, this.filters)}).then(r => {
+                this.loading = false;
+                this.paginatedData = r.data
+            }).catch(e => {
+                this.loading = false;
+                this.$message({
+                    message: e.response.data.message || e.response.message,
+                    type: 'error'
+                });
+            })
         },
         getProgram() {
             axios.get(BASE_URL + '/program/getList')
@@ -369,5 +392,36 @@ export default {
 </script>
 
 <style lang="css" scoped>
+.avatar-uploader {
+    border: 1px dashed #d9d9d9;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+}
 
+.avatar-uploader:hover {
+    border-color: #409EFF;
+}
+
+.avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 150px;
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    display: block;
+}
+
+img.thumbnail {
+    height: 50px;
+    border: 1px solid #ddd;
+}
 </style>

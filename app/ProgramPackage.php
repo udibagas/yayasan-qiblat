@@ -11,7 +11,7 @@ class ProgramPackage extends Model
         'name_id', 'description_id', 
         'name_en', 'description_en', 
         'name_ar', 'description_ar', 
-        'price', 'flexible_amount'
+        'price', 'flexible_amount', 'image'
     ];
 
     protected $appends = ['prices', 'name', 'description'];
