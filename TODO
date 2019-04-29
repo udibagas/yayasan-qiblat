@@ -1,3 +1,6 @@
+create form untuk payment melalui credit card
+
+https://docs.xendit.co/en/cards-tokenization.html/
 
 - seo friendly untuk program
 - translation: breadcrumb, header, title, description
@@ -12,6 +15,15 @@ Account Xendit :
 Username : yayasan.qiblat@gmail.com
 Password : yaQi77886xifg
 
+Akun keblah.com
+
+http://keblah.com/cpanel
+http://keblah.com:2082
+user: keblah
+pass: XsrbY83A9zur
+db: keblah_web_new
+user: keblah_web_new
+pass: b2T7(r-qVkST
 
 kristonovo posted 4 years ago
 Configuration Eloquent
@@ -40,3 +52,4 @@ LOGIN pake social media:
 
 QUIL
 https://github.com/davidroyer/vue2-editor
+

@@ -4,7 +4,7 @@ window._ = require('lodash');
 // window.fx.base = "USD"
 
 String.prototype.toArabicDigits= function(){
-    var id = ['۰', '۱', '۲', '۳', '٤', '۵','٦','۷','۸','۹'];
+    var id = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
     return this.replace(/[0-9]/g, function(w) {
         return id[+w]
     });

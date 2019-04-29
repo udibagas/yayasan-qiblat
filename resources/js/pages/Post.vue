@@ -31,13 +31,14 @@
                     <PostPreview :post="scope.row" />
                 </template>
             </el-table-column>
-            <!-- <el-table-column label="Image">
+            <el-table-column label="Image">
                 <template slot-scope="scope">
                     <img v-if="scope.row.image" class="thumbnail" :src="scope.row.image" alt="">
                 </template>
-            </el-table-column> -->
+            </el-table-column>
             <el-table-column prop="title_id" label="Judul" sortable="custom"></el-table-column>
             <el-table-column prop="type" label="Jenis" sortable="custom"></el-table-column>
+            <el-table-column prop="category.name_id" label="Kategori"></el-table-column>
             <el-table-column prop="status" label="Status" sortable="custom" column-key="status"
             :filters="[{value: 0, text: 'Inactive'},{value: 1, text: 'Active'}]">
                 <template slot-scope="scope">
@@ -84,22 +85,9 @@
                 style="margin-bottom:15px;">
             </el-alert>
 
-            <el-row :gutter="15">
-                <el-col :span="4" style="justify-content:center">
-                    <el-upload
-                    ref="upload"
-                    class="avatar-uploader"
-                    :action="baseUrl + '/uploadImage'"
-                    :show-file-list="false"
-                    :on-error="handleUploadImageError"
-                    :on-success="handleUploadImageSuccess">
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                    </el-upload>
-                    <div class="error-feedback" v-if="formErrors.file">{{formErrors.file[0]}}</div>
-                </el-col>
-                <el-col :span="20">
-                    <el-form :model="formModel" :label-width="120">
+            <el-row :gutter="20">
+                <el-col :span="16">
+                    <el-form :model="formModel">
                         <el-tabs tab-position="top" type="card">
                             <el-tab-pane label="Indonesia">
                                 <br>
@@ -137,37 +125,29 @@
                                     <div class="error-feedback" v-if="formErrors.content_ar">{{formErrors.content_ar[0]}}</div>
                                 </el-form-item>
                             </el-tab-pane>
-                            <!-- <el-tab-pane label="Galeri">
-                                <br>
-                                <el-row :gutter="15">
-                                    <el-col :span="16" style="height:400px;overflow:auto;">
-                                        <el-upload
-                                        ref="upload"
-                                        :action="baseUrl + '/uploadImage'"
-                                        list-type="picture-card"
-                                        :show-file-list="true"
-                                        :file-list="productImageList"
-                                        :limit="4"
-                                        :on-remove="handleRemoveImage"
-                                        :on-error="handleUploadImageError"
-                                        :on-success="handleUploadImageSuccess">
-                                        <i class="el-icon-plus avatar-uploader-icon"></i>
-                                        </el-upload>
-                                        <div class="error-feedback" v-if="formErrors.file">{{formErrors.file[0]}}</div>
-                                    </el-col>
-                                    <el-col :span="8">
-                                        <el-form-item label="">
-                                            <el-input type="textarea" rows="3" placeholder="Keterangan"></el-input>
-                                        </el-form-item>
-                                        <el-form-item>
-                                            <el-button type="primary" @click="saveDescription">Simpan</el-button>
-                                        </el-form-item>
-                                    </el-col>
-                                </el-row>
-                                <br>
-                            </el-tab-pane> -->
+                            <el-tab-pane label="Galeri" v-if="formModel.id">
+                                <PostImage :post="formModel.id" />
+                            </el-tab-pane>
                         </el-tabs>
+                    </el-form>
+                </el-col>
 
+                <el-col :span="8">
+                    <el-upload
+                    ref="upload"
+                    class="avatar-uploader"
+                    :action="baseUrl + '/uploadImage'"
+                    :show-file-list="false"
+                    :on-error="handleUploadImageError"
+                    :on-success="handleUploadImageSuccess">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-picture avatar-uploader-icon"></i>
+                    </el-upload>
+                    <div class="error-feedback" v-if="formErrors.file">{{formErrors.file[0]}}</div>
+
+                    <br>
+                    <br>
+                    <el-form label-width="100px" label-position="left">
                         <el-form-item label="Jenis">
                             <el-select placeholder="Jenis" v-model="formModel.type" style="width:100%;">
                                 <el-option value="post" label="Post"></el-option>
@@ -176,18 +156,22 @@
                             <div class="error-feedback" v-if="formErrors.type">{{formErrors.type[0]}}</div>
                         </el-form-item>
 
-                        <el-form-item label="Status">
-                            <el-switch v-model="formModel.status"></el-switch>
+                        <el-form-item label="Kategori" v-show="formModel.type == 'post'">
+                            <treeselect v-model="formModel.post_category_id" :multiple="false" :options="categories" />
+                            <div class="error-feedback" v-if="formErrors.post_category_id">{{formErrors.post_category_id[0]}}</div>
                         </el-form-item>
 
-                        <el-form-item>
-                            <el-button type="primary" @click="save">Simpan</el-button>
-                            <el-button @click="showForm = false">Batal</el-button>
+                        <el-form-item label="Status">
+                            <el-switch v-model="formModel.status"></el-switch>
                         </el-form-item>
                     </el-form>
                 </el-col>
             </el-row>
-
+            
+            <span slot="footer" class="dialog-footer">
+                <el-button type="primary" @click="save">Simpan</el-button>
+                <el-button @click="showForm = false">Batal</el-button>
+            </span>
         </el-dialog>
     </el-card>
 </template>
@@ -195,9 +179,12 @@
 <script>
 import { VueEditor } from 'vue2-editor'
 import PostPreview from '../components/PostPreview'
+import PostImage from '../components/PostImage'
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 
 export default {
-    components: { VueEditor, PostPreview },
+    components: { VueEditor, PostPreview, Treeselect, PostImage },
     watch: {
         keyword: function(v, o) {
             this.requestData()
@@ -206,13 +193,19 @@ export default {
             this.requestData()
         },
         'formModel.title_id': function(v, o) {
-            this.formModel.slug_id = v.split(' ').join('-');
+            if (v) {
+                this.formModel.slug_id = v.split(' ').join('-');
+            }
         },
         'formModel.title_en': function(v, o) {
-            this.formModel.slug_en = v.split(' ').join('-');
+            if (v) {
+                this.formModel.slug_en = v.split(' ').join('-');
+            }
         },
         'formModel.title_ar': function(v, o) {
-            this.formModel.slug_ar = v.split(' ').join('-');
+            if (v) {
+                this.formModel.slug_ar = v.split(' ').join('-');
+            }
         }
     },
     data: function() {
@@ -232,6 +225,7 @@ export default {
             filters: {},
             paginatedData: {},
             imageUrl: '',
+            categories: []
         }
     },
     methods: {
@@ -352,7 +346,6 @@ export default {
         },
         editData: function(data) {
             this.formTitle = 'Edit Post'
-            data.status = !!data.status
             this.formModel = JSON.parse(JSON.stringify(data));
             this.error = {}
             this.formErrors = {}
@@ -399,7 +392,10 @@ export default {
             axios.get(BASE_URL + '/post', {params: Object.assign(params, this.filters)})
                 .then(r => {
                     this.loading = false;
-                    this.paginatedData = r.data
+                    this.paginatedData = r.data.map(d => {
+                        d.status = parseInt(d.status)
+                        return d;
+                    })
                 })
                 .catch(e => {
                     this.loading = false;
@@ -408,10 +404,16 @@ export default {
                         type: 'error'
                     });
                 })
+        },
+        getCategoy() {
+            axios.get(BASE_URL + '/postCategory').then(r => {
+                this.categories = r.data
+            }).catch(e => console.log(e));
         }
     },
     created: function() {
         this.requestData();
+        this.getCategoy()
     }
 }
 </script>
@@ -422,8 +424,8 @@ export default {
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    height: 200px;
 }
 
 .avatar-uploader:hover {
@@ -433,15 +435,15 @@ export default {
 .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 150px;
-    height: 150px;
-    line-height: 150px;
+    width: 200px;
+    height: 200px;
+    line-height: 200px;
     text-align: center;
 }
 
 .avatar {
-    width: 150px;
-    height: 150px;
+    width: 100%;
+    /* height: 200px; */
     display: block;
 }
 

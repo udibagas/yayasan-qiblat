@@ -5,12 +5,7 @@
 
         <el-form :inline="true" style="text-align:right;">
             <el-form-item>
-                <el-button @click="addData" type="primary"><i class="el-icon-plus"></i> Tambah Kategori Post</el-button>
-            </el-form-item>
-            <el-form-item>
-                <el-select class="pager-options" v-model="pageSize" placeholder="Page Size">
-                    <el-option v-for="item in $store.state.pagerOptions" :key="item.value" :label="item.label" :value="item.value"> </el-option>
-                </el-select>
+                <el-button @click="addData(0)" type="primary"><i class="el-icon-plus"></i> Tambah Kategori Post</el-button>
             </el-form-item>
             <el-form-item style="margin-right:0;">
                 <el-input placeholder="Search" prefix-icon="el-icon-search" v-model="keyword">
@@ -18,53 +13,34 @@
                 </el-input>
             </el-form-item>
         </el-form>
-
-        <el-table :data="paginatedData.data" stripe
-        :default-sort = "{prop: 'name_id', order: 'ascending'}"
-        v-loading="loading"
-        style="border-top:1px solid #eee;"
-        @filter-change="filterChange"
-        @sort-change="sortChange">
-            <el-table-column type="index" width="50" :index="paginatedData.from"> </el-table-column>
-            <el-table-column label="Image">
-                <template slot-scope="scope">
-                    <img v-if="scope.row.image" class="thumbnail" :src="scope.row.image" alt="">
-                </template>
-            </el-table-column>
-            <el-table-column prop="name_id" label="Name" sortable="custom"></el-table-column>
-            <el-table-column prop="slug_id" label="Slug" sortable="custom"></el-table-column>
-            <el-table-column prop="description_id" label="Description" sortable="custom"></el-table-column>
-
-            <el-table-column fixed="right" width="40px">
-                <template slot-scope="scope">
-                    <el-dropdown>
-                        <span class="el-dropdown-link">
-                            <i class="el-icon-more"></i>
-                        </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item @click.native.prevent="editData(scope.row)"><i class="el-icon-edit-outline"></i> Edit</el-dropdown-item>
-                            <el-dropdown-item @click.native.prevent="deleteData(scope.row.id)"><i class="el-icon-delete"></i> Hapus</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
-                </template>
-            </el-table-column>
-        </el-table>
-
-        <br>
-
-        <el-row>
-            <el-col :span="12">
-                <el-pagination @current-change="goToPage"
-                    :page-size="pageSize"
-                    background
-                    layout="prev, pager, next"
-                    :total="paginatedData.total">
-                </el-pagination>
-            </el-col>
-            <el-col :span="12" style="text-align:right">
-                {{ paginatedData.from }} - {{ paginatedData.to }} of {{ paginatedData.total }} items
-            </el-col>
-        </el-row>
+        
+        <el-card>
+            <el-tree :data="treeData" default-expand-all :expand-on-click-node="false">
+                <span class="custom-tree-node" slot-scope="{ node, data }">
+                    <span><i class="el-icon-document"></i>  {{ data.name_id }} / {{ data.name_en }} / {{ data.name_ar }}</span>
+                    <span>
+                    <el-button
+                        type="text"
+                        size="mini"
+                        icon="el-icon-edit"
+                        @click="() => editData(data)">
+                    </el-button>
+                    <el-button
+                        type="text"
+                        size="mini"
+                        icon="el-icon-plus"
+                        @click="() => addData(data.id)">
+                    </el-button>
+                    <el-button
+                        type="text"
+                        size="mini"
+                        icon="el-icon-minus"
+                        @click="() => deleteData(data.id)">
+                    </el-button>
+                    </span>
+                </span>
+            </el-tree>
+        </el-card>
 
         <el-dialog :visible.sync="showForm" :title="formTitle" width="700px" v-loading="loading" :close-on-click-modal="false" @close="closeForm">
             <el-alert type="error" title="ERROR"
@@ -92,6 +68,10 @@
                         <el-tabs tab-position="top" type="card">
                             <el-tab-pane label="Indonesia">
                                 <br>
+                                <el-form-item label="Parent">
+                                    <treeselect v-model="formModel.parent_id" :multiple="false" :options="treeData" />
+                                </el-form-item>
+
                                 <el-form-item label="Nama Kategori">
                                     <el-input placeholder="Nama Kategori" v-model="formModel.name_id"></el-input>
                                     <div class="error-feedback" v-if="formErrors.name_id">{{formErrors.name_id[0]}}</div>
@@ -109,6 +89,10 @@
                             </el-tab-pane>
                             <el-tab-pane label="English">
                                 <br>
+                                <el-form-item label="Parent">
+                                    <treeselect v-model="formModel.parent_id" :multiple="false" :options="treeData" />
+                                </el-form-item>
+
                                 <el-form-item label="Category Name">
                                     <el-input placeholder="Category Name" v-model="formModel.name_en"></el-input>
                                     <div class="error-feedback" v-if="formErrors.name_en">{{formErrors.name_en[0]}}</div>
@@ -126,6 +110,10 @@
                             </el-tab-pane>
                             <el-tab-pane label="Arabic">
                                 <br>
+                                <el-form-item label="Parent">
+                                    <treeselect v-model="formModel.parent_id" :multiple="false" :options="treeData" />
+                                </el-form-item>
+
                                 <el-form-item label="Category Name">
                                     <el-input placeholder="Category Name" v-model="formModel.name_ar"></el-input>
                                     <div class="error-feedback" v-if="formErrors.name_ar">{{formErrors.name_ar[0]}}</div>
@@ -157,22 +145,32 @@
 </template>
 
 <script>
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+
 export default {
+    components: { Treeselect },
+    computed: {
+        categories() { return this.$store.state.postCategoryList }
+    },
     watch: {
         keyword: function(v, o) {
             this.requestData()
         },
-        pageSize: function(v, o) {
-            this.requestData()
-        },
         'formModel.name_id': function(v, o) {
-            this.formModel.slug_id = v.split(' ').join('-');
+            if (v) {
+                this.formModel.slug_id = v.split(' ').join('-');
+            }
         },
         'formModel.name_en': function(v, o) {
-            this.formModel.slug_en = v.split(' ').join('-');
+            if (v) {
+                this.formModel.slug_en = v.split(' ').join('-');
+            }
         },
         'formModel.name_ar': function(v, o) {
-            this.formModel.slug_ar = v.split(' ').join('-');
+            if (v) {
+                this.formModel.slug_ar = v.split(' ').join('-');
+            }
         },
     },
     data: function() {
@@ -185,13 +183,8 @@ export default {
             error: {},
             formModel: {},
             keyword: '',
-            page: 1,
-            pageSize: 10,
-            sort: 'name_id',
-            order: 'ascending',
-            filters: {},
-            paginatedData: {},
-            imageUrl: ''
+            treeData: [],
+            imageUrl: '',
         }
     },
     methods: {
@@ -213,22 +206,6 @@ export default {
             this.formErrors.file = [JSON.parse(err.message).message]
             this.$forceUpdate();
             console.log(err);
-        },
-        sortChange: function(column) {
-            if (this.sort !== column.prop || this.order !== column.order) {
-                this.sort = column.prop;
-                this.order = column.order;
-                this.requestData();
-            }
-        },
-        filterChange: function(f) {
-            let column = Object.keys(f)[0];
-            this.filters[column] = Object.values(f[column]);
-            this.refreshData();
-        },
-        goToPage: function(p) {
-            this.page = p;
-            this.requestData();
         },
         save() {
             if (!!(this.formModel.id)) {
@@ -287,11 +264,16 @@ export default {
                     }
                 })
         },
-        addData: function() {
+        addData: function(parent_id) {
             this.formTitle = 'Tambah Kategori Post'
             this.error = {}
             this.formErrors = {}
-            this.formModel = {}
+            this.formModel = { }
+            
+            if (!!parent_id) {
+                this.formModel.parent_id = parent_id
+            }
+
             this.showForm = true
         },
         editData: function(data) {
@@ -326,23 +308,16 @@ export default {
         },
         refreshData: function() {
             this.keyword = '';
-            this.page = 1;
             this.requestData();
         },
         requestData: function() {
-            let params = {
-                page: this.page,
-                keyword: this.keyword,
-                pageSize: this.pageSize,
-                sort: this.sort,
-                order: this.order
-            }
+            let params = { keyword: this.keyword }
             this.loading = true;
 
-            axios.get(BASE_URL + '/postCategory', {params: Object.assign(params, this.filters)})
+            axios.get(BASE_URL + '/postCategory', {params: params})
                 .then(r => {
                     this.loading = false;
-                    this.paginatedData = r.data
+                    this.treeData = r.data
                 })
                 .catch(e => {
                     this.loading = false;
@@ -355,11 +330,21 @@ export default {
     },
     created: function() {
         this.requestData();
+        this.$store.commit('getPostCategoryList')
     }
 }
 </script>
 
 <style lang="css" scoped>
+.custom-tree-node {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 14px;
+    padding-right: 8px;
+}
+
 .avatar-uploader {
     border: 1px dashed #d9d9d9;
     cursor: pointer;

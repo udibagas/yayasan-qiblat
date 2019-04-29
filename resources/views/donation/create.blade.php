@@ -21,19 +21,19 @@
                         <p class="text-muted">{{$package->program->description}}</p>
                     </div>
                     <ul class="list-group list-group-flush">
-                        @foreach (\App\CurrencyRate::all() as $curr)
+                        @foreach ($package->prices as $price)
                         <li class="list-group-item text-right" style="font-size:2em">
                             @if (app()->getLocale() == 'ar')
                             {{str_replace(
-                                ['0','1','2','3','4','5','6','7','8','9'],
-                                ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'],
-                                number_format($package->price * $curr->rate, 0)
-                            )}}
+                                    ['0','1','2','3','4','5','6','7','8','9'],
+                                    ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'],
+                                    number_format($price->price, 2)
+                                )}}
                             @else
-                            {{number_format($package->price * $curr->rate, 0, ',', '.')}}
+                            {{number_format($price->price, 2, ',', '.')}}
                             @endif
-                            <small>{{app()->getLocale() == 'ar' ? $curr->description : $curr->currency}}</small>
-                            <img src="{{asset('img/currency/'.$curr->currency.'.jpeg')}}" alt="" style="border:1px solid #ddd;">
+                            <small>{{app()->getLocale() == 'ar' ? $price->currency->description : $price->currency->currency}}</small>
+                            <img src="{{asset('img/currency/'.$price->currency->currency.'.jpeg')}}" alt="" style="border:1px solid #ddd;">
                         </li>
                         @endforeach
                     </ul>
@@ -46,6 +46,9 @@
                         <h4 class="my-0 font-weight-normal text-white">{{$package->name}}</h4>
                     </div>
                     <div class="card-body">
+                        @if ($package->image)
+                        <img src="{{asset($package->image)}}" alt="" class="img-responsive img-thumbnail" style="margin-bottom:20px">
+                        @endif
                         <p class="text-muted {{app()->getLocale() == 'ar' ? 'text-right' : ''}}">{!! nl2br($package->description) !!}</p>
                     </div>
                 </div>
@@ -62,4 +65,4 @@
     </div>
 </section>
 
-@endsection 
+@endsection

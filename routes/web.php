@@ -6,6 +6,7 @@ use App\Carousel;
 use App\Post;
 use Illuminate\Support\Facades\Session;
 use App\Achievement;
+use App\PostCategory;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,12 +32,18 @@ Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallba
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('navigation', 'NavigationController@index');
+Route::get('acknowledgement', 'PostController@acknowledgement');
 Route::post('uploadImage', 'PostCategoryController@uploadImage');
 
 Route::resource('user', 'UserController')->except(['create', 'edit', 'show']);
 Route::resource('post', 'PostController')->except(['create', 'edit']);
+Route::get('postCategory/getList', 'PostCategoryController@getList');
 Route::resource('postCategory', 'PostCategoryController')->except(['create', 'edit', 'show']);
 Route::resource('carousel', 'CarouselController')->except(['create', 'edit', 'show']);
+Route::get('postImage', 'PostImageController@index');
+Route::post('postImage', 'PostImageController@store');
+Route::put('postImage/{postImage}', 'PostImageController@update');
+Route::delete('postImage', 'PostImageController@destroy');
 Route::delete('carouselButton/{carouselButton}', 'CarouselButtonController@destroy');
 Route::post('donation/callback', 'DonationController@callback');
 Route::resource('donation', 'DonationController')->except(['edit']);
@@ -100,6 +107,7 @@ Route::get('/down-bismillah12345', function()  {
 // untuk SPA backend
 Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');
 
+Route::get('/category/{slug}', 'PostCategoryController@showBySlug');
 Route::get('/{slug}', 'PostController@showBySlug');
 
 View::composer('partial.footer', function($view) {
@@ -124,10 +132,13 @@ View::composer('home.post', function($view) {
 
 View::composer('partial.nav', function($view) {
     $view->with('pages', Post::active()->page()->get());
+    $view->with('categories', PostCategory::where('parent_id', null)->get());
 });
 
 View::composer('partial.nav-ar', function($view) {
     $view->with('pages', Post::active()->page()->get());
+    $view->with('categories', PostCategory::where('parent_id', null)->get());
+
 });
 
 View::composer('home.achievement', function($view) {

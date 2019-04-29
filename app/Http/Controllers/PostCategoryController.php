@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Post;
 use App\PostCategory;
 use App\Http\Requests\PostCategoryRequest;
 
@@ -10,19 +11,17 @@ class PostCategoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN);
+        $this->middleware('auth')->except(['showBySlug']);
+        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['showBySlug']);
     }
 
     public function index(Request $request)
     {
-        $sort = $request->sort ? $request->sort : 'name_id';
-        $order = $request->order == 'ascending' ? 'asc' : 'desc';
-
-        return PostCategory::when($request->keyword, function ($q) use ($request) {
+        return PostCategory::where('parent_id', null)
+        ->when($request->keyword, function ($q) use ($request) {
             return $q->where('name_id', 'LIKE', '%' . $request->keyword . '%')
                 ->orWhere('description_id', 'LIKE', '%' . $request->keyword . '%');
-        })->orderBy($sort, $order)->paginate($request->pageSize);
+        })->get();
     }
 
     public function store(PostCategoryRequest $request)
@@ -66,5 +65,33 @@ class PostCategoryController extends Controller
         }
 
         return ['path' => '/uploads/' . $fileName];
+    }
+
+    public function getList()
+    {
+        return PostCategory::all();
+    }
+
+    public function showBySlug($slug)
+    {
+        $category = PostCategory::where('slug_' . app()->getLocale(), $slug)->first();
+
+        if (! $category) {
+            abort(404);
+        }
+
+        return view('post.index', [
+            'posts' => Post::where('post_category_id', $category->id)->latest()->post()->paginate(10),
+            'title' => $category->name,
+            'breadcrumbs' => [
+                __('newsnarticle') => url('/post'),
+                $category->name => '#'
+            ],
+            // untuk SEO
+            'title' => $category->name,
+            'description' => $category->description,
+            'keyword' => '',
+            'image' => $category->image
+        ]);
     }
 }

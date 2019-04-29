@@ -15,6 +15,18 @@ class Post extends Model
         'user_id', 'status', 'type'
     ];
 
+    protected $appends = ['content'];
+
+    protected $with = ['category'];
+
+    public function category() {
+        return $this->belongsTo(PostCategory::class, 'post_category_id', 'id');
+    }
+
+    public function images() {
+        return $this->hasMany(PostImage::class, 'post_id', 'id');
+    }
+
     public function getTitleAttribute($v) {
         $locale = app()->getLocale();
         

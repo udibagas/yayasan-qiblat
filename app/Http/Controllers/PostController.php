@@ -10,8 +10,8 @@ class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['show', 'index', 'showBySlug']);
-        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['show', 'index', 'showBySlug']);
+        $this->middleware('auth')->except(['show', 'index', 'showBySlug', 'acknowledgement']);
+        $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->except(['show', 'index', 'showBySlug', 'acknowledgement']);
     }
 
     public function index(Request $request)
@@ -100,5 +100,13 @@ class PostController extends Controller
                 unlink(public_path($post->image));
             }
         }
+    }
+
+    public function acknowledgement()
+    {
+        return Post::where('type', 'page')
+            ->where('status', 0)
+            ->where('title_en', 'LIKE', 'acknowledgement')
+            ->first();
     }
 }

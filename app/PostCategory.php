@@ -13,6 +13,19 @@ class PostCategory extends Model
         'slug_id', 'slug_en', 'slug_ar'
     ];
 
+    protected $with = ['children'];
+
+    protected $appends = ['label'];
+
+    public function children() {
+        return $this->hasMany(PostCategory::class, 'parent_id', 'id');
+    }
+
+    public function getLabelAttribute()
+    {
+        return $this->name_id;
+    }
+
     public function getNameAttribute($v)
     {
         $locale = app()->getLocale();
@@ -41,5 +54,20 @@ class PostCategory extends Model
         }
 
         return $this->description_id;
+    }
+
+    public function getSlugAttribute($v)
+    {
+        $locale = app()->getLocale();
+
+        if ($locale == 'en') {
+            return $this->slug_en;
+        }
+
+        if ($locale == 'ar') {
+            return $this->slug_ar;
+        }
+
+        return $this->slug_id;
     }
 }

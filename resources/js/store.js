@@ -11,12 +11,18 @@ export default new Vuex.Store({
             { value: 50, label: 50 },
             { value: 100, label: 100 },
         ],
-        currencyList: []
+        currencyList: [],
+        postCategoryList: []
     },
     mutations: {
         getCurrencyList(state) {
             axios.get(BASE_URL + '/currencyRate/getList')
                 .then(r => state.currencyList = r.data)
+                .catch(e => console.log(e))
+        },
+        getPostCategoryList(state) {
+            axios.get(BASE_URL + '/postCategory/getList')
+                .then(r => state.postCategoryList = r.data)
                 .catch(e => console.log(e))
         }
     }

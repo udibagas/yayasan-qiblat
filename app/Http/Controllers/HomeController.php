@@ -10,6 +10,7 @@ use App\Program;
 use App\SocialMedia;
 use App\ProgramGallery;
 use App\Post;
+use App\PostCategory;
 
 class HomeController extends Controller
 {
@@ -45,6 +46,7 @@ class HomeController extends Controller
             'socialMedia' => SocialMedia::all(),
             'galleries' => ProgramGallery::limit(6)->latest()->get(),
             'pages' => Post::active()->page()->get(),
+            'categories' => PostCategory::where('parent_id', null)->get(),
             // untuk SEO
             'title' => __('home'),
             'description' => $settings['description'],

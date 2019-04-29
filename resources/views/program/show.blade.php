@@ -28,6 +28,12 @@
                         <div class="card-header bg-primary">
                             <h4 class="my-0 font-weight-normal text-white text-center">{{$p->name}}</h4>
                         </div>
+                        <div class="card-body">
+                            @if ($p->image)
+                            <img src="{{asset($p->image)}}" alt="" class="img-responsive img-thumbnail" style="margin-bottom:20px">
+                            @endif
+                            <p class="text-muted {{app()->getLocale() == 'ar' ? 'text-right' : ''}}">{!! nl2br($p->description) !!}</p>
+                        </div>
                         <ul class="list-group list-group-flush">
                             @foreach ($p->prices as $price)
                             <li class="list-group-item text-right" style="font-size:2em">
@@ -44,13 +50,12 @@
                                 <img src="{{asset('img/currency/'.$price->currency->currency.'.jpeg')}}" alt="" style="border:1px solid #ddd;">
                             </li>
                             @endforeach
+                            <li class="list-group-item">
+                                <a href="{{url('donation/create?package='.$p->id)}}" class="btn btn-lg btn-block btn-primary" style="border-radius:30px">
+                                    {{__('Donasi untuk program ini')}}
+                                </a>
+                            </li>
                         </ul>
-                        <div class="card-body">
-                            <p class="text-muted {{app()->getLocale() == 'ar' ? 'text-right' : ''}}">{!! nl2br($p->description) !!}</p>
-                            <a href="{{url('donation/create?package='.$p->id)}}" class="btn btn-lg btn-block btn-primary" style="border-radius:30px">
-                                {{__('Donasi untuk program ini')}}
-                            </a>
-                        </div>
                     </div>
                     @endforeach
                 </div>
@@ -60,7 +65,7 @@
 </section>
 
 @if (count($program->galleries))
-@include('home.gallery', ['galleries' => $program->galleries])
+<!-- include('home.gallery', ['galleries' => $program->galleries]) -->
 @endif
 
 @endsection

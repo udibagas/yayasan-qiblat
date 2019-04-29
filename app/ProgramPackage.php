@@ -18,7 +18,10 @@ class ProgramPackage extends Model
     protected $with = ['program', 'prices'];
 
     protected $casts = [
-        'flexible_amount' => 'boolean'
+        'flexible_amount' => 'boolean',
+        'allow_multiple' => 'boolean',
+        'multiple_step' => 'integer',
+        'minimum_qty' => 'integer'
     ];
 
     // yg jadi patokan dolar
@@ -29,7 +32,9 @@ class ProgramPackage extends Model
             return 0;
         }
 
-        return DB::select("SELECT price FROM program_package_prices WHERE currency_rate_id = ?", [$usd->id])[0]->price;
+        $price = DB::select("SELECT price FROM program_package_prices WHERE currency_rate_id = ?", [$usd->id]);
+
+        return $price ? $price[0]->price : 0;
     }
 
     public function getNameAttribute($v)
