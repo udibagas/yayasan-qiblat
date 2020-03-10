@@ -6,4 +6,4 @@
         <span style="margin:0 5px;">/</span> @if (!$loop->last) <a href="{{$link}}">{{$label}}</a> @else {{$label}} @endif
         @endforeach
     </div>
-</div> 
+</div>

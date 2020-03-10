@@ -17,6 +17,12 @@ class Donation extends Model
         'received_amount', 'xendit_fee_amount', 'qty', 'invoice_url'
     ];
 
+    protected $casts = [
+        'user_id' => 'integer',
+        'program_id' => 'integer',
+        'program_package_id' => 'integer',
+    ];
+
     public function program() {
         return $this->belongsTo(Program::class);
     }

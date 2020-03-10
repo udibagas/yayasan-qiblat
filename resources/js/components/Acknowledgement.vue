@@ -1,8 +1,8 @@
 <template>
     <div>
         <div v-html="page.content"></div>
-        <br>
-        <a class="btn btn-block btn-lg btn-primary" target="_blank" :href="url">{{buttonLabels[lang]}}</a>
+        <!-- <br>
+        <a class="btn btn-block btn-lg btn-primary" target="_blank" :href="url">{{buttonLabels[lang]}}</a> -->
     </div>
 </template>
 

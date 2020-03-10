@@ -7,6 +7,9 @@ import store from './store'
 import router from './router'
 import App from './App'
 import moment from 'moment'
+import VueQuill from 'vue-quill'
+
+Vue.use(VueQuill)
 
 Vue.filter('readableDate', function(v) {
     return v ? moment(v).format("DD/MMM/YYYY") : "";

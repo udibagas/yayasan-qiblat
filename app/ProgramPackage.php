@@ -8,8 +8,8 @@ use DB;
 class ProgramPackage extends Model
 {
     protected $fillable = [
-        'program_id', 'name_id', 'description_id', 'name_en', 'description_en', 
-        'name_ar', 'description_ar', 'flexible_amount', 'image', 'allow_multiple', 
+        'program_id', 'name_id', 'description_id', 'name_en', 'description_en',
+        'name_ar', 'description_ar', 'flexible_amount', 'image', 'allow_multiple',
         'multiple_step', 'minimum_qty'
     ];
 
@@ -32,7 +32,7 @@ class ProgramPackage extends Model
             return 0;
         }
 
-        $price = DB::select("SELECT price FROM program_package_prices WHERE currency_rate_id = ?", [$usd->id]);
+        $price = DB::select("SELECT price FROM program_package_prices WHERE currency_rate_id = ? AND program_package_id = ?", [$usd->id, $this->id]);
 
         return $price ? $price[0]->price : 0;
     }

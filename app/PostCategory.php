@@ -9,9 +9,11 @@ class PostCategory extends Model
     protected $fillable = [
         'name_id', 'name_en', 'name_ar',
         'description_id', 'description_en', 'description_ar',
-        'parent_id', 'image', 
+        'parent_id', 'image',
         'slug_id', 'slug_en', 'slug_ar'
     ];
+
+    protected $casts = ['parent_id' => 'integer'];
 
     protected $with = ['children'];
 

@@ -10,6 +10,12 @@ class ProgramPackagePrice extends Model
 
     protected $with = ['currency'];
 
+    protected $casts = [
+        // 'price' => 'decimal',
+        'program_package_id' => 'integer',
+        'currency_rate_id' => 'integer',
+    ];
+
     public function currency() {
         return $this->belongsTo(CurrencyRate::class, 'currency_rate_id');
     }

@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
-            <img src="{{asset('img/logo.png')}}" alt="" style="height:60px">
-            <!-- {{ config('app.name', 'Laravel') }} -->
+            <img src="{{asset('img/logo.png')}}" alt="" style="height:40px">
+            {{-- @if (app()->getLocale() == 'id') Yayasan Qiblat @elseif (app()->getLocale() == 'ar') مؤسسة قبلة @else Qiblat Foundation @endif --}}
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
@@ -28,10 +28,7 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown-{{$loop->index}}">
                         @foreach ($c->children as $c1)
-                        <a class="dropdown-item disabled" href="#">{{$c1->name}}</a>
-                        @foreach ($c1->children as $c2)
-                        <a class="dropdown-item" href="#" onClick="window.location.href = '{{url('category/'.$c2->slug)}}'"> &Rightarrow; {{$c2->name}}</a>
-                        @endforeach
+                        <a class="dropdown-item" href="#" onCLick="window.location.href = '{{url('/category/'.$c1->slug)}}'">{{$c1->name}}</a>
                         @endforeach
                     </div>
 
@@ -72,7 +69,7 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         @foreach (['id' => 'Bahasa Indonesia', 'en' => 'English', 'ar' => 'العربية'] as $lang => $desc)
-                        <a class="dropdown-item" onClick="window.location.href = '{{url('locale/'.$lang)}}'" href="#"><img src="{{ asset('/img/'.$lang.'.png')}}" alt="{{$lang}}" style="height:14px;margin-right:5px">{{$desc}}</a>
+                        <a class="dropdown-item" onClick="window.location.href = '{{url('locale/'.$lang)}}'" href="#"><img src="{{ asset('/img/'.$lang.'.png')}}" alt="{{$lang}}" style="height:14px;margin-right:5px;">{{$desc}}</a>
                         @endforeach
                     </div>
                 </li>

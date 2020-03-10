@@ -9,12 +9,12 @@
                 text-color="#fff"
                 active-text-color="#ffd04b">
                 <el-menu-item v-if="!m.children" v-for="(m, i) in menus" :index="(++i).toString()" :key="i" @click="$router.push(m.path)">
-                    <font-awesome-icon :icon="m.icon" style="margin-right:5px;"></font-awesome-icon> 
+                    <font-awesome-icon :icon="m.icon" style="margin-right:5px;"></font-awesome-icon>
                     <span slot="title">{{m.label}}</span>
                 </el-menu-item>
                 <el-submenu v-else :index="(++i).toString()">
                     <template slot="title">
-                        <font-awesome-icon :icon="m.icon" style="margin-right:5px;"></font-awesome-icon> 
+                        <font-awesome-icon :icon="m.icon" style="margin-right:5px;"></font-awesome-icon>
                         <span>{{m.label}}</span>
                     </template>
                     <el-menu-item v-for="(sm, ii) in m.children" :index="(i).toString() + '-' + ++ii" :key="ii" @click="$router.push(sm.path)">
@@ -37,7 +37,7 @@
                         </span>
                     </el-col>
                     <el-col :span="12" class="navbar-right">
-                        <span style="margin-right:10px;">Welcome, {{user.name}}!</span> | 
+                        <span style="margin-right:10px;">Welcome, {{user.name}}!</span> |
                         <a style="margin-left:10px;" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                     </el-col>
                 </el-row>
@@ -49,7 +49,7 @@
 
 <script>
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faHome, faUserLock, faChevronRight, faChevronLeft, faFile, faTags, faUsers, faMoneyCheck, faBoxes, faList, faMoneyBill, faMoneyBillAlt, faCogs, faDatabase, faImage, faChartBar, } from '@fortawesome/free-solid-svg-icons'
+import { faHome, faUserLock, faChevronRight, faChevronLeft, faFile, faTags, faUsers, faMoneyCheck, faBoxes, faList, faMoneyBill, faMoneyBillAlt, faCogs, faDatabase, faImage, faChartBar, faMale, faFemale, } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(
@@ -66,7 +66,9 @@ library.add(
     faCogs,
     faDatabase,
     faImage,
-    faChartBar
+    faChartBar,
+    faMale,
+    faFemale
 )
 
 export default {

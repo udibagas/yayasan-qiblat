@@ -29,7 +29,7 @@ kristonovo posted 4 years ago
 Configuration Eloquent
 I´m having no access to run composer on my clients server - so what to do when I change my controllers folderstructure?
 
- 
+
 nesl247 replied 4 years ago
 You need to upload
 
@@ -37,7 +37,7 @@ You need to upload
 /vendor/composer
 I think that's it.
 
- 
+
 Ardenexal replied 4 years ago
 the exact files that change are
 
@@ -52,4 +52,5 @@ LOGIN pake social media:
 
 QUIL
 https://github.com/davidroyer/vue2-editor
+
 

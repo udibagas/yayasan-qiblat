@@ -167,7 +167,7 @@
                     </el-form>
                 </el-col>
             </el-row>
-            
+
             <span slot="footer" class="dialog-footer">
                 <el-button type="primary" @click="save">Simpan</el-button>
                 <el-button @click="showForm = false">Batal</el-button>
@@ -177,11 +177,17 @@
 </template>
 
 <script>
-import { VueEditor } from 'vue2-editor'
+import { VueEditor, Quill } from 'vue2-editor'
 import PostPreview from '../components/PostPreview'
 import PostImage from '../components/PostImage'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+
+// import { ImageDrop } from 'quill-image-drop-module'
+// import ImageResize from 'quill-image-resize-module'
+
+// Quill.register('modules/imageDrop', ImageDrop)
+// Quill.register('modules/imageResize', ImageResize)
 
 export default {
     components: { VueEditor, PostPreview, Treeselect, PostImage },
@@ -225,7 +231,13 @@ export default {
             filters: {},
             paginatedData: {},
             imageUrl: '',
-            categories: []
+            categories: [],
+            editorOptions: {
+                modules: {
+                    imageDrop: true,
+                    imageResize: {}
+                }
+            }
         }
     },
     methods: {
@@ -392,10 +404,7 @@ export default {
             axios.get(BASE_URL + '/post', {params: Object.assign(params, this.filters)})
                 .then(r => {
                     this.loading = false;
-                    this.paginatedData = r.data.map(d => {
-                        d.status = parseInt(d.status)
-                        return d;
-                    })
+                    this.paginatedData = r.data
                 })
                 .catch(e => {
                     this.loading = false;

@@ -16,6 +16,7 @@
     <!-- Styles -->
     <link rel="icon" href="{{ asset('img/logo-qiblat-square.jpg') }}">
     <link href="{{ asset('css/backend.css') }}" rel="stylesheet">
+    {{-- <link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet"> --}}
 </head>
 
 <body>
@@ -33,4 +34,4 @@
     </script>
 </body>
 
-</html> 
+</html>

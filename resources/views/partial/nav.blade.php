@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="{{url('/')}}">
             <img src="{{asset('img/logo.png')}}" alt="" style="height:40px">
-            <!-- {{ config('app.name', 'Laravel') }} -->
+            {{-- @if (app()->getLocale() == 'id') Yayasan Qiblat @elseif (app()->getLocale() == 'ar') مؤسسة قبلة @else Qiblat Foundation @endif --}}
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
@@ -28,10 +28,7 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown-{{$loop->index}}">
                         @foreach ($c->children as $c1)
-                        <a class="dropdown-item disabled" href="#">{{$c1->name}}</a>
-                        @foreach ($c1->children as $c2)
-                        <a class="dropdown-item" href="{{url('/category/'.$c2->slug)}}"> &Rightarrow; {{$c2->name}}</a>
-                        @endforeach
+                        <a class="dropdown-item" href="{{url('/category/'.$c1->slug)}}">{{$c1->name}}</a>
                         @endforeach
                     </div>
 

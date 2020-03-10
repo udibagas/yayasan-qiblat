@@ -12,7 +12,7 @@ export default new Vuex.Store({
             { value: 100, label: 100 },
         ],
         currencyList: [],
-        postCategoryList: []
+        postCategoryList: [],
     },
     mutations: {
         getCurrencyList(state) {

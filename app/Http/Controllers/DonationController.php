@@ -15,7 +15,7 @@ class DonationController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['callback', 'create', 'store']);
+        $this->middleware('auth')->except(['callback', 'create', 'store', 'pay']);
         $this->middleware('checkRole:' . \App\User::ROLE_ADMIN)->only(['index']);
     }
 
@@ -30,11 +30,11 @@ class DonationController extends Controller
         $order = $request->order == 'ascending' ? 'asc' : 'desc';
 
         $donations = Donation::selectRaw('
-                donations.*, 
-                users.name AS user, 
-                users.phone AS phone, 
-                users.email AS email, 
-                programs.name_id AS program, 
+                donations.*,
+                users.name AS user,
+                users.phone AS phone,
+                users.email AS email,
+                programs.name_id AS program,
                 program_packages.name_id AS package
             ')
             ->join('users', 'users.id', '=', 'donations.user_id')
@@ -110,10 +110,7 @@ class DonationController extends Controller
             'program_id' => 'required',
             'program_package_id' => 'required',
             'amount' => 'required',
-            'phone' => 'required',
             'remark' => 'required'
-        ], [], [
-            'phone' => 'No. HP'
         ]);
 
         // search user by phone or email
@@ -124,9 +121,9 @@ class DonationController extends Controller
 
         if (!$user) {
             $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'phone' => $request->phone,
+                'name' => $request->name ? $request->name : 'No Name',
+                'email' => $request->email ? $request->email : 'email@dummy.com',
+                'phone' => $request->phone ? $request->phone : '000',
                 'api_token' => str_random(60),
                 'role' => 0,
                 'status' => 1
@@ -142,12 +139,12 @@ class DonationController extends Controller
         $xenditPHPClient = new XenditClient\XenditPHPClient($options);
 
         $external_id = 'donasi-qiblat-'.$donation->id;
-        $payer_email = $user->email;
+        $payer_email = $request->email ? $request->email : 'email@dummy.com';
         $description = $request->remark;
         $amount = $request->amount;
         $response = $xenditPHPClient->createInvoice($external_id, $amount, $payer_email, $description);
 
-        if (!isset($response['error_code'])) 
+        if (!isset($response['error_code']))
         {
             $donation->expired_at = date('Y-m-d H:i:s', strtotime($response['expiry_date']));
             $donation->status = $response['status'];
@@ -159,11 +156,18 @@ class DonationController extends Controller
             //     ->cc(User::where('role', User::ROLE_ADMIN)->get())
             //     ->queue(new DonationCreated($donation));
         }
-        
+
         else {
             $donation->delete();
         }
 
+        return $response;
+    }
+
+    public function pay(Request $request)
+    {
+        $xenditPHPClient = new XenditClient\XenditPHPClient(['secret_api_key' => env('XENDIT_API_KEY')]);
+        $response = $xenditPHPClient->captureCreditCardPayment($request->external_id, $request->token_id, $request->amount);
         return $response;
     }
 
@@ -225,7 +229,7 @@ class DonationController extends Controller
 
         $donation = Donation::where('external_id', $request->external_id)->first();
 
-        if ($donation) 
+        if ($donation)
         {
             $donation->status = $request->status;
             $donation->save();
@@ -234,7 +238,7 @@ class DonationController extends Controller
             // Mail::to($donation->user)
             //     ->cc(User::where('role', User::ROLE_ADMIN)->get())
             //     ->queue(new DonationCompleted($donation));
-            
+
         }
 
         return ['message' => 'OK'];

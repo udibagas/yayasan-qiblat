@@ -53,4 +53,14 @@ class CurrencyRateController extends Controller
         return CurrencyRate::all();
     }
 
+    public function deleteFlag(Request $request)
+    {
+        if (file_exists(public_path($request->path))) {
+            unlink(public_path($request->path));
+            CurrencyRate::where('flag_image', $request->path)->update(['flag_image' => '']);
+        }
+
+        return ['message' => 'OK'];
+    }
+
 }

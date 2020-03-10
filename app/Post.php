@@ -15,6 +15,11 @@ class Post extends Model
         'user_id', 'status', 'type'
     ];
 
+    protected $casts = [
+        'status' => 'boolean',
+        'post_category_id' => 'integer'
+    ];
+
     protected $appends = ['content'];
 
     protected $with = ['category'];
@@ -29,7 +34,7 @@ class Post extends Model
 
     public function getTitleAttribute($v) {
         $locale = app()->getLocale();
-        
+
         if ($locale == 'en') {
             return $this->title_en;
         }
@@ -43,7 +48,7 @@ class Post extends Model
 
     public function getContentAttribute($v) {
         $locale = app()->getLocale();
-        
+
         if ($locale == 'en') {
             return $this->content_en;
         }
@@ -57,7 +62,7 @@ class Post extends Model
 
     public function getSlugAttribute($v) {
         $locale = app()->getLocale();
-        
+
         if ($locale == 'en') {
             return $this->slug_en;
         }

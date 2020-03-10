@@ -11,6 +11,11 @@
 
             <el-table :data="tableData" stripe v-loading="loading" style="border-top:1px solid #eee;">
                 <el-table-column type="index" width="50"> </el-table-column>
+                <el-table-column label="Flag">
+                    <template slot-scope="scope">
+                        <img v-if="scope.row.flag_image" class="thumbnail" :src="scope.row.flag_image" alt="">
+                    </template>
+                </el-table-column>
                 <el-table-column prop="currency" label="Currency" sortable="custom"></el-table-column>
                 <el-table-column prop="description" label="Description" sortable="custom"></el-table-column>
                 <el-table-column prop="rate" label="Rate" sortable="custom"></el-table-column>
@@ -54,6 +59,20 @@
                         <div class="error-feedback" v-if="formErrors.rate">{{formErrors.rate[0]}}</div>
                     </el-form-item>
 
+                    <el-form-item label="Flag">
+                        <el-upload
+                        :limit="1"
+                        list-type="picture"
+                        :file-list="!!formModel.flag_image ? [{name: '', url: formModel.flag_image}] : []"
+                        :action="baseUrl + '/uploadImage'"
+                        :on-remove="handleRemoveImage"
+                        :on-error="handleUploadImageError"
+                        :on-success="handleUploadImageSuccess">
+                            <el-button type="primary">Click to upload</el-button>
+                        </el-upload>
+                        <div class="error-feedback" v-if="formErrors.flag_image">{{formErrors.flag_image[0]}}</div>
+                    </el-form-item>
+
                     <el-form-item>
                         <el-button type="primary" @click="save">Simpan</el-button>
                         <el-button @click="showForm = false">Batal</el-button>
@@ -74,10 +93,25 @@ export default {
             formErrors: {},
             error: {},
             formModel: {},
-            tableData: []
+            tableData: [],
+            baseUrl: BASE_URL
         }
     },
     methods: {
+        handleUploadImageSuccess(res, file, fileList) {
+            this.formModel.flag_image = res.path
+            this.$forceUpdate();
+        },
+        handleUploadImageError(err, file, fileList) {
+            this.formErrors.flag_image = [JSON.parse(err.message).message]
+            this.$forceUpdate();
+        },
+        handleRemoveImage(file, fileList) {
+            let data = { path: file.url }
+            axios.delete(BASE_URL + '/currencyRate/deleteFlag', { data: data }).then(r => {
+                this.formErrors.flag_image = ''
+            }).catch(e => console.log(e))
+        },
         save() {
             if (!!(this.formModel.id)) {
                 this.update();
@@ -185,5 +219,9 @@ export default {
 </script>
 
 <style scoped>
-
+img.thumbnail {
+    height: 30px;
+    width: 50px;
+    border: 1px solid #ddd;
+}
 </style>

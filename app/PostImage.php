@@ -8,6 +8,11 @@ class PostImage extends Model
 {
     protected $fillable = ['description_id', 'description_en', 'description_ar', 'post_id', 'path', 'user_id'];
 
+    protected $casts = [
+        'post_id' => 'integer',
+        'user_id' => 'integer',
+    ];
+
     public function getDescriptionAttribute($v)
     {
         $locale = app()->getLocale();

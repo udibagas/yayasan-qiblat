@@ -4,7 +4,7 @@ use App\Setting;
 use App\SocialMedia;
 use App\Carousel;
 use App\Post;
-use Illuminate\Support\Facades\Session;
+// use Illuminate\Support\Facades\Session;
 use App\Achievement;
 use App\PostCategory;
 
@@ -19,18 +19,33 @@ use App\PostCategory;
 |
 */
 
-Auth::routes();
-
-Route::get('locale/{locale}', function ($locale) {
-    Session::put('locale', $locale);
-    return redirect()->back();
+Route::get('/', function () {
+    return redirect(app()->getLocale());
 });
+
+Route::group([ 'prefix' => '{locale}', 'where' => ['locale' => '[a-zA-Z]{2}'], 'middleware' => 'setlocale' ], function () {
+    Auth::routes();
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('contact', 'HomeController@contact')->name('contact');
+    Route::get('/post', 'PostController@index')->name('post');
+    Route::get('/program', 'ProgramController@index')->name('program');
+    Route::get('/program/{program}', 'ProgramController@show')->name('show-program');
+    Route::get('/donation/create', 'ProgramController@create')->name('create-donation');
+    Route::get('/category/{slug}', 'PostCategoryController@showBySlug')->name('category');
+    Route::get('/{slug}', 'PostController@showBySlug')->name('show-post');
+});
+
+// Route::get('locale/{locale}', function ($locale) {
+//     Session::put('locale', $locale);
+//     return redirect()->back();
+// });
 
 // untuk login via sosmed
 Route::get('auth/{provider}', 'Auth\AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\AuthController@handleProviderCallback');
-Route::get('/', 'HomeController@index');
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/', 'HomeController@index');
+// Route::get('/home', 'HomeController@index')->name('home');
 Route::get('navigation', 'NavigationController@index');
 Route::get('acknowledgement', 'PostController@acknowledgement');
 Route::post('uploadImage', 'PostCategoryController@uploadImage');
@@ -45,6 +60,7 @@ Route::post('postImage', 'PostImageController@store');
 Route::put('postImage/{postImage}', 'PostImageController@update');
 Route::delete('postImage', 'PostImageController@destroy');
 Route::delete('carouselButton/{carouselButton}', 'CarouselButtonController@destroy');
+Route::post('donation/pay', 'DonationController@pay');
 Route::post('donation/callback', 'DonationController@callback');
 Route::resource('donation', 'DonationController')->except(['edit']);
 Route::get('program/getList', 'ProgramController@getList');
@@ -55,6 +71,7 @@ Route::resource('programPackage', 'ProgramPackageController')->except(['create',
 Route::resource('team', 'TeamController')->except(['create', 'edit', 'show']);
 Route::resource('socialMedia', 'SocialMediaController')->except(['create', 'edit', 'show']);
 Route::resource('setting', 'SettingController');
+Route::delete('currencyRate/deleteFlag', 'CurrencyRateController@deleteFlag');
 Route::resource('currencyRate', 'CurrencyRateController')->only(['index', 'store', 'update', 'destroy']);
 
 Route::post('backup', 'BackupController@store');
@@ -72,8 +89,6 @@ Route::get('privacy', function() {
 Route::get('tos', function() {
     return 'TOS';
 });
-
-Route::get('contact', 'HomeController@contact');
 
 Route::get('/mailcreated', function () {
     $donation = App\Donation::find(1);
@@ -107,8 +122,8 @@ Route::get('/down-bismillah12345', function()  {
 // untuk SPA backend
 Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');
 
-Route::get('/category/{slug}', 'PostCategoryController@showBySlug');
-Route::get('/{slug}', 'PostController@showBySlug');
+// Route::get('/category/{slug}', 'PostCategoryController@showBySlug');
+// Route::get('/{slug}', 'PostController@showBySlug');
 
 View::composer('partial.footer', function($view) {
     $setting = Setting::all();

@@ -3,8 +3,8 @@
   border-color: #119894;
 }
 
-.btn-primary:hover, 
-.btn-primary:focus, 
+.btn-primary:hover,
+.btn-primary:focus,
 .btn-primary:active {
   background-color: #255859 !important;
   border-color: #255859 !important;
@@ -15,8 +15,8 @@ a {
 }
 
 .text-primary,
-a:hover:not(.btn), 
-a:focus:not(.btn), 
+a:hover:not(.btn),
+a:focus:not(.btn),
 a:active:not(.btn) {
     color: #255859 !important;
 }
@@ -47,4 +47,8 @@ a:active:not(.btn) {
 
 .el-card__body {
   background-color: #eee;
+}
+
+.ql-align-right {
+    text-align: right;
 }

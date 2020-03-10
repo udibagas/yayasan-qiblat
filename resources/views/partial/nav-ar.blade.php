@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand" href="{{url('/')}}">
             <img src="{{asset('img/logo.png')}}" alt="" style="height:40px">
-            <!-- {{ config('app.name', 'Laravel') }} -->
+            {{-- مؤسسة قبلة --}}
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
@@ -29,10 +29,10 @@
                 </li>
                 @endguest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/contact')}}">{{ __('contactus') }}</a>
+                    <a class="nav-link" href="{{route('contact', app()->getLocale())}}">{{ __('contactus') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/post')}}">{{ __('posts') }}</a>
+                    <a class="nav-link" href="{{route('post', app()->getLocale())}}">{{ __('posts') }}</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" href="{{url('/programGallery')}}">{{ __('gallery') }}</a>
@@ -45,17 +45,14 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown-{{$loop->index}}">
                         @foreach ($c->children as $c1)
-                        <a class="dropdown-item disabled" href="#">{{$c1->name}}</a>
-                        @foreach ($c1->children as $c2)
-                        <a class="dropdown-item" href="{{url('/category/'.$c2->slug)}}"> &Rightarrow; {{$c2->name}}</a>
-                        @endforeach
+                        <a class="dropdown-item" href="{{url('/category/'.$c1->slug)}}">{{$c1->name}}</a>
                         @endforeach
                     </div>
 
                 </li>
                 @endforeach
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/program')}}">{{ __('programs') }}</a>
+                    <a class="nav-link" href="{{route('program', app()->getLocale())}}">{{ __('programs') }}</a>
                 </li>
                 @foreach ($pages as $p)
                 <li class="nav-item">
@@ -71,9 +68,9 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ url('locale/id') }}"><img src="{{ asset('/img/id.png')}}" alt="ID" style="height:14px;margin-right:5px">Bahasa Indonesia</a>
-                        <a class="dropdown-item" href="{{ url('locale/en') }}"><img src="{{ asset('/img/en.png')}}" alt="EN" style="height:14px;margin-right:5px">English</a>
-                        <a class="dropdown-item" href="{{ url('locale/ar') }}"><img src="{{ asset('/img/ar.png')}}" alt="ID" style="height:14px;margin-right:5px">العربية</a>
+                        <a class="dropdown-item" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), 'id') }}"><img src="{{ asset('/img/id.png')}}" alt="ID" style="height:14px;margin-right:5px">Bahasa Indonesia</a>
+                        <a class="dropdown-item" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), 'en') }}"><img src="{{ asset('/img/en.png')}}" alt="EN" style="height:14px;margin-right:5px">English</a>
+                        <a class="dropdown-item" href="{{ route(\Illuminate\Support\Facades\Route::currentRouteName(), 'ar') }}"><img src="{{ asset('/img/ar.png')}}" alt="AR" style="height:14px;margin-right:5px">العربية</a>
                     </div>
                 </li>
             </ul>
