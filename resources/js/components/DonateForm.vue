@@ -68,14 +68,14 @@
         </el-form-item>
       </el-form>
       <p :style="locale == 'ar' ? 'text-align: right' : ''">{{lang[locale]['enterAmount']}}</p>
-      <el-row :gutter="15">
-        <el-col :span="11">
+      <el-row :gutter="5">
+        <el-col :span="7">
           <el-input type="number" v-model="data.price" :disabled="!data.flexible_amount"></el-input>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="5">
           <span style="line-height:40px">USD</span>
         </el-col>
-        <el-col :span="11">
+        <el-col :span="12">
           <el-input-number
             :disabled="!data.allow_multiple"
             style="width:100%"
